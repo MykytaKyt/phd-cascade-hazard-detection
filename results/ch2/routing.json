@@ -1,0 +1,1849 @@
+{
+  "model": "ltc24",
+  "min_calibration_sequences": {
+    "0.05": 19,
+    "0.1": 9
+  },
+  "fall": {
+    "calibration": [
+      {
+        "seed": 0,
+        "fold": 0,
+        "temperature": 0.9390063184870473
+      },
+      {
+        "seed": 0,
+        "fold": 1,
+        "temperature": 1.0266625193761592
+      },
+      {
+        "seed": 0,
+        "fold": 2,
+        "temperature": 0.8250236966930949
+      },
+      {
+        "seed": 0,
+        "fold": 3,
+        "temperature": 1.3492540113579983
+      },
+      {
+        "seed": 0,
+        "fold": 4,
+        "temperature": 1.2600835010489735
+      },
+      {
+        "seed": 0,
+        "fold": "pooled",
+        "ece_raw": 0.11597150229273401,
+        "ece_cal": 0.12185429843004053,
+        "brier_raw": 0.1008261941312226,
+        "brier_cal": 0.10231980866541224
+      },
+      {
+        "seed": 1,
+        "fold": 0,
+        "temperature": 1.3091939084006947
+      },
+      {
+        "seed": 1,
+        "fold": 1,
+        "temperature": 1.0292032208133348
+      },
+      {
+        "seed": 1,
+        "fold": 2,
+        "temperature": 0.8447874273900043
+      },
+      {
+        "seed": 1,
+        "fold": 3,
+        "temperature": 1.2779773101196785
+      },
+      {
+        "seed": 1,
+        "fold": 4,
+        "temperature": 0.8208327425339009
+      },
+      {
+        "seed": 1,
+        "fold": "pooled",
+        "ece_raw": 0.12105937383291202,
+        "ece_cal": 0.12106453331206718,
+        "brier_raw": 0.11131576490796734,
+        "brier_cal": 0.10893973785944404
+      },
+      {
+        "seed": 2,
+        "fold": 0,
+        "temperature": 0.9159506240948424
+      },
+      {
+        "seed": 2,
+        "fold": 1,
+        "temperature": 0.6266269352722528
+      },
+      {
+        "seed": 2,
+        "fold": 2,
+        "temperature": 0.8950420557257593
+      },
+      {
+        "seed": 2,
+        "fold": 3,
+        "temperature": 1.5052408763851834
+      },
+      {
+        "seed": 2,
+        "fold": 4,
+        "temperature": 1.0861800776207733
+      },
+      {
+        "seed": 2,
+        "fold": "pooled",
+        "ece_raw": 0.11696085196997141,
+        "ece_cal": 0.11851601681207621,
+        "brier_raw": 0.1017737929631825,
+        "brier_cal": 0.10474102165940133
+      },
+      {
+        "seed": 3,
+        "fold": 0,
+        "temperature": 0.9311800872172401
+      },
+      {
+        "seed": 3,
+        "fold": 1,
+        "temperature": 1.6702159905542306
+      },
+      {
+        "seed": 3,
+        "fold": 2,
+        "temperature": 1.3296618112683827
+      },
+      {
+        "seed": 3,
+        "fold": 3,
+        "temperature": 1.4497576598902193
+      },
+      {
+        "seed": 3,
+        "fold": 4,
+        "temperature": 0.9427701457958078
+      },
+      {
+        "seed": 3,
+        "fold": "pooled",
+        "ece_raw": 0.10150751463435939,
+        "ece_cal": 0.12238465852963042,
+        "brier_raw": 0.09387394457589321,
+        "brier_cal": 0.0945770078743782
+      },
+      {
+        "seed": 4,
+        "fold": 0,
+        "temperature": 1.3961556236757715
+      },
+      {
+        "seed": 4,
+        "fold": 1,
+        "temperature": 1.3491300118409106
+      },
+      {
+        "seed": 4,
+        "fold": 2,
+        "temperature": 1.2216717428075254
+      },
+      {
+        "seed": 4,
+        "fold": 3,
+        "temperature": 0.9108225169013491
+      },
+      {
+        "seed": 4,
+        "fold": 4,
+        "temperature": 1.3697301942399198
+      },
+      {
+        "seed": 4,
+        "fold": "pooled",
+        "ece_raw": 0.12189373985087704,
+        "ece_cal": 0.1369200816013458,
+        "brier_raw": 0.12016156114093848,
+        "brier_cal": 0.114702507137269
+      }
+    ],
+    "conformal": [
+      {
+        "seed": 0,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.08499999999999999,
+          0.09,
+          0.17,
+          0.265,
+          0.3
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.0743377120760243,
+        "risk_le_alpha": false,
+        "recall_bound": 0.9262340543538546,
+        "routed_frac": 0.18314343163538874,
+        "n_routed": 2186
+      },
+      {
+        "seed": 0,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7779825737265416,
+        "n_routed": 9286
+      },
+      {
+        "seed": 0,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.0014251026703029992,
+          0.0014251026703029992,
+          0.065,
+          0.0008376776400682924,
+          0.000701703828670383
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.03592618850683367,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9667221297836939,
+        "routed_frac": 0.6867459785522788,
+        "n_routed": 8197
+      },
+      {
+        "seed": 0,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.18500000000000003,
+          0.18000000000000002,
+          0.42000000000000004,
+          0.305,
+          0.37
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.1495880454404043,
+        "risk_le_alpha": false,
+        "recall_bound": 0.8502495840266223,
+        "routed_frac": 0.08403150134048257,
+        "n_routed": 1003
+      },
+      {
+        "seed": 0,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7779825737265416,
+        "n_routed": 9286
+      },
+      {
+        "seed": 0,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.09,
+          0.12,
+          0.135,
+          0.08499999999999999,
+          0.08
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.07674145304536888,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9273433166943982,
+        "routed_frac": 0.2957439678284182,
+        "n_routed": 3530
+      },
+      {
+        "seed": 1,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.15000000000000002,
+          0.075,
+          0.135,
+          0.04,
+          0.03
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.059380131359557685,
+        "risk_le_alpha": false,
+        "recall_bound": 0.9478646699944537,
+        "routed_frac": 0.31543230563002683,
+        "n_routed": 3765
+      },
+      {
+        "seed": 1,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7689343163538874,
+        "n_routed": 9178
+      },
+      {
+        "seed": 1,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.008376776400682925,
+          0.008376776400682925,
+          0.025,
+          0.00701703828670383,
+          0.01
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.014784107393569631,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9877981142540211,
+        "routed_frac": 0.6900971849865952,
+        "n_routed": 8237
+      },
+      {
+        "seed": 1,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.26,
+          0.14,
+          0.16,
+          0.05,
+          0.18000000000000002
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.09501911070633783,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9129229062673322,
+        "routed_frac": 0.20107238605898123,
+        "n_routed": 2400
+      },
+      {
+        "seed": 1,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7689343163538874,
+        "n_routed": 9178
+      },
+      {
+        "seed": 1,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.075,
+          0.08,
+          0.13,
+          0.08,
+          0.08499999999999999
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.07273328308974002,
+        "risk_le_alpha": true,
+        "recall_bound": 0.932889628397116,
+        "routed_frac": 0.2671749329758713,
+        "n_routed": 3189
+      },
+      {
+        "seed": 2,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.45,
+          0.105,
+          0.375,
+          0.33,
+          0.075
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.12695647617512104,
+        "risk_le_alpha": false,
+        "recall_bound": 0.8757626178591237,
+        "routed_frac": 0.14259383378016086,
+        "n_routed": 1702
+      },
+      {
+        "seed": 2,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7695207774798928,
+        "n_routed": 9185
+      },
+      {
+        "seed": 2,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.003455107294592222,
+          0.003455107294592222,
+          0.00701703828670383,
+          0.0024244620170823282,
+          0.0020309176209047366
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.011428571428571429,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9933444259567388,
+        "routed_frac": 0.6574229222520107,
+        "n_routed": 7847
+      },
+      {
+        "seed": 2,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.31,
+          0.5,
+          0.5,
+          0.12
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.17190676290658788,
+        "risk_le_alpha": false,
+        "recall_bound": 0.831946755407654,
+        "routed_frac": 0.06836461126005362,
+        "n_routed": 816
+      },
+      {
+        "seed": 2,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7695207774798928,
+        "n_routed": 9185
+      },
+      {
+        "seed": 2,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.035,
+          0.14,
+          0.045000000000000005,
+          0.03,
+          0.025
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.0709806670385331,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9356627842484748,
+        "routed_frac": 0.403485254691689,
+        "n_routed": 4816
+      },
+      {
+        "seed": 3,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.2,
+          0.08499999999999999,
+          0.08,
+          0.095
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.05099471912176377,
+        "risk_le_alpha": false,
+        "recall_bound": 0.9534109816971714,
+        "routed_frac": 0.24380026809651476,
+        "n_routed": 2910
+      },
+      {
+        "seed": 3,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7881199731903485,
+        "n_routed": 9407
+      },
+      {
+        "seed": 3,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.008376776400682925,
+          0.008376776400682925,
+          0.13,
+          0.0058780160722749115,
+          0.0058780160722749115
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.042225993675397124,
+        "risk_le_alpha": true,
+        "recall_bound": 0.956738768718802,
+        "routed_frac": 0.6430965147453083,
+        "n_routed": 7676
+      },
+      {
+        "seed": 3,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.09999999999999999,
+          0.095,
+          0.11499999999999999
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.1155703177232085,
+        "risk_le_alpha": false,
+        "recall_bound": 0.8868552412645591,
+        "routed_frac": 0.16789544235924933,
+        "n_routed": 2004
+      },
+      {
+        "seed": 3,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7881199731903485,
+        "n_routed": 9407
+      },
+      {
+        "seed": 3,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.14500000000000002,
+          0.14500000000000002,
+          0.275,
+          0.14,
+          0.125
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.07752267499661958,
+        "risk_le_alpha": true,
+        "recall_bound": 0.922906267332224,
+        "routed_frac": 0.21070710455764075,
+        "n_routed": 2515
+      },
+      {
+        "seed": 4,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.34,
+          0.165,
+          0.12,
+          0.09999999999999999,
+          0.11
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.08300757594829695,
+        "risk_le_alpha": false,
+        "recall_bound": 0.9179145867997781,
+        "routed_frac": 0.2082774798927614,
+        "n_routed": 2486
+      },
+      {
+        "seed": 4,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7517593833780161,
+        "n_routed": 8973
+      },
+      {
+        "seed": 4,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.004923882631706742,
+          0.004923882631706742,
+          0.06999999999999999,
+          0.003455107294592222,
+          0.003455107294592222
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.03401286394658025,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9672767609539656,
+        "routed_frac": 0.6343833780160858,
+        "n_routed": 7572
+      },
+      {
+        "seed": 4,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.22,
+          0.18500000000000003,
+          0.125
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.146840097621724,
+        "risk_le_alpha": false,
+        "recall_bound": 0.8508042151968941,
+        "routed_frac": 0.12072721179624665,
+        "n_routed": 1441
+      },
+      {
+        "seed": 4,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          5,
+          5,
+          5,
+          5,
+          5
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7517593833780161,
+        "n_routed": 8973
+      },
+      {
+        "seed": 4,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.095,
+          0.11499999999999999,
+          0.14500000000000002,
+          0.09,
+          0.09
+        ],
+        "n_cal_per_fold": [
+          25,
+          25,
+          23,
+          24,
+          23
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.06204675969955727,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9389905712701054,
+        "routed_frac": 0.27588806970509383,
+        "n_routed": 3293
+      }
+    ]
+  },
+  "lying": {
+    "calibration": [
+      {
+        "seed": 0,
+        "fold": 0,
+        "temperature": 0.8996771921845718
+      },
+      {
+        "seed": 0,
+        "fold": 1,
+        "temperature": 0.7293095012814516
+      },
+      {
+        "seed": 0,
+        "fold": 2,
+        "temperature": 1.4905258370654553
+      },
+      {
+        "seed": 0,
+        "fold": 3,
+        "temperature": 1.1322271817952752
+      },
+      {
+        "seed": 0,
+        "fold": 4,
+        "temperature": 1.5922913623930217
+      },
+      {
+        "seed": 0,
+        "fold": "pooled",
+        "ece_raw": 0.03572306728738626,
+        "ece_cal": 0.03587388387043529,
+        "brier_raw": 0.04122044602859389,
+        "brier_cal": 0.04053800630371661
+      },
+      {
+        "seed": 1,
+        "fold": 0,
+        "temperature": 1.4154960861084145
+      },
+      {
+        "seed": 1,
+        "fold": 1,
+        "temperature": 1.9545773667410908
+      },
+      {
+        "seed": 1,
+        "fold": 2,
+        "temperature": 1.6024368620754876
+      },
+      {
+        "seed": 1,
+        "fold": 3,
+        "temperature": 2.328529148256299
+      },
+      {
+        "seed": 1,
+        "fold": 4,
+        "temperature": 1.403644297833087
+      },
+      {
+        "seed": 1,
+        "fold": "pooled",
+        "ece_raw": 0.05151641154359812,
+        "ece_cal": 0.057552122785622405,
+        "brier_raw": 0.05937364736348185,
+        "brier_cal": 0.055387110994548905
+      },
+      {
+        "seed": 2,
+        "fold": 0,
+        "temperature": 1.366353204349917
+      },
+      {
+        "seed": 2,
+        "fold": 1,
+        "temperature": 1.332451977940927
+      },
+      {
+        "seed": 2,
+        "fold": 2,
+        "temperature": 1.216609249106596
+      },
+      {
+        "seed": 2,
+        "fold": 3,
+        "temperature": 1.3134965220144592
+      },
+      {
+        "seed": 2,
+        "fold": 4,
+        "temperature": 1.2721871037429557
+      },
+      {
+        "seed": 2,
+        "fold": "pooled",
+        "ece_raw": 0.02968038750593001,
+        "ece_cal": 0.03350271775584479,
+        "brier_raw": 0.036919592811382684,
+        "brier_cal": 0.035729760595732296
+      },
+      {
+        "seed": 3,
+        "fold": 0,
+        "temperature": 1.0475228957568694
+      },
+      {
+        "seed": 3,
+        "fold": 1,
+        "temperature": 0.9652883137698
+      },
+      {
+        "seed": 3,
+        "fold": 2,
+        "temperature": 0.9680554101514608
+      },
+      {
+        "seed": 3,
+        "fold": 3,
+        "temperature": 1.4227330937922777
+      },
+      {
+        "seed": 3,
+        "fold": 4,
+        "temperature": 1.3055945845181618
+      },
+      {
+        "seed": 3,
+        "fold": "pooled",
+        "ece_raw": 0.02873166553051449,
+        "ece_cal": 0.031491556117700006,
+        "brier_raw": 0.038344089731824786,
+        "brier_cal": 0.038142417908266196
+      },
+      {
+        "seed": 4,
+        "fold": 0,
+        "temperature": 1.4848977065519804
+      },
+      {
+        "seed": 4,
+        "fold": 1,
+        "temperature": 1.2162248602001933
+      },
+      {
+        "seed": 4,
+        "fold": 2,
+        "temperature": 1.0745880486014594
+      },
+      {
+        "seed": 4,
+        "fold": 3,
+        "temperature": 0.9523840353662426
+      },
+      {
+        "seed": 4,
+        "fold": 4,
+        "temperature": 1.6506536972463415
+      },
+      {
+        "seed": 4,
+        "fold": "pooled",
+        "ece_raw": 0.037947643812291376,
+        "ece_cal": 0.04303074400028059,
+        "brier_raw": 0.04163307501542804,
+        "brier_cal": 0.040412003749852654
+      }
+    ],
+    "conformal": [
+      {
+        "seed": 0,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.45,
+          0.5,
+          0.14500000000000002,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.04222555061236175,
+        "risk_le_alpha": true,
+        "recall_bound": 0.965865992414665,
+        "routed_frac": 0.007875335120643432,
+        "n_routed": 94
+      },
+      {
+        "seed": 0,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          7,
+          7,
+          8,
+          8,
+          10
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7654993297587132,
+        "n_routed": 9137
+      },
+      {
+        "seed": 0,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.02,
+          0.02,
+          0.47000000000000003,
+          0.02,
+          0.02
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.02502340115565796,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9928360724820902,
+        "routed_frac": 0.18448391420911528,
+        "n_routed": 2202
+      },
+      {
+        "seed": 0,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.29000000000000004,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.04257061617481862,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9654445849136115,
+        "routed_frac": 0.004021447721179625,
+        "n_routed": 48
+      },
+      {
+        "seed": 0,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.45
+        ],
+        "n_cal_per_fold": [
+          7,
+          7,
+          8,
+          8,
+          10
+        ],
+        "feasible_folds": 1,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.6147788203753352,
+        "n_routed": 7338
+      },
+      {
+        "seed": 0,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.043923156455569205,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9637589549093973,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      },
+      {
+        "seed": 1,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.11,
+          0.5,
+          0.065,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.06185136457203831,
+        "risk_le_alpha": false,
+        "recall_bound": 0.9452170248630426,
+        "routed_frac": 0.1031333780160858,
+        "n_routed": 1231
+      },
+      {
+        "seed": 1,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          8,
+          8,
+          7,
+          9,
+          7
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7815851206434317,
+        "n_routed": 9329
+      },
+      {
+        "seed": 1,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.055,
+          0.055,
+          0.08,
+          0.055,
+          0.055
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.021739130434782608,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9978929624947324,
+        "routed_frac": 0.3175268096514745,
+        "n_routed": 3790
+      },
+      {
+        "seed": 1,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.165,
+          0.5,
+          0.065,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.06292050213440467,
+        "risk_le_alpha": true,
+        "recall_bound": 0.943952802359882,
+        "routed_frac": 0.09324731903485255,
+        "n_routed": 1113
+      },
+      {
+        "seed": 1,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.060000000000000005,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          8,
+          8,
+          7,
+          9,
+          7
+        ],
+        "feasible_folds": 1,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7690180965147453,
+        "n_routed": 9179
+      },
+      {
+        "seed": 1,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.095,
+          0.5,
+          0.105,
+          0.18000000000000002,
+          0.095
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.09098410791493446,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9022334597555837,
+        "routed_frac": 0.04138739946380697,
+        "n_routed": 494
+      },
+      {
+        "seed": 2,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.325,
+          0.5,
+          0.5,
+          0.395
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.03695532701603637,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9738727349346818,
+        "routed_frac": 0.0025134048257372654,
+        "n_routed": 30
+      },
+      {
+        "seed": 2,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          7,
+          7,
+          7,
+          7,
+          9
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7670911528150134,
+        "n_routed": 9156
+      },
+      {
+        "seed": 2,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.025,
+          0.025,
+          0.5,
+          0.025,
+          0.025
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.02277432712215321,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9966287399915719,
+        "routed_frac": 0.09978217158176944,
+        "n_routed": 1191
+      },
+      {
+        "seed": 2,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.039434671042221016,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9709228824273072,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      },
+      {
+        "seed": 2,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.01
+        ],
+        "n_cal_per_fold": [
+          7,
+          7,
+          7,
+          7,
+          9
+        ],
+        "feasible_folds": 1,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7663371313672922,
+        "n_routed": 9147
+      },
+      {
+        "seed": 2,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.039434671042221016,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9709228824273072,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      },
+      {
+        "seed": 3,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.39,
+          0.135
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.04034732466511492,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9696586599241467,
+        "routed_frac": 0.006032171581769437,
+        "n_routed": 72
+      },
+      {
+        "seed": 3,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          6,
+          9,
+          8,
+          7,
+          9
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7704423592493298,
+        "n_routed": 9196
+      },
+      {
+        "seed": 3,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.01,
+          0.01,
+          0.36000000000000004,
+          0.01,
+          0.01
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.02242926155969634,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9970501474926253,
+        "routed_frac": 0.36863270777479895,
+        "n_routed": 4400
+      },
+      {
+        "seed": 3,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.046374014290599196,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9578592498946481,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      },
+      {
+        "seed": 3,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.19,
+          0.0,
+          0.0,
+          0.02
+        ],
+        "n_cal_per_fold": [
+          6,
+          9,
+          8,
+          7,
+          9
+        ],
+        "feasible_folds": 2,
+        "test_risk": 0.0010465103123691864,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9987357774968394,
+        "routed_frac": 0.4907004021447721,
+        "n_routed": 5857
+      },
+      {
+        "seed": 3,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.046374014290599196,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9578592498946481,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      },
+      {
+        "seed": 4,
+        "alpha": 0.05,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.0408237715463867,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9705014749262537,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      },
+      {
+        "seed": 4,
+        "alpha": 0.05,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          8,
+          7,
+          7,
+          7,
+          7
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7633210455764075,
+        "n_routed": 9111
+      },
+      {
+        "seed": 4,
+        "alpha": 0.05,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.02,
+          0.02,
+          0.5,
+          0.02,
+          0.02
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.02551119838258562,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9924146649810367,
+        "routed_frac": 0.31936997319034854,
+        "n_routed": 3812
+      },
+      {
+        "seed": 4,
+        "alpha": 0.1,
+        "method": "empirical",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.0408237715463867,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9705014749262537,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      },
+      {
+        "seed": 4,
+        "alpha": 0.1,
+        "method": "crc_val",
+        "tau_per_fold": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "n_cal_per_fold": [
+          8,
+          7,
+          7,
+          7,
+          7
+        ],
+        "feasible_folds": 0,
+        "test_risk": 0.0,
+        "risk_le_alpha": true,
+        "recall_bound": 1.0,
+        "routed_frac": 0.7633210455764075,
+        "n_routed": 9111
+      },
+      {
+        "seed": 4,
+        "alpha": 0.1,
+        "method": "crc_cross",
+        "tau_per_fold": [
+          0.5,
+          0.5,
+          0.5,
+          0.5,
+          0.5
+        ],
+        "n_cal_per_fold": [
+          37,
+          38,
+          36,
+          37,
+          36
+        ],
+        "feasible_folds": 5,
+        "test_risk": 0.0408237715463867,
+        "risk_le_alpha": true,
+        "recall_bound": 0.9705014749262537,
+        "routed_frac": 0.0,
+        "n_routed": 0
+      }
+    ]
+  }
+}
