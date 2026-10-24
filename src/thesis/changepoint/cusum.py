@@ -31,9 +31,9 @@ def cusum_alarms(z: np.ndarray, h: float, kappa: float = 0.0) -> np.ndarray:
 
 
 def threshold_alarms(z: np.ndarray, h: float) -> np.ndarray:
-    """Indices where the frame-wise rule switches on (rising edges of z >= h)."""
-    on = z >= h
-    return np.flatnonzero(on & ~np.concatenate([[False], on[:-1]]))
+    """Indices of all frames with z >= h (repeated alarms are merged into
+    episodes by the evaluation, as for CUSUM)."""
+    return np.flatnonzero(z >= h)
 
 
 @dataclass
@@ -43,23 +43,40 @@ class SequenceOutcome:
     detected: bool          # fall sequence: an alarm at or after the onset
     false_alarm: bool       # ADL sequence: any alarm; fall sequence: an alarm before the onset
     delay: float            # frames from onset to the first alarm at or after it (NaN if none / ADL)
-    n_false_alarms: int     # number of alarms outside [onset, end]
+    n_false_alarms: int     # number of false-alarm episodes outside [onset, end]
 
 
-def evaluate_sequence(seq: str, frames: np.ndarray, alarms: np.ndarray, onset: float | None) -> SequenceOutcome:
+def alarm_episodes(alarm_frames: np.ndarray, refractory: int) -> np.ndarray:
+    """First frame of every alarm episode: an alarm within `refractory` frames
+    of the previous episode start is the same notification and is dropped."""
+    starts = []
+    for f in alarm_frames:
+        if not starts or f - starts[-1] >= refractory:
+            starts.append(f)
+    return np.asarray(starts, dtype=alarm_frames.dtype)
+
+
+def evaluate_sequence(
+    seq: str, frames: np.ndarray, alarms: np.ndarray, onset: float | None, refractory: int = 90
+) -> SequenceOutcome:
     alarm_frames = frames[alarms]
     if onset is None or np.isnan(onset):
-        return SequenceOutcome(seq, False, False, len(alarm_frames) > 0, np.nan, len(alarm_frames))
-    early = alarm_frames[alarm_frames < onset]
+        episodes = alarm_episodes(alarm_frames, refractory)
+        return SequenceOutcome(seq, False, False, len(episodes) > 0, np.nan, len(episodes))
+    early = alarm_episodes(alarm_frames[alarm_frames < onset], refractory)
     late = alarm_frames[alarm_frames >= onset]
     delay = float(late[0] - onset) if len(late) else np.nan
     return SequenceOutcome(seq, True, len(late) > 0, len(early) > 0, delay, len(early))
 
 
-def evaluate_rule(sequences, rule, h: float, **kwargs) -> list[SequenceOutcome]:
+def evaluate_rule(sequences, rule, h: float, refractory: int = 90, **kwargs) -> list[SequenceOutcome]:
     """`sequences`: iterable of (seq, frames, z, onset) with frames sorted.
-    `rule`: cusum_alarms or threshold_alarms."""
-    return [evaluate_sequence(seq, frames, rule(z, h, **kwargs), onset) for seq, frames, z, onset in sequences]
+    `rule`: cusum_alarms or threshold_alarms. Alarms closer than `refractory`
+    frames (default 3 s at 30 fps) form one episode."""
+    return [
+        evaluate_sequence(seq, frames, rule(z, h, **kwargs), onset, refractory)
+        for seq, frames, z, onset in sequences
+    ]
 
 
 def summarize_outcomes(outcomes: list[SequenceOutcome], n_normal_frames: int, fps: float = 30.0) -> dict:

@@ -16,21 +16,21 @@
       "h_per_fold": [
         4.0,
         4.75,
-        4.25,
+        4.0,
         3.75,
-        -2.75
+        4.5
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 25,
       "detection_rate": 0.8333333333333334,
-      "adl_false_alarm_seqs": 11,
+      "adl_false_alarm_seqs": 9,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 21,
-      "false_alarms_per_hour": 223.82315207737096,
-      "delay_mean": 31.36,
-      "delay_median": 31.0,
-      "delay_max": 60.0
+      "false_alarms": 11,
+      "false_alarms_per_hour": 117.24069870719431,
+      "delay_mean": 34.6,
+      "delay_median": 32.0,
+      "delay_max": 58.0
     },
     {
       "label": "lying",
@@ -38,23 +38,23 @@
       "seed": 0,
       "rule": "cusum",
       "h_per_fold": [
-        33.25,
-        37.75,
-        38.25,
-        33.0,
-        40.0
+        21.75,
+        20.0,
+        6.0,
+        13.75,
+        19.25
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 28,
-      "detection_rate": 0.9333333333333333,
-      "adl_false_alarm_seqs": 16,
+      "detected": 29,
+      "detection_rate": 0.9666666666666667,
+      "adl_false_alarm_seqs": 20,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 142,
-      "false_alarms_per_hour": 1513.4708378565085,
-      "delay_mean": 38.142857142857146,
-      "delay_median": 38.0,
-      "delay_max": 44.0
+      "false_alarms": 26,
+      "false_alarms_per_hour": 277.1143787624593,
+      "delay_mean": 33.3448275862069,
+      "delay_median": 33.0,
+      "delay_max": 39.0
     },
     {
       "label": "lying",
@@ -62,22 +62,22 @@
       "seed": 1,
       "rule": "threshold",
       "h_per_fold": [
+        4.25,
+        4.5,
+        3.5,
         2.75,
-        5.0,
-        -3.5,
-        1.25,
-        -2.5
+        3.25
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 27,
       "detection_rate": 0.9,
-      "adl_false_alarm_seqs": 15,
-      "fall_early_alarm_seqs": 2,
-      "false_alarms": 33,
-      "false_alarms_per_hour": 351.7220961215829,
-      "delay_mean": 27.037037037037038,
-      "delay_median": 27.0,
+      "adl_false_alarm_seqs": 13,
+      "fall_early_alarm_seqs": 0,
+      "false_alarms": 19,
+      "false_alarms_per_hour": 202.50666140333564,
+      "delay_mean": 31.14814814814815,
+      "delay_median": 31.0,
       "delay_max": 38.0
     },
     {
@@ -86,23 +86,23 @@
       "seed": 1,
       "rule": "cusum",
       "h_per_fold": [
-        36.5,
-        38.25,
-        39.75,
-        40.0,
-        38.25
+        5.75,
+        29.0,
+        22.75,
+        36.0,
+        19.75
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 28,
-      "detection_rate": 0.9333333333333333,
+      "detected": 29,
+      "detection_rate": 0.9666666666666667,
       "adl_false_alarm_seqs": 14,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 143,
-      "false_alarms_per_hour": 1524.1290831935262,
-      "delay_mean": 38.07142857142857,
-      "delay_median": 38.0,
-      "delay_max": 46.0
+      "false_alarms": 23,
+      "false_alarms_per_hour": 245.13964275140629,
+      "delay_mean": 34.51724137931034,
+      "delay_median": 35.0,
+      "delay_max": 43.0
     },
     {
       "label": "lying",
@@ -110,23 +110,23 @@
       "seed": 2,
       "rule": "threshold",
       "h_per_fold": [
-        4.5,
+        4.25,
         5.0,
         3.75,
-        1.75,
-        -3.25
+        4.0,
+        2.75
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 25,
       "detection_rate": 0.8333333333333334,
-      "adl_false_alarm_seqs": 16,
+      "adl_false_alarm_seqs": 11,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 35,
-      "false_alarms_per_hour": 373.0385867956183,
-      "delay_mean": 31.32,
-      "delay_median": 29.0,
-      "delay_max": 63.0
+      "false_alarms": 14,
+      "false_alarms_per_hour": 149.2154347182473,
+      "delay_mean": 32.4,
+      "delay_median": 32.0,
+      "delay_max": 46.0
     },
     {
       "label": "lying",
@@ -134,23 +134,23 @@
       "seed": 2,
       "rule": "cusum",
       "h_per_fold": [
-        39.0,
-        38.25,
-        39.75,
-        29.75,
-        39.25
+        18.25,
+        26.25,
+        23.0,
+        23.5,
+        19.75
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 28,
-      "detection_rate": 0.9333333333333333,
-      "adl_false_alarm_seqs": 17,
+      "detected": 29,
+      "detection_rate": 0.9666666666666667,
+      "adl_false_alarm_seqs": 18,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 139,
-      "false_alarms_per_hour": 1481.4961018454555,
-      "delay_mean": 38.67857142857143,
-      "delay_median": 38.0,
-      "delay_max": 50.0
+      "false_alarms": 26,
+      "false_alarms_per_hour": 277.1143787624593,
+      "delay_mean": 35.06896551724138,
+      "delay_median": 35.0,
+      "delay_max": 43.0
     },
     {
       "label": "lying",
@@ -160,20 +160,20 @@
       "h_per_fold": [
         4.5,
         5.0,
-        2.75,
-        -5.25,
-        -0.75
+        3.0,
+        3.0,
+        3.25
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 26,
       "detection_rate": 0.8666666666666667,
-      "adl_false_alarm_seqs": 20,
+      "adl_false_alarm_seqs": 12,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 44,
-      "false_alarms_per_hour": 468.96279482877725,
-      "delay_mean": 30.23076923076923,
-      "delay_median": 28.5,
+      "false_alarms": 15,
+      "false_alarms_per_hour": 159.87368005526497,
+      "delay_mean": 33.03846153846154,
+      "delay_median": 31.0,
       "delay_max": 62.0
     },
     {
@@ -182,23 +182,23 @@
       "seed": 3,
       "rule": "cusum",
       "h_per_fold": [
-        38.5,
-        37.0,
-        39.25,
-        40.0,
-        39.25
+        21.25,
+        9.0,
+        15.5,
+        14.25,
+        19.0
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 28,
-      "detection_rate": 0.9333333333333333,
-      "adl_false_alarm_seqs": 17,
+      "detected": 29,
+      "detection_rate": 0.9666666666666667,
+      "adl_false_alarm_seqs": 18,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 127,
-      "false_alarms_per_hour": 1353.5971578012434,
-      "delay_mean": 38.714285714285715,
-      "delay_median": 39.0,
-      "delay_max": 46.0
+      "false_alarms": 24,
+      "false_alarms_per_hour": 255.79788808842397,
+      "delay_mean": 33.206896551724135,
+      "delay_median": 33.0,
+      "delay_max": 39.0
     },
     {
       "label": "lying",
@@ -208,7 +208,7 @@
       "h_per_fold": [
         5.25,
         4.75,
-        3.5,
+        3.25,
         3.5,
         2.5
       ],
@@ -218,9 +218,9 @@
       "detection_rate": 0.8666666666666667,
       "adl_false_alarm_seqs": 8,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 13,
-      "false_alarms_per_hour": 138.55718938122965,
-      "delay_mean": 32.88461538461539,
+      "false_alarms": 11,
+      "false_alarms_per_hour": 117.24069870719431,
+      "delay_mean": 32.80769230769231,
       "delay_median": 31.0,
       "delay_max": 67.0
     },
@@ -230,23 +230,23 @@
       "seed": 4,
       "rule": "cusum",
       "h_per_fold": [
-        40.0,
-        39.75,
-        34.0,
-        24.25,
-        39.5
+        29.75,
+        8.75,
+        11.0,
+        2.5,
+        0.25
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 28,
-      "detection_rate": 0.9333333333333333,
-      "adl_false_alarm_seqs": 18,
+      "detected": 29,
+      "detection_rate": 0.9666666666666667,
+      "adl_false_alarm_seqs": 20,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 160,
-      "false_alarms_per_hour": 1705.3192539228264,
-      "delay_mean": 37.607142857142854,
-      "delay_median": 38.0,
-      "delay_max": 48.0
+      "false_alarms": 29,
+      "false_alarms_per_hour": 309.0891147735123,
+      "delay_mean": 31.24137931034483,
+      "delay_median": 30.0,
+      "delay_max": 39.0
     },
     {
       "label": "fall",
@@ -255,22 +255,22 @@
       "rule": "threshold",
       "h_per_fold": [
         3.0,
-        2.5,
+        2.25,
+        2.25,
         3.0,
-        3.75,
         2.5
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 26,
       "detection_rate": 0.8666666666666667,
-      "adl_false_alarm_seqs": 12,
+      "adl_false_alarm_seqs": 15,
       "fall_early_alarm_seqs": 1,
-      "false_alarms": 30,
-      "false_alarms_per_hour": 319.74736011052994,
-      "delay_mean": 12.846153846153847,
-      "delay_median": 14.5,
-      "delay_max": 25.0
+      "false_alarms": 17,
+      "false_alarms_per_hour": 181.19017072930032,
+      "delay_mean": 11.192307692307692,
+      "delay_median": 11.5,
+      "delay_max": 24.0
     },
     {
       "label": "fall",
@@ -278,23 +278,23 @@
       "seed": 0,
       "rule": "cusum",
       "h_per_fold": [
-        20.0,
-        25.5,
-        17.0,
-        38.0,
-        19.5
+        13.75,
+        9.5,
+        15.5,
+        35.5,
+        13.5
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 26,
       "detection_rate": 0.8666666666666667,
-      "adl_false_alarm_seqs": 15,
+      "adl_false_alarm_seqs": 16,
       "fall_early_alarm_seqs": 2,
-      "false_alarms": 48,
-      "false_alarms_per_hour": 511.59577617684795,
-      "delay_mean": 13.384615384615385,
-      "delay_median": 14.5,
-      "delay_max": 28.0
+      "false_alarms": 20,
+      "false_alarms_per_hour": 213.1649067403533,
+      "delay_mean": 11.538461538461538,
+      "delay_median": 11.0,
+      "delay_max": 27.0
     },
     {
       "label": "fall",
@@ -305,18 +305,18 @@
         4.5,
         3.0,
         4.25,
-        1.5,
+        2.0,
         2.5
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 23,
-      "detection_rate": 0.7666666666666667,
+      "detected": 24,
+      "detection_rate": 0.8,
       "adl_false_alarm_seqs": 9,
-      "fall_early_alarm_seqs": 2,
-      "false_alarms": 22,
-      "false_alarms_per_hour": 234.48139741438862,
-      "delay_mean": 15.304347826086957,
+      "fall_early_alarm_seqs": 1,
+      "false_alarms": 10,
+      "false_alarms_per_hour": 106.58245337017665,
+      "delay_mean": 14.833333333333334,
       "delay_median": 14.0,
       "delay_max": 42.0
     },
@@ -326,23 +326,23 @@
       "seed": 1,
       "rule": "cusum",
       "h_per_fold": [
-        30.0,
-        37.5,
-        14.75,
+        26.0,
+        26.25,
+        13.0,
         38.75,
-        32.75
+        20.25
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 27,
       "detection_rate": 0.9,
-      "adl_false_alarm_seqs": 8,
+      "adl_false_alarm_seqs": 9,
       "fall_early_alarm_seqs": 1,
-      "false_alarms": 51,
-      "false_alarms_per_hour": 543.5705121879009,
-      "delay_mean": 17.37037037037037,
-      "delay_median": 17.0,
-      "delay_max": 47.0
+      "false_alarms": 14,
+      "false_alarms_per_hour": 149.2154347182473,
+      "delay_mean": 14.925925925925926,
+      "delay_median": 14.0,
+      "delay_max": 29.0
     },
     {
       "label": "fall",
@@ -353,7 +353,7 @@
         3.75,
         2.5,
         5.25,
-        3.25,
+        3.0,
         3.25
       ],
       "n_falls": 30,
@@ -362,9 +362,9 @@
       "detection_rate": 0.8333333333333334,
       "adl_false_alarm_seqs": 8,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 19,
-      "false_alarms_per_hour": 202.50666140333564,
-      "delay_mean": 16.44,
+      "false_alarms": 9,
+      "false_alarms_per_hour": 95.92420803315899,
+      "delay_mean": 16.24,
       "delay_median": 17.0,
       "delay_max": 34.0
     },
@@ -376,21 +376,21 @@
       "h_per_fold": [
         39.75,
         8.0,
-        39.0,
+        19.5,
         39.25,
-        35.75
+        19.5
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 28,
       "detection_rate": 0.9333333333333333,
-      "adl_false_alarm_seqs": 10,
-      "fall_early_alarm_seqs": 0,
-      "false_alarms": 35,
-      "false_alarms_per_hour": 373.0385867956183,
-      "delay_mean": 18.071428571428573,
+      "adl_false_alarm_seqs": 12,
+      "fall_early_alarm_seqs": 2,
+      "false_alarms": 15,
+      "false_alarms_per_hour": 159.87368005526497,
+      "delay_mean": 15.428571428571429,
       "delay_median": 15.0,
-      "delay_max": 44.0
+      "delay_max": 31.0
     },
     {
       "label": "fall",
@@ -398,22 +398,22 @@
       "seed": 3,
       "rule": "threshold",
       "h_per_fold": [
-        3.0,
+        2.25,
         6.5,
         3.0,
         2.75,
-        2.5
+        2.25
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 26,
       "detection_rate": 0.8666666666666667,
-      "adl_false_alarm_seqs": 14,
-      "fall_early_alarm_seqs": 1,
-      "false_alarms": 29,
-      "false_alarms_per_hour": 309.0891147735123,
-      "delay_mean": 11.807692307692308,
-      "delay_median": 12.5,
+      "adl_false_alarm_seqs": 16,
+      "fall_early_alarm_seqs": 3,
+      "false_alarms": 22,
+      "false_alarms_per_hour": 234.48139741438862,
+      "delay_mean": 11.384615384615385,
+      "delay_median": 11.5,
       "delay_max": 28.0
     },
     {
@@ -422,23 +422,23 @@
       "seed": 3,
       "rule": "cusum",
       "h_per_fold": [
-        35.75,
-        40.0,
-        18.5,
+        19.75,
+        17.75,
+        17.75,
         38.5,
-        19.25
+        3.75
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 27,
-      "detection_rate": 0.9,
-      "adl_false_alarm_seqs": 8,
-      "fall_early_alarm_seqs": 2,
-      "false_alarms": 34,
-      "false_alarms_per_hour": 362.38034145860064,
-      "delay_mean": 15.444444444444445,
-      "delay_median": 15.0,
-      "delay_max": 35.0
+      "detected": 29,
+      "detection_rate": 0.9666666666666667,
+      "adl_false_alarm_seqs": 14,
+      "fall_early_alarm_seqs": 3,
+      "false_alarms": 21,
+      "false_alarms_per_hour": 223.82315207737096,
+      "delay_mean": 14.0,
+      "delay_median": 13.0,
+      "delay_max": 41.0
     },
     {
       "label": "fall",
@@ -450,19 +450,19 @@
         6.0,
         4.75,
         2.5,
-        3.75
+        3.5
       ],
       "n_falls": 30,
       "n_adl": 40,
-      "detected": 22,
-      "detection_rate": 0.7333333333333333,
+      "detected": 23,
+      "detection_rate": 0.7666666666666667,
       "adl_false_alarm_seqs": 8,
       "fall_early_alarm_seqs": 0,
-      "false_alarms": 19,
-      "false_alarms_per_hour": 202.50666140333564,
-      "delay_mean": 16.181818181818183,
-      "delay_median": 17.5,
-      "delay_max": 35.0
+      "false_alarms": 8,
+      "false_alarms_per_hour": 85.26596269614132,
+      "delay_mean": 15.478260869565217,
+      "delay_median": 17.0,
+      "delay_max": 28.0
     },
     {
       "label": "fall",
@@ -471,22 +471,22 @@
       "rule": "cusum",
       "h_per_fold": [
         34.25,
-        38.0,
-        35.0,
-        17.25,
+        24.5,
+        25.25,
+        7.25,
         31.5
       ],
       "n_falls": 30,
       "n_adl": 40,
       "detected": 25,
       "detection_rate": 0.8333333333333334,
-      "adl_false_alarm_seqs": 12,
-      "fall_early_alarm_seqs": 2,
-      "false_alarms": 55,
-      "false_alarms_per_hour": 586.2034935359716,
-      "delay_mean": 14.8,
-      "delay_median": 16.0,
-      "delay_max": 26.0
+      "adl_false_alarm_seqs": 15,
+      "fall_early_alarm_seqs": 3,
+      "false_alarms": 24,
+      "false_alarms_per_hour": 255.79788808842397,
+      "delay_mean": 12.24,
+      "delay_median": 12.0,
+      "delay_max": 23.0
     }
   ]
 }
