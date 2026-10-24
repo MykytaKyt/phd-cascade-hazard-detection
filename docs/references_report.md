@@ -80,3 +80,20 @@ Lechner et al. 2020 NCP, MediaPipe 2019, Wang et al. 2020 fall survey, Cho et al
 - Mashtalir et al., papers in Cybernetics and Systems Analysis 2020–2023 on video. None were found. Only a 2019 article and a 2020 Springer book exist, and their metadata was not fully collected.
 - Ultralytics YOLO11: its software citation was not searched (budget). YOLO11 is not in the file.
 - The suspicious references listed in the task were not included.
+
+## Update (2026-10-24): Ukrainian sources and resolved items
+
+- 12 more entries from Ukrainian professional journals (RECSC ×3 incl. two NURE papers by Bilous et al.;
+  ITSSI (NURE); Advanced Information Systems ×2; System Research and Information Technologies; Applied Aspects of
+  Information Technology; Electrotechnic and Computer Systems; Management of Development of Complex Systems;
+  Herald of Khmelnytskyi National University ×2). Ukrainian-journal sources in total: **22 of 98 (22 %)**.
+- Main list: **98 entries**, 65 % from 2021–2026.
+- Resolved: `curtze2024notes` (first names), `dempster1967upper` (DOI shown by Project Euclid).
+  Partly: `murphy2000combining` (volume, pages, DOI confirmed; issue number open; first name reduced to initials).
+- Entries to treat with care (open `todo`): `danchenko2023metod` (no DOI/pages, transliteration of the second
+  author, online date 2024), `muliar2023metod` (issue, pages, DOI), `romanets2025detection` (DOI, initials),
+  `byzkrovnyi2025models` (Ukrainian title), `kovalevych2025otsinka` (DOI from the PDF only).
+- Weaker topic fit (fill the count): `gorokhovatskyi2024medoids`, `gorokhovatskyi2025reducing`,
+  `pysarchuk2023algorithms`, `pysarchuk2025method`.
+- Excluded: Skarga-Bandurova (EEJET, ~2013, outside the period); Shafronenko, Bodyanskiy, Holovin (RECSC 2023;
+  title and DOI not confirmed, off-topic).
