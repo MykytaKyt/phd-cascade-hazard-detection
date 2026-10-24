@@ -70,3 +70,25 @@ def max_state(model: LTCClassifier, x: np.ndarray) -> np.ndarray:
         h = (h + f * cell.a) / (1.0 + (1.0 / tau + gate))
         peak = torch.maximum(peak, h.abs().max(0).values)
     return peak.numpy()
+
+
+def lipschitz_rows(model: LTCClassifier, in_dim: int) -> tuple[torch.Tensor, torch.Tensor]:
+    """Differentiable per-unit terms whose maxima are L_x and L_h (Lemma V2)."""
+    cell = model.cell
+    tau = F.softplus(cell.tau0) + 1e-3
+    rho = tau / (1.0 + tau)
+    a = cell.a.abs()
+    num = (tau + 1.0) * a
+    wf, wg = cell.w_f.weight.abs(), cell.w_tau.weight.abs()
+    l_x = rho * a * wf[:, :in_dim].sum(1) + 0.25 * rho**2 * num * wg[:, :in_dim].sum(1)
+    l_h = rho * (1.0 + a * wf[:, in_dim:].sum(1)) + 0.25 * rho**2 * num * wg[:, in_dim:].sum(1)
+    return l_x, l_h
+
+
+def contraction_penalty(in_dim: int, target: float = 0.95, weight: float = 10.0):
+    """Training penalty weight * sum_i relu(L_h,i - target): drives the cell towards
+    a certified contraction L_h < 1 (Lemma V2)."""
+    def penalty(model: LTCClassifier) -> torch.Tensor:
+        _, l_h = lipschitz_rows(model, in_dim)
+        return weight * torch.relu(l_h - target).sum()
+    return penalty

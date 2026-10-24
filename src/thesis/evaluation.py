@@ -93,8 +93,10 @@ def prf(y_true, scores, threshold: float) -> tuple[float, float, float]:
     return float(p), float(r), float(f1)
 
 
-def train_nn(model: nn.Module, x, y, epochs: int = 25, batch_size: int = 256, lr: float = 1e-3) -> nn.Module:
-    """Adam + class-weighted BCE, as in the published experiments."""
+def train_nn(model: nn.Module, x, y, epochs: int = 25, batch_size: int = 256, lr: float = 1e-3,
+             penalty=None) -> nn.Module:
+    """Adam + class-weighted BCE, as in the published experiments. `penalty`
+    (callable model -> scalar tensor) is added to the loss if given."""
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     pos_weight = torch.tensor([(y == 0).sum() / max(1, (y == 1).sum())], dtype=torch.float32)
     loss_fn = nn.BCEWithLogitsLoss(pos_weight=pos_weight)
@@ -106,7 +108,10 @@ def train_nn(model: nn.Module, x, y, epochs: int = 25, batch_size: int = 256, lr
         for i in range(0, len(x_t), batch_size):
             idx = perm[i:i + batch_size]
             opt.zero_grad()
-            loss_fn(model(x_t[idx]), y_t[idx]).backward()
+            loss = loss_fn(model(x_t[idx]), y_t[idx])
+            if penalty is not None:
+                loss = loss + penalty(model)
+            loss.backward()
             opt.step()
     return model
 
@@ -129,6 +134,7 @@ def threshold_baseline_scores(x, feature_columns=FEATURE_COLUMNS) -> np.ndarray:
 class ModelSpec:
     name: str
     build: object  # callable(in_dim) -> nn.Module, or None for the threshold rule
+    penalty: object = None  # callable(model) -> scalar tensor added to the training loss
 
 
 def count_params(model: nn.Module) -> int:
@@ -177,7 +183,7 @@ def run_nested_cv(
                     s_val = threshold_baseline_scores(x[val_idx], feature_columns)
                     s_test, n_params = threshold_baseline_scores(x[test_idx], feature_columns), 2
                 else:
-                    model = train_nn(spec.build(x.shape[-1]), norm(x[tr_idx]), y[tr_idx])
+                    model = train_nn(spec.build(x.shape[-1]), norm(x[tr_idx]), y[tr_idx], penalty=spec.penalty)
                     s_val, s_test, n_params = logits_nn(model, norm(x[val_idx])), logits_nn(model, norm(x[test_idx])), count_params(model)
 
                 thr = threshold_at_recall(y[val_idx], s_val, recall_target)
