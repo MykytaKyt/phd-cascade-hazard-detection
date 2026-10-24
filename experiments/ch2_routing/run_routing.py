@@ -14,7 +14,7 @@ Inputs are the per-window LTC logits from chapter 3
   3. on the test sequences of the fold: per-sequence miss fraction L_i(tau_N)
      (the quantity controlled by CRC), pooled recall bound, routed fraction.
 
-Also writes the routing frontier (routed fraction vs recall bound) for the
+Also writes the routing frontier (routed fraction vs recall bound, per seed) for the
 symmetric and the asymmetric region on pooled calibrated test probabilities.
 
 Writes results/ch2/routing.json and results/ch2/frontier_<label>.csv.
@@ -72,11 +72,10 @@ def run_label(scores: pd.DataFrame, alphas, model: str) -> tuple[list[dict], lis
             ece_raw=ece(raw_p, y_all), ece_cal=ece(test_all["p"].to_numpy(), y_all),
             brier_raw=brier(raw_p, y_all), brier_cal=brier(test_all["p"].to_numpy(), y_all),
         ))
-        if seed == sg["seed"].min():
-            p_all = test_all["p"].to_numpy()
-            for tau in TAU_GRID:
-                for kind, tau_a in (("symmetric", tau), ("asymmetric", 0.5)):
-                    frontier.append(dict(region=kind, **region_stats(p_all, y_all, tau, tau_a)))
+        p_all = test_all["p"].to_numpy()
+        for tau in TAU_GRID:
+            for kind, tau_a in (("symmetric", tau), ("asymmetric", 0.5)):
+                frontier.append(dict(seed=int(seed), region=kind, **region_stats(p_all, y_all, tau, tau_a)))
 
         for alpha in alphas:
             for method in ("empirical", "crc_val", "crc_cross"):
