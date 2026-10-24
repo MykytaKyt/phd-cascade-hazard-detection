@@ -30,7 +30,7 @@ from thesis.changepoint.cusum import (
     summarize_outcomes,
     threshold_alarms,
 )
-from thesis.evaluation import ModelSpec, run_nested_cv
+from thesis.evaluation import FEATURE_COLUMNS, ModelSpec, run_nested_cv
 from thesis.kinematic.labels import add_labels
 from thesis.kinematic.models import LSTMClassifier, LTCClassifier
 
@@ -40,6 +40,10 @@ SPECS = {
     "lstm16": ModelSpec("lstm16", lambda d: LSTMClassifier(d, hidden=16)),
 }
 H_GRID = np.linspace(-6, 40, 185)
+FEATURE_SETS = {
+    "base": FEATURE_COLUMNS,
+    "xcom": [c for c in FEATURE_COLUMNS if c != "mos"] + ["mos_static_x", "mos_xcom_x"],
+}
 
 
 def sequences_of(part: pd.DataFrame, onsets: dict):
@@ -81,6 +85,8 @@ def main():
     parser.add_argument("--models", nargs="+", default=["ltc24"])
     parser.add_argument("--labels", nargs="+", default=["lying", "fall"])
     parser.add_argument("--kappa", type=float, default=0.0)
+    parser.add_argument("--feature-set", choices=sorted(FEATURE_SETS), default="base",
+                        help="xcom requires data/features_kp.parquet from extract_features.py")
     parser.add_argument("--out-dir", default=ROOT / "results" / "ch3")
     args = parser.parse_args()
 
@@ -91,23 +97,26 @@ def main():
 
     results = []
     for label in args.labels:
-        path = out / f"scores_{label}.parquet"
+        suffix = "" if args.feature_set == "base" else f"_{args.feature_set}"
+        path = out / f"scores_{label}{suffix}.parquet"
         if path.exists():
             scores = pd.read_parquet(path)
         else:
-            _, scores = run_nested_cv(df, [SPECS[m] for m in args.models], seeds=args.seeds, label_col=label)
+            _, scores = run_nested_cv(df, [SPECS[m] for m in args.models], seeds=args.seeds, label_col=label,
+                                      feature_columns=FEATURE_SETS[args.feature_set])
             scores.to_parquet(path, index=False)
         for row in evaluate_scores(scores, onsets, args.kappa):
             results.append(dict(label=label, **row))
 
-    with open(out / "event_level.json", "w") as f:
-        json.dump(dict(kappa=args.kappa, seeds=args.seeds, results=results), f, indent=2)
+    suffix = "" if args.feature_set == "base" else f"_{args.feature_set}"
+    with open(out / f"event_level{suffix}.json", "w") as f:
+        json.dump(dict(kappa=args.kappa, seeds=args.seeds, feature_set=args.feature_set, results=results), f, indent=2)
 
     r = pd.DataFrame(results)
     cols = ["detection_rate", "adl_false_alarm_seqs", "fall_early_alarm_seqs", "false_alarms_per_hour",
             "delay_median", "delay_mean", "delay_max"]
     print(r.groupby(["label", "model", "rule"])[cols].agg(["mean", "std"]).round(2).to_string())
-    print(f"\nSaved {out / 'event_level.json'}")
+    print(f"\nSaved {out / f'event_level{suffix}.json'}")
 
 
 if __name__ == "__main__":

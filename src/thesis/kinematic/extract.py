@@ -25,7 +25,8 @@ def extract_dataset_features(
     """Run YOLOv8-Pose over all sequences and compute DDL features.
 
     Returns a DataFrame with one row per frame: seq, frame, label, valid,
-    and the DDL feature columns (see ddl.FEATURE_NAMES).
+    the DDL feature columns (see ddl.FEATURE_NAMES) and the raw pose
+    (see keypoint_columns).
     """
     from ultralytics import YOLO  # local import: heavy, GPU-only dependency
 
@@ -62,11 +63,23 @@ def extract_dataset_features(
             feats = compute_ddl_features(kp, box, frame_w=w, frame_h=h)
             rec["valid"] = 1
             rec.update(feats)
+            rec.update(keypoint_columns(kp, box))
             rows.append(rec)
         logger.info("%s: %d frames processed", seq, len(imgs))
 
     df = pd.DataFrame(rows).sort_values(["seq", "frame"]).reset_index(drop=True)
     return _add_temporal_derivatives(df)
+
+
+def keypoint_columns(kp: np.ndarray, box: np.ndarray) -> dict:
+    """Raw pose of the selected person: kp<j>_x, kp<j>_y, kp<j>_c for the 17 COCO
+    keypoints (pixels, confidence) and the box (cx, cy, w, h) in pixels, so that
+    further features can be derived without re-running the pose model."""
+    cols = {}
+    for j, (x, y, c) in enumerate(kp):
+        cols[f"kp{j}_x"], cols[f"kp{j}_y"], cols[f"kp{j}_c"] = float(x), float(y), float(c)
+    cols["box_cx"], cols["box_cy"], cols["box_w"], cols["box_h"] = (float(v) for v in box)
+    return cols
 
 
 def _add_temporal_derivatives(df: pd.DataFrame) -> pd.DataFrame:

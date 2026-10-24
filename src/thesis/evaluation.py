@@ -144,6 +144,7 @@ def run_nested_cv(
     val_fraction: float = 0.2,
     recall_target: float = 0.95,
     label_col: str = "label",
+    feature_columns=FEATURE_COLUMNS,
 ):
     """Returns (records, scores):
     records -- one dict per (model, seed, fold) with validation-threshold
@@ -153,8 +154,8 @@ def run_nested_cv(
                where score is a logit for the networks and the raw rule
                value for the threshold baseline.
     """
-    df = prepare_features(df)
-    x, y, meta = make_windows(df, window=window, label_col=label_col)
+    df = prepare_features(df, feature_columns)
+    x, y, meta = make_windows(df, window=window, feature_columns=feature_columns, label_col=label_col)
     groups = meta["seq"].to_numpy()
     folds = list(GroupKFold(n_splits=n_splits).split(x, y, groups))
 
@@ -173,7 +174,8 @@ def run_nested_cv(
             for spec in specs:
                 torch.manual_seed(seed * 1000 + fold)
                 if spec.build is None:
-                    s_val, s_test, n_params = threshold_baseline_scores(x[val_idx]), threshold_baseline_scores(x[test_idx]), 2
+                    s_val = threshold_baseline_scores(x[val_idx], feature_columns)
+                    s_test, n_params = threshold_baseline_scores(x[test_idx], feature_columns), 2
                 else:
                     model = train_nn(spec.build(x.shape[-1]), norm(x[tr_idx]), y[tr_idx])
                     s_val, s_test, n_params = logits_nn(model, norm(x[val_idx])), logits_nn(model, norm(x[test_idx])), count_params(model)
