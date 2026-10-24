@@ -8,3 +8,1075 @@
 %   - оформлення в тексті дисертації за ДСТУ 8302:2015.
 %
 % Перевірка: python tools/check_refs.py references.bib
+
+% === Topic 1: Object detectors and human pose estimation ===
+@inproceedings{redmon2016you,
+  author = {Redmon, Joseph and Divvala, Santosh and Girshick, Ross and Farhadi, Ali},
+  title = {You Only Look Once: Unified, Real-Time Object Detection},
+  booktitle = {Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages = {779--788},
+  year = {2016},
+  doi = {10.1109/CVPR.2016.91},
+  verified = {2026-10-24},
+  note = {Confirmed via https://openaccess.thecvf.com/content_cvpr_2016/html/Redmon_You_Only_Look_CVPR_2016_paper.html and https://mlanthology.org/cvpr/2016/redmon2016cvpr-you}
+}
+
+@software{jocher2023yolov8,
+  author = {Jocher, Glenn and Chaurasia, Ayush and Qiu, Jing},
+  title = {Ultralytics {YOLOv8}},
+  version = {8.0.0},
+  year = {2023},
+  url = {https://github.com/ultralytics/ultralytics},
+  license = {AGPL-3.0},
+  verified = {2026-10-24},
+  note = {Confirmed via https://docs.ultralytics.com/yolov8 and https://dagshub.com/Ultralytics/ultralytics/src/main/CITATION.cff (no formal paper published by Ultralytics)}
+}
+
+@article{terven2023comprehensive,
+  author = {Terven, Juan and C{\'o}rdova-Esparza, Diana-Margarita and Romero-Gonz{\'a}lez, Julio-Alejandro},
+  title = {A Comprehensive Review of {YOLO} Architectures in Computer Vision: From {YOLOv1} to {YOLOv8} and {YOLO-NAS}},
+  journal = {Machine Learning and Knowledge Extraction},
+  year = {2023},
+  volume = {5},
+  number = {4},
+  pages = {1680--1716},
+  doi = {10.3390/make5040083},
+  verified = {2026-10-24},
+  note = {Confirmed via https://doaj.org/article/cd49408b9cbb4a6aa22a6cee259ea836 and https://www.mdpi.com/2568224}
+}
+
+@inproceedings{maji2022yolopose,
+  author = {Maji, Debapriya and Nagori, Soyeb and Mathew, Manu and Poddar, Deepak},
+  title = {{YOLO-Pose}: Enhancing {YOLO} for Multi Person Pose Estimation Using Object Keypoint Similarity Loss},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+  pages = {2637--2646},
+  year = {2022},
+  verified = {2026-10-24},
+  note = {Confirmed via https://openaccess.thecvf.com/content/CVPR2022W/ECV/html/Maji_YOLO-Pose_Enhancing_YOLO_for_Multi_Person_Pose_Estimation_Using_Object_CVPRW_2022_paper.html},
+  url = {https://openaccess.thecvf.com/content/CVPR2022W/ECV/html/Maji_YOLO-Pose_Enhancing_YOLO_for_Multi_Person_Pose_Estimation_Using_Object_CVPRW_2022_paper.html},
+}
+
+@article{cao2021openpose,
+  author = {Cao, Zhe and Hidalgo, Gines and Simon, Tomas and Wei, Shih-En and Sheikh, Yaser},
+  title = {{OpenPose}: Realtime Multi-Person {2D} Pose Estimation Using Part Affinity Fields},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year = {2021},
+  volume = {43},
+  number = {1},
+  pages = {172--186},
+  doi = {10.1109/TPAMI.2019.2929257},
+  verified = {2026-10-24},
+  note = {Confirmed via https://api.openalex.org/works/doi:10.1109%2FTPAMI.2019.2929257 and https://arxiv.org/pdf/2301.07583 (citation); published online 2019}
+}
+
+@inproceedings{xu2022vitpose,
+  author = {Xu, Yufei and Zhang, Jing and Zhang, Qiming and Tao, Dacheng},
+  title = {{ViTPose}: Simple Vision Transformer Baselines for Human Pose Estimation},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume = {35},
+  year = {2022},
+  verified = {2026-10-24},
+  note = {Confirmed via https://neurips.cc/virtual/2022/poster/55265 and https://arxiv.org/abs/2204.12484},
+  url = {https://neurips.cc/virtual/2022/poster/55265},
+}
+
+@misc{jiang2023rtmpose,
+  author = {Jiang, Tao and Lu, Peng and Zhang, Li and Ma, Ningsheng and Han, Rui and Lyu, Chengqi and Li, Yining and Chen, Kai},
+  title = {{RTMPose}: Real-Time Multi-Person Pose Estimation based on {MMPose}},
+  year = {2023},
+  eprint = {2303.07399},
+  archiveprefix = {arXiv},
+  primaryclass = {cs.CV},
+  verified = {2026-10-24},
+  note = {Confirmed via https://arxiv.org/abs/2303.07399 (preprint; no peer-reviewed version found)},
+  url = {https://arxiv.org/abs/2303.07399},
+  todo = {preprint only, no peer-reviewed version found},
+}
+
+@misc{bazarevsky2020blazepose,
+  author = {Bazarevsky, Valentin and Grishchenko, Ivan and Raveendran, Karthik and Zhu, Tyler and Zhang, Fan and Grundmann, Matthias},
+  title = {{BlazePose}: On-device Real-time Body Pose tracking},
+  year = {2020},
+  eprint = {2006.10204},
+  archiveprefix = {arXiv},
+  primaryclass = {cs.CV},
+  verified = {2026-10-24},
+  note = {Confirmed via https://arxiv.org/abs/2006.10204v1},
+  url = {https://arxiv.org/abs/2006.10204v1},
+  todo = {preprint only, no peer-reviewed version found},
+}
+
+@inproceedings{lin2014microsoft,
+  author = {Lin, Tsung-Yi and Maire, Michael and Belongie, Serge and Hays, James and Perona, Pietro and Ramanan, Deva and Doll{\'a}r, Piotr and Zitnick, C. Lawrence},
+  title = {Microsoft {COCO}: Common Objects in Context},
+  booktitle = {Computer Vision -- ECCV 2014},
+  series = {Lecture Notes in Computer Science},
+  volume = {8693},
+  pages = {740--755},
+  publisher = {Springer},
+  year = {2014},
+  doi = {10.1007/978-3-319-10602-1_48},
+  verified = {2026-10-24},
+  note = {Confirmed via https://authors.library.caltech.edu/records/693gy-yt092 and https://mlanthology.org/eccv/2014/lin2014eccv-microsoft}
+}
+
+% === Topic 2: Vision-based fall detection: surveys, methods and datasets ===
+@article{kwolek2014human,
+  author = {Kwolek, Bogdan and Kepski, Michal},
+  title = {Human fall detection on embedded platform using depth maps and wireless accelerometer},
+  journal = {Computer Methods and Programs in Biomedicine},
+  year = {2014},
+  volume = {117},
+  number = {3},
+  pages = {489--501},
+  verified = {2026-10-24},
+  note = {Confirmed via https://repozytorium.ur.edu.pl/handle/item/791?show=full and https://home.agh.edu.pl/bkw/research/pdf/2014/KwolekKepski_CMBP2014.pdf (URFD dataset)},
+  url = {https://repozytorium.ur.edu.pl/handle/item/791?show=full},
+  todo = {DOI not confirmed (expected 10.1016/j.cmpb.2014.09.005)},
+}
+
+@article{martinezvillasenor2019upfall,
+  author = {Mart{\'i}nez-Villase{\~n}or, Lourdes and Ponce, Hiram and Brieva, Jorge and Moya-Albor, Ernesto and N{\'u}{\~n}ez-Mart{\'i}nez, Jos{\'e} and Pe{\~n}afort-Asturiano, Carlos},
+  title = {{UP-Fall} Detection Dataset: A Multimodal Approach},
+  journal = {Sensors},
+  year = {2019},
+  volume = {19},
+  number = {9},
+  pages = {1988},
+  doi = {10.3390/s19091988},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.mdpi.com/1424-8220/19/9/1988 and https://pmc.ncbi.nlm.nih.gov/articles/PMC6539235}
+}
+
+@article{alam2024gmdcsa24,
+  author = {Alam, Ekram and Sufian, Abu and Dutta, Paramartha and Leo, Marco and Hameed, Ibrahim A.},
+  title = {{GMDCSA-24}: A dataset for human fall detection in videos},
+  journal = {Data in Brief},
+  year = {2024},
+  volume = {57},
+  pages = {110892},
+  doi = {10.1016/j.dib.2024.110892},
+  verified = {2026-10-24},
+  note = {Confirmed via https://pmc.ncbi.nlm.nih.gov/articles/PMC11416611}
+}
+
+@article{charfi2013optimized,
+  author = {Charfi, Imen and Miteran, Johel and Dubois, Julien and Atri, Mohamed and Tourki, Rached},
+  title = {Optimized spatio-temporal descriptors for real-time fall detection: comparison of support vector machine and {Adaboost}-based classification},
+  journal = {Journal of Electronic Imaging},
+  year = {2013},
+  volume = {22},
+  number = {4},
+  pages = {041106},
+  doi = {10.1117/1.JEI.22.4.041106},
+  verified = {2026-10-24},
+  note = {Confirmed via citation in https://link.springer.com/doi/10.1007/s11554-023-01377-6 and https://fitforthem.unipa.it/author:0000000000514756 (Le2i fall dataset)},
+  todo = {metadata from citing papers},
+}
+
+@techreport{auvinet2010multiple,
+  author = {Auvinet, Edouard and Rougier, Caroline and Meunier, Jean and St-Arnaud, Alain and Rousseau, Jacqueline},
+  title = {Multiple cameras fall dataset},
+  institution = {DIRO, Universit{\'e} de Montr{\'e}al},
+  number = {1350},
+  year = {2010},
+  verified = {2026-10-24},
+  note = {Confirmed via reference lists in https://arxiv.org/pdf/1811.11815 and https://cs.uwaterloo.ca/~jhoey/rgwiki/uploads/Fall%20Detection%20With%20Multiple%20Cameras.pdf},
+  url = {https://arxiv.org/pdf/1811.11815},
+  todo = {metadata from citing papers},
+}
+
+@article{alam2022vision,
+  author = {Alam, Ekram and Sufian, Abu and Dutta, Paramartha and Leo, Marco},
+  title = {Vision-based human fall detection systems using deep learning: A review},
+  journal = {Computers in Biology and Medicine},
+  year = {2022},
+  verified = {2026-10-24},
+  note = {Confirmed via https://iris.cnr.it/handle/20.500.14243/416447 and https://arxiv.org/abs/2207.10952 (volume/article number not independently confirmed, omitted)},
+  url = {https://iris.cnr.it/handle/20.500.14243/416447},
+  todo = {volume and article number not confirmed},
+}
+
+@article{gutierrez2021comprehensive,
+  author = {Guti{\'e}rrez, Jes{\'u}s and Rodr{\'i}guez, V{\'i}ctor and Martin, Sergio},
+  title = {Comprehensive Review of Vision-Based Fall Detection Systems},
+  journal = {Sensors},
+  year = {2021},
+  volume = {21},
+  number = {3},
+  pages = {947},
+  doi = {10.3390/s21030947},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.mdpi.com/1424-8220/21/3/947 and https://zaguan.unizar.es/record/99771}
+}
+
+@article{ramirez2021fall,
+  author = {Ramirez, Heilym and Velastin, Sergio A. and Meza, Ignacio and Fabregas, Ernesto and Makris, Dimitrios and Farias, Gonzalo},
+  title = {Fall Detection and Activity Recognition Using Human Skeleton Features},
+  journal = {IEEE Access},
+  year = {2021},
+  volume = {9},
+  pages = {33532--33542},
+  doi = {10.1109/ACCESS.2021.3061626},
+  verified = {2026-10-24},
+  note = {Confirmed via https://e-archivo.uc3m.es/entities/publication/24bd8356-477b-44a6-954c-8c6d254bf7c6}
+}
+
+@article{hoang2023advances,
+  author = {Hoang, Van-Ha and Lee, Jong Weon and Piran, Md. Jalil and Park, Chun-Su},
+  title = {Advances in Skeleton-Based Fall Detection in {RGB} Videos: From Handcrafted to Deep Learning Approaches},
+  journal = {IEEE Access},
+  year = {2023},
+  volume = {11},
+  pages = {92322--92352},
+  doi = {10.1109/ACCESS.2023.3307138},
+  verified = {2026-10-24},
+  note = {Confirmed via https://doaj.org/article/7d77396863de4bb29cad730084387f06}
+}
+
+@article{inturi2023synergistic,
+  author = {Inturi, Anitha Rani and Manikandan, Vazhora Malayil and Kumar, Mahamkali Naveen and Wang, Shuihua and Zhang, Yudong},
+  title = {Synergistic Integration of Skeletal Kinematic Features for Vision-Based Fall Detection},
+  journal = {Sensors},
+  year = {2023},
+  volume = {23},
+  number = {14},
+  pages = {6283},
+  doi = {10.3390/s23146283},
+  verified = {2026-10-24},
+  note = {Confirmed via https://pmc.ncbi.nlm.nih.gov/articles/PMC10385725 and https://scholar.xjtlu.edu.cn/en/publications/synergistic-integration-of-skeletal-kinematic-features-for-vision/}
+}
+
+@article{yan2023skeleton,
+  author = {Yan, Jianjun and Wang, Xueqiang and Shi, Jiangtao and Hu, Shuai},
+  title = {Skeleton-Based Fall Detection with Multiple Inertial Sensors Using Spatial-Temporal Graph Convolutional Networks},
+  journal = {Sensors},
+  year = {2023},
+  volume = {23},
+  number = {4},
+  pages = {2153},
+  doi = {10.3390/s23042153},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.mdpi.com/1424-8220/23/4/2153}
+}
+
+@article{khekan2025impact,
+  author = {Khekan, Ahlam R. and Aghdasi, Hadi S. and Salehpour, Pedram},
+  title = {The Impact of {YOLO} Algorithms Within Fall Detection Application: A Review},
+  journal = {IEEE Access},
+  year = {2025},
+  volume = {13},
+  pages = {6793--6809},
+  doi = {10.1109/ACCESS.2024.3496823},
+  verified = {2026-10-24},
+  note = {Confirmed via https://doaj.org/article/3f138d6a52ff43baad5f392e2868bf4e}
+}
+
+@article{khekan2025fast,
+  author = {Khekan, Ahlam R. and Aghdasi, Hadi S. and Salehpour, Pedram},
+  title = {Fast and High-Precision Human Fall Detection Using Improved {YOLOv8} Model},
+  journal = {IEEE Access},
+  year = {2025},
+  volume = {13},
+  pages = {5271--5283},
+  doi = {10.1109/ACCESS.2024.3470319},
+  verified = {2026-10-24},
+  note = {Confirmed via https://doaj.org/article/1d546c3edf8c468286e7d309a6e6e727}
+}
+
+@misc{schneider2025omnifall,
+  author = {Schneider, David and Marinov, Zdravko and Baur, Rafael and others},
+  title = {{OmniFall}: From Staged Through Synthetic to Wild, A Unified Multi-Domain Dataset for Robust Fall Detection},
+  year = {2025},
+  eprint = {2505.19889},
+  archiveprefix = {arXiv},
+  verified = {2026-10-24},
+  note = {Confirmed via https://arxiv.org/abs/2505.19889v1 and https://cvhci.iar.kit.edu/publications_2829.php (v1 titled "OmniFall: A Unified Staged-to-Wild Benchmark for Human Fall Detection")},
+  url = {https://arxiv.org/abs/2505.19889v1},
+  todo = {preprint only, no peer-reviewed version found},
+}
+
+@article{hof2005condition,
+  author = {Hof, A. L. and Gazendam, M. G. J. and Sinke, W. E.},
+  title = {The condition for dynamic stability},
+  journal = {Journal of Biomechanics},
+  year = {2005},
+  volume = {38},
+  number = {1},
+  pages = {1--8},
+  doi = {10.1016/j.jbiomech.2004.03.025},
+  verified = {2026-10-24},
+  note = {Confirmed via https://hal.laas.fr/hal-01494117v3/html_references and https://braceworks.ca/wp-content/uploads/2016/05/hof-condition-for-dynamic-stability.pdf}
+}
+
+@article{winter1995balance,
+  author = {Winter, David A.},
+  title = {Human balance and posture control during standing and walking},
+  journal = {Gait \& Posture},
+  year = {1995},
+  volume = {3},
+  number = {4},
+  pages = {193--214},
+  doi = {10.1016/0966-6362(96)82849-9},
+  verified = {2026-10-24},
+  note = {Confirmed via https://hal.laas.fr/hal-02464464v1/html_references}
+}
+
+@article{curtze2024notes,
+  author = {Curtze, Carolin and Buurke, Tom J. W. and McCrum, Christopher},
+  title = {Notes on the margin of stability},
+  journal = {Journal of Biomechanics},
+  year = {2024},
+  volume = {166},
+  pages = {112045},
+  doi = {10.1016/j.jbiomech.2024.112045},
+  verified = {2026-10-24},
+  note = {Confirmed via https://lirias.kuleuven.be/4147258 and https://www.maastrichtuniversity.nl/nl/c-mccrum/onderzoek},
+  todo = {authors first names not confirmed},
+}
+
+@inproceedings{hasani2021liquid,
+  author = {Hasani, Ramin and Lechner, Mathias and Amini, Alexander and Rus, Daniela and Grosu, Radu},
+  title = {Liquid Time-constant Networks},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume = {35},
+  number = {9},
+  pages = {7657--7666},
+  year = {2021},
+  doi = {10.1609/aaai.v35i9.16936},
+  verified = {2026-10-24},
+  note = {Confirmed via https://ojs.aaai.org/index.php/AAAI/article/view/16936}
+}
+
+@article{hasani2022closed,
+  author = {Hasani, Ramin and Lechner, Mathias and Amini, Alexander and Liebenwein, Lucas and Ray, Aaron and Tschaikowski, Max and Teschl, Gerald and Rus, Daniela},
+  title = {Closed-form continuous-time neural networks},
+  journal = {Nature Machine Intelligence},
+  year = {2022},
+  volume = {4},
+  number = {11},
+  pages = {992--1003},
+  doi = {10.1038/s42256-022-00556-7},
+  verified = {2026-10-24},
+  note = {Confirmed via https://research-explorer.ista.ac.at/record/12147}
+}
+
+@article{hochreiter1997long,
+  author = {Hochreiter, Sepp and Schmidhuber, J{\"u}rgen},
+  title = {Long Short-Term Memory},
+  journal = {Neural Computation},
+  year = {1997},
+  volume = {9},
+  number = {8},
+  pages = {1735--1780},
+  doi = {10.1162/neco.1997.9.8.1735},
+  verified = {2026-10-24},
+  note = {Confirmed via https://mlanthology.org/neco/1997/hochreiter1997neco-long}
+}
+
+@inproceedings{chen2018neural,
+  author = {Chen, Ricky T. Q. and Rubanova, Yulia and Bettencourt, Jesse and Duvenaud, David K.},
+  title = {Neural Ordinary Differential Equations},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume = {31},
+  pages = {6571--6583},
+  year = {2018},
+  verified = {2026-10-24},
+  note = {Confirmed via https://papers.nips.cc/paper/7892-neural-ordinary-differential-equations and https://mlanthology.org/neurips/2018/chen2018neurips-neural},
+  url = {https://papers.nips.cc/paper/7892-neural-ordinary-differential-equations},
+}
+
+@inproceedings{radford2021learning,
+  author = {Radford, Alec and Kim, Jong Wook and Hallacy, Chris and others},
+  title = {Learning Transferable Visual Models From Natural Language Supervision},
+  booktitle = {Proceedings of the 38th International Conference on Machine Learning},
+  series = {Proceedings of Machine Learning Research},
+  volume = {139},
+  pages = {8748--8763},
+  year = {2021},
+  verified = {2026-10-24},
+  note = {Confirmed via https://proceedings.mlr.press/v139/radford21a.html},
+  url = {https://proceedings.mlr.press/v139/radford21a.html},
+}
+
+@inproceedings{sultani2018real,
+  author = {Sultani, Waqas and Chen, Chen and Shah, Mubarak},
+  title = {Real-World Anomaly Detection in Surveillance Videos},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages = {6479--6488},
+  year = {2018},
+  doi = {10.1109/CVPR.2018.00678},
+  verified = {2026-10-24},
+  note = {Confirmed via https://stars.library.ucf.edu/scopus2015/10160 and https://mlanthology.org/cvpr/2018/sultani2018cvpr-realworld/}
+}
+
+@inproceedings{wu2020not,
+  author = {Wu, Peng and Liu, Jing and Shi, Yujia and Sun, Yujia and Shao, Fangtao and Wu, Zhaoyang and Yang, Zhiwei},
+  title = {Not only Look, but also Listen: Learning Multimodal Violence Detection under Weak Supervision},
+  booktitle = {Computer Vision -- ECCV 2020},
+  series = {Lecture Notes in Computer Science},
+  publisher = {Springer},
+  year = {2020},
+  doi = {10.1007/978-3-030-58577-8_20},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123750324.pdf and https://mlanthology.org/eccv/2020/wu2020eccv-only/ (introduces XD-Violence)},
+  todo = {LNCS volume and pages missing},
+}
+
+@inproceedings{tian2021weakly,
+  author = {Tian, Yu and Pang, Guansong and Chen, Yuanhong and Singh, Rajvinder and Verjans, Johan W. and Carneiro, Gustavo},
+  title = {Weakly-Supervised Video Anomaly Detection With Robust Temporal Feature Magnitude Learning},
+  booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+  pages = {4975--4986},
+  year = {2021},
+  doi = {10.1109/ICCV48922.2021.00493},
+  verified = {2026-10-24},
+  note = {Confirmed via https://openaccess.thecvf.com/content/ICCV2021/html/Tian_Weakly-Supervised_Video_Anomaly_Detection_With_Robust_Temporal_Feature_Magnitude_Learning_ICCV_2021_paper.html}
+}
+
+@inproceedings{zanella2024harnessing,
+  author = {Zanella, Luca and Menapace, Willi and Mancini, Massimiliano and Wang, Yiming and Ricci, Elisa},
+  title = {Harnessing Large Language Models for Training-free Video Anomaly Detection},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages = {18527--18536},
+  year = {2024},
+  doi = {10.1109/CVPR52733.2024.01753},
+  verified = {2026-10-24},
+  note = {Confirmed via https://openaccess.thecvf.com/content/CVPR2024/html/Zanella_Harnessing_Large_Language_Models_for_Training-free_Video_Anomaly_Detection_CVPR_2024_paper.html and https://iris.unitn.it/handle/11572/437738 (LAVAD)}
+}
+
+@inproceedings{wu2024vadclip,
+  author = {Wu, Peng and Zhou, Xuerong and Pang, Guansong and Zhou, Lingru and Yan, Qingsen and Wang, Peng and Zhang, Yanning},
+  title = {{VadCLIP}: Adapting Vision-Language Models for Weakly Supervised Video Anomaly Detection},
+  booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume = {38},
+  number = {6},
+  pages = {6074--6082},
+  year = {2024},
+  doi = {10.1609/aaai.v38i6.28423},
+  verified = {2026-10-24},
+  note = {Confirmed via https://ojs.aaai.org/index.php/AAAI/article/view/28423 and https://pure.nwpu.edu.cn/en/publications/vadclip-adapting-vision-language-models-for-weakly-supervised-vid/}
+}
+
+@inproceedings{wu2024open,
+  author = {Wu, Peng and Zhou, Xuerong and Pang, Guansong and Sun, Yujia and Liu, Jing and Wang, Peng and Zhang, Yanning},
+  title = {Open-Vocabulary Video Anomaly Detection},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages = {18297--18307},
+  year = {2024},
+  doi = {10.1109/CVPR52733.2024.01732},
+  verified = {2026-10-24},
+  note = {Confirmed via https://pure.nwpu.edu.cn/en/publications/open-vocabulary-video-anomaly-detection-2/ and https://mlanthology.org/cvpr/2024/wu2024cvpr-openvocabulary}
+}
+
+@inproceedings{zhou2024anomalyclip,
+  author = {Zhou, Qihang and Pang, Guansong and Tian, Yu and He, Shibo and Chen, Jiming},
+  title = {{AnomalyCLIP}: Object-agnostic Prompt Learning for Zero-shot Anomaly Detection},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2024},
+  verified = {2026-10-24},
+  note = {Confirmed via https://iclr.cc/virtual/2024/poster/18318 and https://ink.library.smu.edu.sg/sis_research/9279},
+  url = {https://iclr.cc/virtual/2024/poster/18318},
+}
+
+@inproceedings{yuan2024towards,
+  author = {Yuan, Tongtong and Zhang, Xuange and Liu, Kun and others},
+  title = {Towards Surveillance Video-and-Language Understanding: New Dataset, Baselines, and Challenges},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages = {22052--22061},
+  year = {2024},
+  doi = {10.1109/CVPR52733.2024.02082},
+  verified = {2026-10-24},
+  note = {Confirmed via https://openaccess.thecvf.com/content/CVPR2024/html/Yuan_Towards_Surveillance_Video-and-Language_Understanding_New_Dataset_Baselines_and_Challenges_CVPR_2024_paper.html (UCA dataset)}
+}
+
+@misc{zhang2024holmesvad,
+  author = {Zhang, Huaxin and Xu, Xiaohao and Wang, Xiang and Zuo, Jialong and Han, Chuchu and Huang, Xiaonan and Gao, Changxin and Wang, Yuehuan and Sang, Nong},
+  title = {{Holmes-VAD}: Towards Unbiased and Explainable Video Anomaly Detection via Multi-modal {LLM}},
+  year = {2024},
+  eprint = {2406.12235},
+  archiveprefix = {arXiv},
+  primaryclass = {cs.CV},
+  verified = {2026-10-24},
+  note = {Confirmed via https://arxiv.org/abs/2406.12235v2 (preprint; no peer-reviewed venue found)},
+  url = {https://arxiv.org/abs/2406.12235v2},
+}
+
+@article{liu2024generalized,
+  author = {Liu, Yang and Yang, Dingkang and Wang, Yan and others},
+  title = {Generalized Video Anomaly Event Detection: Systematic Taxonomy and Comparison of Deep Models},
+  journal = {ACM Computing Surveys},
+  year = {2024},
+  volume = {56},
+  number = {7},
+  doi = {10.1145/3645101},
+  verified = {2026-10-24},
+  note = {Confirmed via https://scholars.duke.edu/publication/1623453 and https://arxiv.org/abs/2302.05087}
+}
+
+@inproceedings{wang2024internvid,
+  author = {Wang, Yi and He, Yinan and Li, Yizhuo and others},
+  title = {{InternVid}: A Large-scale Video-Text Dataset for Multimodal Understanding and Generation},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2024},
+  verified = {2026-10-24},
+  note = {Confirmed via https://proceedings.iclr.cc/paper_files/paper/2024/hash/b7bfab38ed694b43e8c20c14f6c0e900-Abstract-Conference.html (introduces ViCLIP)},
+  url = {https://proceedings.iclr.cc/paper_files/paper/2024/hash/b7bfab38ed694b43e8c20c14f6c0e900-Abstract-Conference.html},
+}
+
+@inproceedings{wang2024internvideo2,
+  author = {Wang, Yi and Li, Kunchang and Li, Xinhao and others},
+  title = {{InternVideo2}: Scaling Foundation Models for Multimodal Video Understanding},
+  booktitle = {Computer Vision -- ECCV 2024},
+  publisher = {Springer},
+  year = {2024},
+  doi = {10.1007/978-3-031-73013-9_23},
+  verified = {2026-10-24},
+  note = {Confirmed via https://eccv2024.ecva.net/virtual/2024/poster/1476 and https://mlanthology.org/eccv/2024/wang2024eccv-internvideo2}
+}
+
+@misc{gemmateam2025gemma3,
+  author = {{Gemma Team}},
+  title = {Gemma 3 Technical Report},
+  year = {2025},
+  eprint = {2503.19786},
+  archiveprefix = {arXiv},
+  verified = {2026-10-24},
+  note = {Confirmed via https://arxiv.org/pdf/2503.19786 and https://ai.google.dev/gemma/docs/core/model_card_3},
+  url = {https://arxiv.org/pdf/2503.19786},
+}
+
+@misc{bai2025qwen25vl,
+  author = {Bai, Shuai and Chen, Keqin and Liu, Xuejing and others},
+  title = {{Qwen2.5-VL} Technical Report},
+  year = {2025},
+  eprint = {2502.13923},
+  archiveprefix = {arXiv},
+  verified = {2026-10-24},
+  note = {Confirmed via https://arxiv.org/pdf/2502.13923},
+  url = {https://arxiv.org/pdf/2502.13923},
+}
+
+@misc{xiang2025seephys,
+  author = {Xiang, Kun and Li, Heng and Zhang, Terry Jingchen and others},
+  title = {{SeePhys}: Does Seeing Help Thinking? -- Benchmarking Vision-Based Physics Reasoning},
+  year = {2025},
+  eprint = {2505.19099},
+  archiveprefix = {arXiv},
+  verified = {2026-10-24},
+  note = {Confirmed via https://arxiv.org/abs/2505.19099v4 (preprint; peer-reviewed venue not confirmed)},
+  url = {https://arxiv.org/abs/2505.19099v4},
+}
+
+@inproceedings{rabanser2025gatekeeper,
+  author = {Rabanser, Stephan and Rauschmayr, Nathalie and Kulshrestha, Achin and Poklukar, Petra and Jitkrittum, Wittawat and Augenstein, Sean and Wang, Congchao and Tombari, Federico},
+  title = {Gatekeeper: Improving Model Cascades Through Confidence Tuning},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year = {2025},
+  eprint = {2502.19335},
+  archiveprefix = {arXiv},
+  verified = {2026-10-24},
+  note = {Confirmed via https://neurips.cc/virtual/2025/poster/116238 and https://mlanthology.org/authors/r/rauschmayr-nathalie},
+  url = {https://neurips.cc/virtual/2025/poster/116238},
+}
+
+@inproceedings{ong2025routellm,
+  author = {Ong, Isaac and Almahairi, Amjad and Wu, Vincent and Chiang, Wei-Lin and Wu, Tianhao and Gonzalez, Joseph E. and Kadous, M. Waleed and Stoica, Ion},
+  title = {{RouteLLM}: Learning to Route {LLMs} from Preference Data},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2025},
+  verified = {2026-10-24},
+  note = {Confirmed via https://proceedings.iclr.cc/paper_files/paper/2025/hash/5503a7c69d48a2f86fc00b3dc09de686-Abstract-Conference.html},
+  url = {https://proceedings.iclr.cc/paper_files/paper/2025/hash/5503a7c69d48a2f86fc00b3dc09de686-Abstract-Conference.html},
+}
+
+@article{chen2024frugalgpt,
+  author = {Chen, Lingjiao and Zaharia, Matei and Zou, James},
+  title = {{FrugalGPT}: How to Use Large Language Models While Reducing Cost and Improving Performance},
+  journal = {Transactions on Machine Learning Research},
+  year = {2024},
+  verified = {2026-10-24},
+  note = {Confirmed via https://mlanthology.org/tmlr/2024/chen2024tmlr-frugalgpt},
+  url = {https://mlanthology.org/tmlr/2024/chen2024tmlr-frugalgpt},
+}
+
+@inproceedings{mozannar2020consistent,
+  author = {Mozannar, Hussein and Sontag, David},
+  title = {Consistent Estimators for Learning to Defer to an Expert},
+  booktitle = {Proceedings of the 37th International Conference on Machine Learning},
+  series = {Proceedings of Machine Learning Research},
+  volume = {119},
+  pages = {7076--7087},
+  year = {2020},
+  verified = {2026-10-24},
+  note = {Confirmed via https://proceedings.mlr.press/v119/mozannar20b.html},
+  url = {https://proceedings.mlr.press/v119/mozannar20b.html},
+}
+
+@inproceedings{geifman2017selective,
+  author = {Geifman, Yonatan and El-Yaniv, Ran},
+  title = {Selective Classification for Deep Neural Networks},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume = {30},
+  pages = {4878--4887},
+  year = {2017},
+  verified = {2026-10-24},
+  note = {Confirmed via https://neurips.cc/virtual/2017/poster/9264 and https://mlanthology.org/neurips/2017/geifman2017neurips-selective},
+  url = {https://neurips.cc/virtual/2017/poster/9264},
+}
+
+@inproceedings{jitkrittum2023when,
+  author = {Jitkrittum, Wittawat and Gupta, Neha and Menon, Aditya Krishna and Narasimhan, Harikrishna and Rawat, Ankit Singh and Kumar, Sanjiv},
+  title = {When Does Confidence-Based Cascade Deferral Suffice?},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume = {36},
+  year = {2023},
+  verified = {2026-10-24},
+  note = {Confirmed via https://nips.cc/virtual/2023/poster/72864 and https://mlanthology.org/neurips/2023/jitkrittum2023neurips-confidencebased},
+  url = {https://nips.cc/virtual/2023/poster/72864},
+}
+
+@inproceedings{guo2017calibration,
+  author = {Guo, Chuan and Pleiss, Geoff and Sun, Yu and Weinberger, Kilian Q.},
+  title = {On Calibration of Modern Neural Networks},
+  booktitle = {Proceedings of the 34th International Conference on Machine Learning},
+  series = {Proceedings of Machine Learning Research},
+  volume = {70},
+  pages = {1321--1330},
+  year = {2017},
+  verified = {2026-10-24},
+  note = {Confirmed via https://proceedings.mlr.press/v70/guo17a.html},
+  url = {https://proceedings.mlr.press/v70/guo17a.html},
+}
+
+@incollection{platt2000probabilistic,
+  author = {Platt, John C.},
+  title = {Probabilistic Outputs for Support Vector Machines and Comparisons to Regularized Likelihood Methods},
+  booktitle = {Advances in Large Margin Classifiers},
+  editor = {Smola, Alexander J. and Bartlett, Peter and Sch{\"o}lkopf, Bernhard and Schuurmans, Dale},
+  publisher = {MIT Press},
+  address = {Cambridge, MA},
+  pages = {61--74},
+  year = {2000},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.csie.ntu.edu.tw/~cjlin/papers/plattprob.pdf and https://users.cs.fiu.edu/~sjha/class2023/Lecture7/Slides/1999PlattScaling.pdf; book: https://is.mpg.de/publications/974; chapter often cited as 1999},
+  url = {https://www.csie.ntu.edu.tw/~cjlin/papers/plattprob.pdf},
+}
+
+@article{angelopoulos2023gentle,
+  author = {Angelopoulos, Anastasios N. and Bates, Stephen},
+  title = {Conformal Prediction: A Gentle Introduction},
+  journal = {Foundations and Trends in Machine Learning},
+  year = {2023},
+  volume = {16},
+  number = {4},
+  pages = {494--591},
+  doi = {10.1561/2200000101},
+  verified = {2026-10-24},
+  note = {Confirmed via https://nowpublishers.com/article/DownloadSummary/MAL-101 and https://mlanthology.org/ftml/2023/angelopoulos2023ftml-conformal}
+}
+
+@inproceedings{angelopoulos2024conformal,
+  author = {Angelopoulos, Anastasios N. and Bates, Stephen and Fisch, Adam and Lei, Lihua and Schuster, Tal},
+  title = {Conformal Risk Control},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2024},
+  verified = {2026-10-24},
+  note = {Confirmed via https://proceedings.iclr.cc/paper_files/paper/2024/hash/f3549ef9b5ff520a7e41ff3cc306ab2b-Abstract-Conference.html},
+  url = {https://proceedings.iclr.cc/paper_files/paper/2024/hash/f3549ef9b5ff520a7e41ff3cc306ab2b-Abstract-Conference.html},
+}
+
+@article{angelopoulos2025learn,
+  author = {Angelopoulos, Anastasios N. and Bates, Stephen and Cand{\`e}s, Emmanuel J. and Jordan, Michael I. and Lei, Lihua},
+  title = {Learn then Test: Calibrating Predictive Algorithms to Achieve Risk Control},
+  journal = {The Annals of Applied Statistics},
+  year = {2025},
+  volume = {19},
+  number = {2},
+  pages = {1641--1662},
+  doi = {10.1214/24-AOAS1998},
+  verified = {2026-10-24},
+  note = {Confirmed via https://academicnewsletter.sufe.edu.cn/info/440069 and https://par.nsf.gov/biblio/10645972}
+}
+
+@article{barber2021predictive,
+  author = {Barber, Rina Foygel and Cand{\`e}s, Emmanuel J. and Ramdas, Aaditya and Tibshirani, Ryan J.},
+  title = {Predictive inference with the jackknife+},
+  journal = {The Annals of Statistics},
+  year = {2021},
+  volume = {49},
+  number = {1},
+  pages = {486--507},
+  doi = {10.1214/20-AOS1965},
+  verified = {2026-10-24},
+  note = {Confirmed via https://projecteuclid.org/euclid.aos/1611889236}
+}
+
+@book{vovk2022algorithmic,
+  author = {Vovk, Vladimir and Gammerman, Alexander and Shafer, Glenn},
+  title = {Algorithmic Learning in a Random World},
+  edition = {2},
+  publisher = {Springer},
+  address = {Cham},
+  year = {2022},
+  doi = {10.1007/978-3-031-06649-8},
+  verified = {2026-10-24},
+  note = {Confirmed via https://link.springer.com/10.1007/978-3-031-06649-8; first edition 2005, doi 10.1007/b106715}
+}
+
+% === Topic 8: Change detection (CUSUM, quickest detection) ===
+@article{page1954continuous,
+  author = {Page, E. S.},
+  title = {Continuous Inspection Schemes},
+  journal = {Biometrika},
+  year = {1954},
+  volume = {41},
+  number = {1--2},
+  pages = {100--115},
+  doi = {10.1093/biomet/41.1-2.100},
+  verified = {2026-10-24},
+  note = {Confirmed via https://academic.oup.com/biomet/issue/41/1-2}
+}
+
+@article{lorden1971procedures,
+  author = {Lorden, G.},
+  title = {Procedures for Reacting to a Change in Distribution},
+  journal = {The Annals of Mathematical Statistics},
+  year = {1971},
+  volume = {42},
+  number = {6},
+  pages = {1897--1908},
+  doi = {10.1214/aoms/1177693055},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.projecteuclid.org/euclid.aoms/1177693055}
+}
+
+@article{moustakides1986optimal,
+  author = {Moustakides, George V.},
+  title = {Optimal Stopping Times for Detecting Changes in Distributions},
+  journal = {The Annals of Statistics},
+  year = {1986},
+  volume = {14},
+  number = {4},
+  pages = {1379--1387},
+  doi = {10.1214/aos/1176350164},
+  verified = {2026-10-24},
+  note = {Confirmed via https://projecteuclid.org/journals/annals-of-statistics/volume-14/issue-4/Optimal-Stopping-Times-for-Detecting-Changes-in-Distributions/10.1214/aos/1176350164.full}
+}
+
+@article{shiryaev1963optimum,
+  author = {Shiryaev, A. N.},
+  title = {On Optimum Methods in Quickest Detection Problems},
+  journal = {Theory of Probability and Its Applications},
+  year = {1963},
+  volume = {8},
+  number = {1},
+  pages = {22--46},
+  doi = {10.1137/1108002},
+  verified = {2026-10-24},
+  note = {Confirmed via https://epubs.siam.org/doi/10.1137/1108002 and https://mathnet.ru/eng/tvp4645}
+}
+
+@book{tartakovsky2014sequential,
+  author = {Tartakovsky, Alexander and Nikiforov, Igor and Basseville, Mich{\`e}le},
+  title = {Sequential Analysis: Hypothesis Testing and Changepoint Detection},
+  series = {Monographs on Statistics and Applied Probability},
+  volume = {136},
+  publisher = {Chapman and Hall/CRC},
+  address = {Boca Raton, FL},
+  year = {2014},
+  isbn = {978-1-4398-3820-4},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.schweitzer-online.de/en/buch/Tartakovsky/Sequential-Analysis/9781439838204/A14220768/ and https://cir.nii.ac.jp/crid/1130000794058724608},
+  url = {https://www.schweitzer-online.de/en/buch/Tartakovsky/Sequential-Analysis/9781439838204/A14220768/},
+}
+
+@article{xie2021sequential,
+  author = {Xie, Liyan and Zou, Shaofeng and Xie, Yao and Veeravalli, Venugopal V.},
+  title = {Sequential (Quickest) Change Detection: Classical Results and New Directions},
+  journal = {IEEE Journal on Selected Areas in Information Theory},
+  year = {2021},
+  volume = {2},
+  number = {2},
+  pages = {494--514},
+  verified = {2026-10-24},
+  note = {Confirmed via https://experts.illinois.edu/en/publications/sequential-quickest-change-detection-classical-results-and-new-di/ and https://arxiv.org/abs/2104.04186},
+  url = {https://experts.illinois.edu/en/publications/sequential-quickest-change-detection-classical-results-and-new-di/},
+}
+
+@inproceedings{lee2023training,
+  author = {Lee, Junghwan and Xie, Yao and Cheng, Xiuyuan},
+  title = {Training Neural Networks for Sequential Change-Point Detection},
+  booktitle = {IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  year = {2023},
+  verified = {2026-10-24},
+  note = {Confirmed via https://fds.duke.edu/db/aas/stat/faculty/xiuyuan.cheng/publications/374293 and https://www2.isye.gatech.edu/~yxie77/Pub_change_point.html; extended version arXiv:2210.17312 (Neural network-based CUSUM for online change-point detection)},
+  url = {https://fds.duke.edu/db/aas/stat/faculty/xiuyuan.cheng/publications/374293},
+  todo = {ICASSP 2023 version confirmed only via author pages},
+}
+
+@article{dempster1967upper,
+  author = {Dempster, A. P.},
+  title = {Upper and Lower Probabilities Induced by a Multivalued Mapping},
+  journal = {The Annals of Mathematical Statistics},
+  year = {1967},
+  volume = {38},
+  number = {2},
+  pages = {325--339},
+  doi = {10.1214/aoms/1177698950},
+  verified = {2026-10-24},
+  note = {Confirmed via https://projecteuclid.org/euclid.aoms/1177698950},
+  todo = {DOI inferred from Project Euclid id},
+}
+
+@book{shafer1976mathematical,
+  author = {Shafer, Glenn},
+  title = {A Mathematical Theory of Evidence},
+  publisher = {Princeton University Press},
+  address = {Princeton, NJ},
+  year = {1976},
+  isbn = {978-0-691-10042-5},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.degruyterbrill.com/document/doi/10.1515/9780691214696/html and https://lib.ecu.edu/catalog-preview/catalog/95362},
+  url = {https://www.degruyterbrill.com/document/doi/10.1515/9780691214696/html},
+}
+
+@article{smets2005decision,
+  author = {Smets, Philippe},
+  title = {Decision making in the {TBM}: the necessity of the pignistic transformation},
+  journal = {International Journal of Approximate Reasoning},
+  year = {2005},
+  volume = {38},
+  number = {2},
+  pages = {133--147},
+  verified = {2026-10-24},
+  note = {Confirmed via https://difusion.ulb.ac.be/vufind/Record/ULB-DIPOT:oai:dipot.ulb.ac.be:2013/171124/TOC},
+  url = {https://difusion.ulb.ac.be/vufind/Record/ULB-DIPOT:oai:dipot.ulb.ac.be:2013/171124/TOC},
+}
+
+@article{smets2007analyzing,
+  author = {Smets, Philippe},
+  title = {Analyzing the combination of conflicting belief functions},
+  journal = {Information Fusion},
+  year = {2007},
+  volume = {8},
+  number = {4},
+  pages = {387--412},
+  verified = {2026-10-24},
+  note = {Confirmed via https://difusion.ulb.ac.be/vufind/Record/ULB-DIPOT:oai:dipot.ulb.ac.be:2013/170778/Stats and https://ibl.kb.nl/articles/0000000011375/8/4},
+  url = {https://difusion.ulb.ac.be/vufind/Record/ULB-DIPOT:oai:dipot.ulb.ac.be:2013/170778/Stats},
+}
+
+@article{yager1987dempster,
+  author = {Yager, Ronald R.},
+  title = {On the {Dempster-Shafer} framework and new combination rules},
+  journal = {Information Sciences},
+  year = {1987},
+  volume = {41},
+  number = {2},
+  pages = {93--137},
+  verified = {2026-10-24},
+  note = {Confirmed via https://search.r-project.org/CRAN/refmans/EvCombR/html/yComb.html and https://w.datalearner.com/academic/journal-papers/0020-0255/volumes-and-issues/118},
+  url = {https://search.r-project.org/CRAN/refmans/EvCombR/html/yComb.html},
+}
+
+@article{murphy2000combining,
+  author = {Murphy, Catherine K.},
+  title = {Combining belief functions when evidence conflicts},
+  journal = {Decision Support Systems},
+  year = {2000},
+  volume = {29},
+  number = {1},
+  pages = {1--9},
+  doi = {10.1016/S0167-9236(99)00084-6},
+  verified = {2026-10-24},
+  note = {Confirmed via https://www.datalearner.com/academic/journal-papers/0167-9236/volumes-and-issues/111/paper-detail/75291},
+  todo = {first name and issue filled from memory},
+}
+
+@book{smarandache2004advances,
+  editor = {Smarandache, Florentin and Dezert, Jean},
+  title = {Advances and Applications of {DSmT} for Information Fusion},
+  volume = {1},
+  publisher = {American Research Press},
+  address = {Rehoboth},
+  year = {2004},
+  verified = {2026-10-24},
+  note = {Confirmed via https://fs.unm.edu/DSmT-book1.pdf and https://digitalrepository.unm.edu/math_fsp/35},
+  url = {https://fs.unm.edu/DSmT-book1.pdf},
+}
+
+@article{tong2021evidential,
+  author = {Tong, Zheng and Xu, Philippe and Den{\oe}ux, Thierry},
+  title = {An evidential classifier based on {Dempster-Shafer} theory and deep learning},
+  journal = {Neurocomputing},
+  year = {2021},
+  volume = {450},
+  pages = {275--293},
+  verified = {2026-10-24},
+  note = {Confirmed via https://hal.archives-ouvertes.fr/hal-03219203},
+  url = {https://hal.archives-ouvertes.fr/hal-03219203},
+}
+
+@article{han2023trusted,
+  author = {Han, Zongbo and Zhang, Changqing and Fu, Huazhu and Zhou, Joey Tianyi},
+  title = {Trusted Multi-View Classification With Dynamic Evidential Fusion},
+  journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year = {2023},
+  volume = {45},
+  number = {2},
+  pages = {2551--2566},
+  doi = {10.1109/TPAMI.2022.3171983},
+  verified = {2026-10-24},
+  note = {Confirmed via https://oar.a-star.edu.sg/communities-collections/articles/18902}
+}
+
+@inproceedings{sensoy2018evidential,
+  author = {Sensoy, Murat and Kaplan, Lance and Kandemir, Melih},
+  title = {Evidential Deep Learning to Quantify Classification Uncertainty},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume = {31},
+  pages = {3179--3189},
+  year = {2018},
+  verified = {2026-10-24},
+  note = {Confirmed via https://proceedings.neurips.cc/paper/2018/hash/a981f2b708044d6fb4a71a1463242520-Abstract.html},
+  url = {https://proceedings.neurips.cc/paper/2018/hash/a981f2b708044d6fb4a71a1463242520-Abstract.html},
+}
+
+@article{davydenko2023development,
+  author = {Davydenko, Ye. O. and Shved, A. V. and Honcharova, N. V.},
+  title = {Development of technique for structuring of group expert assessments under uncertainty and inconcistancy},
+  journal = {Radio Electronics, Computer Science, Control},
+  year = {2023},
+  number = {4},
+  pages = {30--38},
+  doi = {10.15588/1607-3274-2023-4-3},
+  language = {english},
+  verified = {2026-10-24},
+  note = {Ukrainian professional journal (Radioelektronika, informatyka, upravlinnia). Confirmed via https://ric.zp.edu.ua/article/view/294290 and https://eir.zp.edu.ua/items/b4c326e5-9856-493d-8516-836b0ec8c795/full; title spelling as published; evidence theory (Shafer model) clustering},
+  todo = {published title contains the misspelling inconcistancy},
+}
+
+@article{kovalenko2022development,
+  author = {Kovalenko, I. I. and Shved, A. V. and Davydenko, Ye. O.},
+  title = {Development of mathematical models of group decision synthesis for structuring the rough data and expert knowledge},
+  journal = {Radio Electronics, Computer Science, Control},
+  year = {2022},
+  number = {1},
+  pages = {93--105},
+  doi = {10.15588/1607-3274-2022-1-11},
+  language = {english},
+  verified = {2026-10-24},
+  note = {Ukrainian professional journal. Confirmed via https://ric.zp.edu.ua/article/view/254663 and https://dspace.chmnu.edu.ua/jspui/handle/123456789/2129}
+}
+
+@article{svatiuk2020zastosuvannia,
+  author = {Svatiuk, Danylo and Svatiuk, Oksana and Belei, Oleksandr},
+  title = {Застосування згорткових нейронних мереж для безпеки розпізнавання об'єктів у відеопотоці},
+  journal = {Кібербезпека: освіта, наука, техніка (Cybersecurity: Education, Science, Technique)},
+  year = {2020},
+  volume = {4},
+  number = {8},
+  pages = {97--112},
+  doi = {10.28925/2663-4023.2020.8.97112},
+  language = {ukrainian},
+  verified = {2026-10-24},
+  note = {Confirmed via https://doaj.org/article/6784ace1b63c4afe9a848aceabf505b3; author names given in DOAJ Latin transliteration},
+  todo = {authors in Latin transliteration},
+}
+
+@article{petlytskyi2019rozrobka,
+  author = {Петлицький, В. В. and Шевченко, С. М. and Мазур, Н. П.},
+  title = {Розробка алгоритму розпізнавання рухів об'єктів за допомогою нейронної мережі для системи відеонагляду},
+  journal = {Кібербезпека: освіта, наука, техніка (Cybersecurity: Education, Science, Technique)},
+  year = {2019},
+  volume = {2},
+  number = {6},
+  pages = {105--111},
+  doi = {10.28925/2663-4023.2019.6.105111},
+  language = {ukrainian},
+  verified = {2026-10-24},
+  note = {Confirmed via https://doaj.org/article/93d4db56ac2b4dc586d57f0e512650d4, https://csecurity.kubg.edu.ua/index.php/journal/article/view/117 and https://elibrary.kubg.edu.ua/id/eprint/30507/}
+}
+
+@article{maslii2024analiz,
+  author = {Маслій, Роман and Гармаш, Володимир and Ковальчук, Петро and Кабачій, Владислав},
+  title = {Аналіз методів знаходження аномалій у зображеннях},
+  journal = {Інформаційні технології та комп'ютерна інженерія},
+  year = {2024},
+  number = {1(59)},
+  pages = {13--22},
+  doi = {10.31649/1999-9941-2024-59-1-13-22},
+  language = {ukrainian},
+  verified = {2026-10-24},
+  note = {Confirmed via https://itce.vntu.edu.ua/index.php/itce/article/view/988 and https://ir.lib.vntu.edu.ua/handle/123456789/43245; issue/pages taken from the DOI suffix}
+}
+
+@article{romanets2025vyiavlennia,
+  author = {Романець, В. О. and Маслій, Р. В.},
+  title = {Виявлення аномалій у відеопотоці трафіку транспорту засобами комп'ютерного зору та глибинного навчання},
+  journal = {Вісник Вінницького політехнічного інституту},
+  year = {2025},
+  number = {5},
+  pages = {146--155},
+  doi = {10.31649/1997-9266-2025-182-5-146-155},
+  language = {ukrainian},
+  verified = {2026-10-24},
+  note = {Confirmed via https://ir.lib.vntu.edu.ua/handle/123456789/51133?show=full and https://visnyk.vntu.edu.ua/index.php/visnyk/article/download/3348/2998/3904}
+}
+
+@article{tymoshyn2021analysis,
+  author = {Tymoshyn, Yu. and Yuzhda, Yu.},
+  title = {Analysis of features of application of neural networks for intellectual processing of video flows of technical vision systems},
+  journal = {Адаптивні системи автоматичного управління (Adaptive Systems of Automatic Control)},
+  year = {2021},
+  number = {2(39)},
+  pages = {12--19},
+  doi = {10.20535/1560-8956.39.2021.247372},
+  language = {ukrainian},
+  verified = {2026-10-24},
+  note = {Confirmed via https://doaj.org/article/0d747e8ea7814f8488b832836346cf80 and https://asac.kpi.ua/article/download/247372/244675/568001; English title as indexed in DOAJ (Ukrainian original title not verified); author transliteration not verified},
+  todo = {Ukrainian original title and author transliteration not verified},
+}
+
+@article{berezhnyi2020information,
+  author = {Berezhnyi, Andrii and Trystan, Andrii and Lavrov, Oleh},
+  title = {Information technology of automatic detection and identification of stationary objects with unmanned aerial vehicles},
+  journal = {Сучасні інформаційні системи (Advanced Information Systems)},
+  year = {2020},
+  volume = {4},
+  number = {1},
+  doi = {10.20998/2522-9052.2020.1.01},
+  language = {english},
+  verified = {2026-10-24},
+  note = {Ukrainian professional journal (NTU KhPI). Confirmed via https://doaj.org/article/3582a0863d2c4b7897f24960c54dbcdd and https://repository.kpi.kharkov.ua/items/e4da3b92-46af-418a-8319-9055f8a76784; pages not confirmed, omitted},
+  todo = {pages missing},
+}
+
+@article{kovalenko2016clustering,
+  author = {Kovalenko, I. I. and Shved, A. V.},
+  title = {Clustering of group expert estimates based on measures in the theory of evidence},
+  journal = {Naukovyi Visnyk Natsionalnoho Hirnychoho Universytetu},
+  year = {2016},
+  number = {4},
+  language = {english},
+  verified = {2026-10-24},
+  note = {Ukrainian professional journal (ISSN 2071-2227). Confirmed via https://nv.nmu.org.ua/index.php/en/archive/on-the-issues/1294-2016/contents-no-4-2016/information-technologies-systems-analysis-and-administration-2/3670-clustering-of-group-expert-estimates-based-on-measures-in-the-theory-of-evidence; page range not confirmed, omitted},
+  url = {https://nv.nmu.org.ua/index.php/en/archive/on-the-issues/1294-2016/contents-no-4-2016/information-technologies-systems-analysis-and-administration-2/3670-clustering-of-group-expert-estimates-based-on-measures-in-the-theory-of-evidence;},
+  todo = {pages missing},
+}
+
+@article{onufriienko2024recognition,
+  author = {Onufriienko, D. and Taranenko, Yu. and Oliinyk, O. and Lopatin, V.},
+  title = {Recognition of Images of Continuous Wavelet Spectra of Noisy Radio Location Signals Using a Convolutional Neural Network},
+  journal = {Cybernetics and Systems Analysis},
+  year = {2024},
+  volume = {60},
+  number = {5},
+  doi = {10.1007/s10559-024-00721-3},
+  language = {english},
+  verified = {2026-10-24},
+  note = {English translation of the Ukrainian journal Kibernetyka ta systemnyi analiz (NAS of Ukraine). Confirmed via https://dl.acm.org/doi/10.1007/s10559-024-00721-3; pages not confirmed, omitted},
+  todo = {pages missing},
+}
+
