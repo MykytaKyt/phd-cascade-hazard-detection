@@ -21,9 +21,9 @@ dependencies = [
 
 [project.optional-dependencies]
 pose = ["ultralytics>=8.1"]
-vlm = ["openai>=1.0"]
-vad = ["open_clip_torch>=2.24", "decord>=0.6"]
-dev = ["pytest>=7.0", "matplotlib>=3.7"]
+vlm = ["openai>=1.0", "pillow>=10.0"]
+vad = ["open_clip_torch>=2.24", "opencv-python>=4.8", "pillow>=10.0"]
+dev = ["pytest>=7.0", "matplotlib>=3.7", "pillow>=10.0", "opencv-python-headless>=4.8"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

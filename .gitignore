@@ -9,3 +9,4 @@ data/frames/
 *.mp4
 *.avi
 .DS_Store
+results/ch5/*.npz
