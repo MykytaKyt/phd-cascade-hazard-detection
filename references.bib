@@ -88,9 +88,9 @@
   archiveprefix = {arXiv},
   primaryclass = {cs.CV},
   verified = {2026-10-24},
-  note = {Confirmed via https://arxiv.org/abs/2303.07399 (preprint; no peer-reviewed version found)},
+  note = {Confirmed via https://arxiv.org/abs/2303.07399 (preprint; no peer-reviewed version found). Re-checked 2026-10-26: Semantic Scholar (https://www.semanticscholar.org/paper/7fc39b00981e017864ed01f9d5fdc27a1553e11a) and ADS (https://ui.adsabs.harvard.edu/abs/2023arXiv230307399J/abstract) list only the arXiv e-print, DOI 10.48550/arXiv.2303.07399},
   url = {https://arxiv.org/abs/2303.07399},
-  todo = {preprint only, no peer-reviewed version found},
+  todo = {preprint only: no peer-reviewed version exists as of 2026-10-26 (cite as arXiv technical report)},
 }
 
 @misc{bazarevsky2020blazepose,
@@ -101,9 +101,9 @@
   archiveprefix = {arXiv},
   primaryclass = {cs.CV},
   verified = {2026-10-24},
-  note = {Confirmed via https://arxiv.org/abs/2006.10204v1},
+  howpublished = {CVPR 2020 Workshop on Computer Vision for Augmented and Virtual Reality (CV4ARVR), arXiv:2006.10204},
+  note = {Confirmed via https://arxiv.org/abs/2006.10204v1. Presented at the CVPR 2020 Workshop on Computer Vision for AR/VR per https://xr.cornell.edu/workshop/2020/papers and https://www.research.google/blog/on-device-real-time-body-pose-tracking-with-mediapipe-blazepose/ (workshop paper; no proceedings pages or DOI found, so cited via arXiv)},
   url = {https://arxiv.org/abs/2006.10204v1},
-  todo = {preprint only, no peer-reviewed version found},
 }
 
 @inproceedings{lin2014microsoft,
@@ -129,10 +129,10 @@
   volume = {117},
   number = {3},
   pages = {489--501},
-  verified = {2026-10-24},
-  note = {Confirmed via https://repozytorium.ur.edu.pl/handle/item/791?show=full and https://home.agh.edu.pl/bkw/research/pdf/2014/KwolekKepski_CMBP2014.pdf (URFD dataset)},
+  doi = {10.1016/j.cmpb.2014.09.005},
+  verified = {2026-10-26},
+  note = {Confirmed via https://repozytorium.ur.edu.pl/handle/item/791?show=full and https://home.agh.edu.pl/bkw/research/pdf/2014/KwolekKepski_CMBP2014.pdf (URFD dataset); DOI confirmed via https://dlnext.acm.org/doi/10.1016/j.cmpb.2014.09.005 and https://www.sciencedirect.com/science/article/abs/pii/S0169260714003447},
   url = {https://repozytorium.ur.edu.pl/handle/item/791?show=full},
-  todo = {DOI not confirmed (expected 10.1016/j.cmpb.2014.09.005)},
 }
 
 @article{martinezvillasenor2019upfall,
@@ -169,9 +169,8 @@
   number = {4},
   pages = {041106},
   doi = {10.1117/1.JEI.22.4.041106},
-  verified = {2026-10-24},
-  note = {Confirmed via citation in https://link.springer.com/doi/10.1007/s11554-023-01377-6 and https://fitforthem.unipa.it/author:0000000000514756 (Le2i fall dataset)},
-  todo = {metadata from citing papers},
+  verified = {2026-10-26},
+  note = {Confirmed via publisher page https://www.spiedigitallibrary.org/journals/Journal-of-Electronic-Imaging/volume-22/issue-4/041106/Optimized-spatio-temporal-descriptors-for-real-time-fall-detection/10.1117/1.JEI.22.4.041106.short (authors Imen Charfi, Johel Miteran, Julien Dubois, Mohamed Atri, Rached Tourki; vol. 22, issue 4, article 041106; published 22 July 2013) and citation in https://link.springer.com/doi/10.1007/s11554-023-01377-6 (Le2i fall dataset)},
 }
 
 @techreport{auvinet2010multiple,
@@ -180,10 +179,11 @@
   institution = {DIRO, Universit{\'e} de Montr{\'e}al},
   number = {1350},
   year = {2010},
-  verified = {2026-10-24},
-  note = {Confirmed via reference lists in https://arxiv.org/pdf/1811.11815 and https://cs.uwaterloo.ca/~jhoey/rgwiki/uploads/Fall%20Detection%20With%20Multiple%20Cameras.pdf},
-  url = {https://arxiv.org/pdf/1811.11815},
-  todo = {metadata from citing papers},
+  month = jul,
+  verified = {2026-10-26},
+  note = {Confirmed via reference lists in https://arxiv.org/pdf/1811.11815 and https://cs.uwaterloo.ca/~jhoey/rgwiki/uploads/Fall%20Detection%20With%20Multiple%20Cameras.pdf; same authors, report no. 1350, DIRO, Universite de Montreal, July 2010 in https://www.sciencedirect.com/science/article/pii/S2352340922008162 and https://link.springer.com/chapter/10.1007/978-3-032-37023-5_7; dataset page (archived): https://web.archive.org/web/20250731101305/https://www.iro.umontreal.ca/~labimage/Dataset/; full first names (Edouard, Caroline, Jean, Alain, Jacqueline) consistent with DBLP and the related IEEE TITB 2011 paper https://hal.archives-ouvertes.fr/hal-00640199},
+  url = {https://web.archive.org/web/20250731101305/https://www.iro.umontreal.ca/~labimage/Dataset/},
+  todo = {technical report itself (primary source) not located; metadata consistent across several independent citing works; no DOI exists for the report},
 }
 
 @article{alam2022vision,
@@ -191,10 +191,12 @@
   title = {Vision-based human fall detection systems using deep learning: A review},
   journal = {Computers in Biology and Medicine},
   year = {2022},
-  verified = {2026-10-24},
-  note = {Confirmed via https://iris.cnr.it/handle/20.500.14243/416447 and https://arxiv.org/abs/2207.10952 (volume/article number not independently confirmed, omitted)},
+  volume = {146},
+  pages = {105626},
+  doi = {10.1016/j.compbiomed.2022.105626},
+  verified = {2026-10-26},
+  note = {Confirmed via https://iris.cnr.it/handle/20.500.14243/416447 and https://arxiv.org/abs/2207.10952; volume 146, article 105626 and DOI shown in search snippets of the CNR records https://iris.cnr.it/handle/20.500.14243/416447 and https://explore.cnr.it/resource/item/349491},
   url = {https://iris.cnr.it/handle/20.500.14243/416447},
-  todo = {volume and article number not confirmed},
 }
 
 @article{gutierrez2021comprehensive,
@@ -284,16 +286,22 @@
   note = {Confirmed via https://doaj.org/article/1d546c3edf8c468286e7d309a6e6e727}
 }
 
-@misc{schneider2025omnifall,
-  author = {Schneider, David and Marinov, Zdravko and Baur, Rafael and others},
-  title = {{OmniFall}: From Staged Through Synthetic to Wild, A Unified Multi-Domain Dataset for Robust Fall Detection},
-  year = {2025},
+@inproceedings{schneider2025omnifall,
+  author = {Schneider, David and Marinov, Zdravko and Mistol, Moritz and Zhong, Zeyun and Jaus, Alexander and D{\"u}ger, Rodi and Baur, Rafael and Sarfraz, M. Saquib and Stiefelhagen, Rainer},
+  title = {{OmniFall}: From Staged Through Synthetic to Wild, A Unified Multi-domain Dataset for Robust Fall Detection},
+  booktitle = {Computer Vision -- ECCV 2026},
+  series = {Lecture Notes in Computer Science},
+  volume = {17069},
+  pages = {112--129},
+  publisher = {Springer},
+  address = {Cham},
+  year = {2026},
+  doi = {10.1007/978-3-032-37023-5_7},
   eprint = {2505.19889},
   archiveprefix = {arXiv},
-  verified = {2026-10-24},
-  note = {Confirmed via https://arxiv.org/abs/2505.19889v1 and https://cvhci.iar.kit.edu/publications_2829.php (v1 titled "OmniFall: A Unified Staged-to-Wild Benchmark for Human Fall Detection")},
-  url = {https://arxiv.org/abs/2505.19889v1},
-  todo = {preprint only, no peer-reviewed version found},
+  verified = {2026-10-26},
+  note = {Peer-reviewed version confirmed via https://link.springer.com/chapter/10.1007/978-3-032-37023-5_7 (LNCS 17069, pp. 112-129, first online 11 Sept 2026), https://link.springer.com/book/10.1007/978-3-032-37023-5 and https://eccv.ecva.net/virtual/2026/poster/5337; full author list from https://cvhci.iar.kit.edu/publications_2829.php. Preprint https://arxiv.org/abs/2505.19889 (v1 titled "OmniFall: A Unified Staged-to-Wild Benchmark for Human Fall Detection"). Key keeps 2025 for compatibility},
+  url = {https://link.springer.com/chapter/10.1007/978-3-032-37023-5_7},
 }
 
 @article{hof2005condition,
@@ -414,12 +422,13 @@
   title = {Not only Look, but also Listen: Learning Multimodal Violence Detection under Weak Supervision},
   booktitle = {Computer Vision -- ECCV 2020},
   series = {Lecture Notes in Computer Science},
+  volume = {12375},
+  pages = {322--339},
   publisher = {Springer},
   year = {2020},
   doi = {10.1007/978-3-030-58577-8_20},
-  verified = {2026-10-24},
-  note = {Confirmed via https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123750324.pdf and https://mlanthology.org/eccv/2020/wu2020eccv-only/ (introduces XD-Violence)},
-  todo = {LNCS volume and pages missing},
+  verified = {2026-10-26},
+  note = {Confirmed via https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123750324.pdf and https://mlanthology.org/eccv/2020/wu2020eccv-only/ (introduces XD-Violence); LNCS vol. 12375, pp. 322-339 via https://link.springer.com/chapter/10.1007/978-3-030-58577-8_20 and https://dblp.org/rec/conf/eccv/Wu0SSSWY20.html},
 }
 
 @inproceedings{tian2021weakly,
@@ -808,10 +817,10 @@
   title = {Training Neural Networks for Sequential Change-Point Detection},
   booktitle = {IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
   year = {2023},
-  verified = {2026-10-24},
-  note = {Confirmed via https://fds.duke.edu/db/aas/stat/faculty/xiuyuan.cheng/publications/374293 and https://www2.isye.gatech.edu/~yxie77/Pub_change_point.html; extended version arXiv:2210.17312 (Neural network-based CUSUM for online change-point detection)},
+  doi = {10.1109/ICASSP49357.2023.10095005},
+  verified = {2026-10-26},
+  note = {Confirmed via https://fds.duke.edu/db/aas/stat/faculty/xiuyuan.cheng/publications/374293 and https://www2.isye.gatech.edu/~yxie77/Pub_change_point.html; DOI and ICASSP 2023 proceedings listing via https://scholars.duke.edu/individual/pub1610387 and https://math.duke.edu/publications/training-neural-networks-sequential-change-point-detection (author order Lee, Xie, Cheng); page range not found (IEEE Xplore unreachable); extended version arXiv:2210.17312 (Neural network-based CUSUM for online change-point detection)},
   url = {https://fds.duke.edu/db/aas/stat/faculty/xiuyuan.cheng/publications/374293},
-  todo = {ICASSP 2023 version confirmed only via author pages},
 }
 
 @article{dempster1967upper,
@@ -887,9 +896,8 @@
   number = {1},
   pages = {1--9},
   doi = {10.1016/S0167-9236(99)00084-6},
-  verified = {2026-10-24},
-  note = {Confirmed via https://www.datalearner.com/academic/journal-papers/0167-9236/volumes-and-issues/111/paper-detail/75291},
-  todo = {issue number not confirmed},
+  verified = {2026-10-26},
+  note = {Confirmed via https://www.datalearner.com/academic/journal-papers/0167-9236/volumes-and-issues/111/paper-detail/75291; issue 1 (July 2000), pp. 1-9 via https://www.researchgate.net/publication/220195978_Combining_belief_functions_when_evidence_conflicts},
 }
 
 @book{smarandache2004advances,
@@ -950,9 +958,8 @@
   pages = {30--38},
   doi = {10.15588/1607-3274-2023-4-3},
   language = {english},
-  verified = {2026-10-24},
-  note = {Ukrainian professional journal (Radioelektronika, informatyka, upravlinnia). Confirmed via https://ric.zp.edu.ua/article/view/294290 and https://eir.zp.edu.ua/items/b4c326e5-9856-493d-8516-836b0ec8c795/full; title spelling as published; evidence theory (Shafer model) clustering},
-  todo = {published title contains the misspelling inconcistancy},
+  verified = {2026-10-26},
+  note = {Ukrainian professional journal (Radioelektronika, informatyka, upravlinnia), No. 4 (67). Confirmed via https://ric.zp.edu.ua/article/view/294290 and https://eir.zp.edu.ua/items/b4c326e5-9856-493d-8516-836b0ec8c795/full; title spelling as published (the journal page title reads "...UNDER UNCERTAINTY AND INCONCISTANCY", re-checked 2026-10-26, also https://dspace.chmnu.edu.ua/jspui/handle/123456789/2182); evidence theory (Shafer model) clustering},
 }
 
 @article{kovalenko2022development,
@@ -969,7 +976,7 @@
 }
 
 @article{svatiuk2020zastosuvannia,
-  author = {Svatiuk, Danylo and Svatiuk, Oksana and Belei, Oleksandr},
+  author = {Сватюк, Д. Р. and Сватюк, О. Р. and Белей, О. І.},
   title = {Застосування згорткових нейронних мереж для безпеки розпізнавання об'єктів у відеопотоці},
   journal = {Кібербезпека: освіта, наука, техніка (Cybersecurity: Education, Science, Technique)},
   year = {2020},
@@ -978,9 +985,8 @@
   pages = {97--112},
   doi = {10.28925/2663-4023.2020.8.97112},
   language = {ukrainian},
-  verified = {2026-10-24},
-  note = {Confirmed via https://doaj.org/article/6784ace1b63c4afe9a848aceabf505b3; author names given in DOAJ Latin transliteration},
-  todo = {authors in Latin transliteration},
+  verified = {2026-10-26},
+  note = {Confirmed via https://doaj.org/article/6784ace1b63c4afe9a848aceabf505b3; Cyrillic author names (Сватюк Д. Р., Сватюк О. Р., Белей О. І.; Latin: Danylo Svatiuk, Oksana Svatiuk, Oleksandr Belei) from the journal page https://csecurity.kubg.edu.ua/index.php/journal/article/view/160},
 }
 
 @article{petlytskyi2019rozrobka,
@@ -1024,17 +1030,17 @@
 }
 
 @article{tymoshyn2021analysis,
-  author = {Tymoshyn, Yu. and Yuzhda, Yu.},
-  title = {Analysis of features of application of neural networks for intellectual processing of video flows of technical vision systems},
+  author = {Тимошин, Ю. and Южда, Ю.},
+  title = {Аналіз особливостей застосування нейронних мереж для інтелектуальної обробки відеопотоків систем технічного зору},
   journal = {Адаптивні системи автоматичного управління (Adaptive Systems of Automatic Control)},
   year = {2021},
   number = {2(39)},
   pages = {12--19},
   doi = {10.20535/1560-8956.39.2021.247372},
   language = {ukrainian},
-  verified = {2026-10-24},
-  note = {Confirmed via https://doaj.org/article/0d747e8ea7814f8488b832836346cf80 and https://asac.kpi.ua/article/download/247372/244675/568001; English title as indexed in DOAJ (Ukrainian original title not verified); author transliteration not verified},
-  todo = {Ukrainian original title and author transliteration not verified},
+  verified = {2026-10-26},
+  note = {Confirmed via https://doaj.org/article/0d747e8ea7814f8488b832836346cf80 and https://asac.kpi.ua/article/download/247372/244675/568001; English title (DOAJ): Analysis of features of application of neural networks for intellectual processing of video flows of technical vision systems; Latin: Tymoshyn, Yu., Yuzhda, Yu. Ukrainian title and Cyrillic authors (Тимошин Ю., Южда Ю.) from the reference list of https://elartu.tntu.edu.ua/bitstream/lib/51085/2/IMST_2025_Muzychuk_A-Modern_computer_vision_systems_68.pdf (cites this DOI); issue/pages also in https://ela.kpi.ua/items/5b642b73-e70f-4ca9-8390-0ff2e8369277/full},
+  todo = {Ukrainian title and Cyrillic names confirmed only via a citing reference list, not the journal page itself},
 }
 
 @article{berezhnyi2020information,
@@ -1044,11 +1050,11 @@
   year = {2020},
   volume = {4},
   number = {1},
+  pages = {5--10},
   doi = {10.20998/2522-9052.2020.1.01},
   language = {english},
-  verified = {2026-10-24},
-  note = {Ukrainian professional journal (NTU KhPI). Confirmed via https://doaj.org/article/3582a0863d2c4b7897f24960c54dbcdd and https://repository.kpi.kharkov.ua/items/e4da3b92-46af-418a-8319-9055f8a76784; pages not confirmed, omitted},
-  todo = {pages missing},
+  verified = {2026-10-26},
+  note = {Ukrainian professional journal (NTU KhPI). Confirmed via https://doaj.org/article/3582a0863d2c4b7897f24960c54dbcdd and https://repository.kpi.kharkov.ua/items/e4da3b92-46af-418a-8319-9055f8a76784; pages 5-10 from the first author's publication list in his dissertation https://er.chdtu.edu.ua/bitstream/ChSTU/1144/5/%D0%91%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D0%B8%D0%B9%20%D0%90.%D0%9E._%D0%B4%D0%B8%D1%81%D0%B5%D1%80%D1%82%D0%B0%D1%86%D1%96%D1%8F%2005.13.06.pdf},
 }
 
 @article{kovalenko2016clustering,
@@ -1058,10 +1064,10 @@
   year = {2016},
   number = {4},
   language = {english},
-  verified = {2026-10-24},
-  note = {Ukrainian professional journal (ISSN 2071-2227). Confirmed via https://nv.nmu.org.ua/index.php/en/archive/on-the-issues/1294-2016/contents-no-4-2016/information-technologies-systems-analysis-and-administration-2/3670-clustering-of-group-expert-estimates-based-on-measures-in-the-theory-of-evidence; page range not confirmed, omitted},
+  verified = {2026-10-26},
+  note = {Ukrainian professional journal (ISSN 2071-2227). Confirmed via https://nv.nmu.org.ua/index.php/en/archive/on-the-issues/1294-2016/contents-no-4-2016/information-technologies-systems-analysis-and-administration-2/3670-clustering-of-group-expert-estimates-based-on-measures-in-the-theory-of-evidence; start page 71 from the PDF running header (https://nvngu.in.ua/index.php/en/component/jdownloads/finish/62-04/8539-04-2016-kovalenko/0); citing works give issue 4 (154) and end page inconsistently as 77 or 78 (https://journals.uran.ua/eejet/article/view/133299, https://ceur-ws.org/Vol-2845/Paper_15.pdf), so pages omitted},
   url = {https://nv.nmu.org.ua/index.php/en/archive/on-the-issues/1294-2016/contents-no-4-2016/information-technologies-systems-analysis-and-administration-2/3670-clustering-of-group-expert-estimates-based-on-measures-in-the-theory-of-evidence;},
-  todo = {pages missing},
+  todo = {end page unresolved (starts p. 71; 71--77 vs 71--78 in citing works)},
 }
 
 @article{onufriienko2024recognition,
@@ -1071,11 +1077,11 @@
   year = {2024},
   volume = {60},
   number = {5},
+  pages = {834--844},
   doi = {10.1007/s10559-024-00721-3},
   language = {english},
-  verified = {2026-10-24},
-  note = {English translation of the Ukrainian journal Kibernetyka ta systemnyi analiz (NAS of Ukraine). Confirmed via https://dl.acm.org/doi/10.1007/s10559-024-00721-3; pages not confirmed, omitted},
-  todo = {pages missing},
+  verified = {2026-10-26},
+  note = {English translation of the Ukrainian journal Kibernetyka ta systemnyi analiz (NAS of Ukraine). Confirmed via https://dl.acm.org/doi/10.1007/s10559-024-00721-3 and https://link.springer.com/article/10.1007/s10559-024-00721-3 (vol. 60, issue 5, pp. 834-844, published 28 Sept 2024); one citing work gives 174-183, presumably the pagination of the Ukrainian original},
 }
 
 % === Topic 10 (continued): Ukrainian professional journals ===
@@ -1090,7 +1096,7 @@
   language = {english},
   verified = {2026-10-24},
   note = {Ukrainian professional journal (Radioelektronika, informatyka, upravlinnia); authors from NURE (Kharkiv). Confirmed via https://ric.zp.edu.ua/article/view/283456 and https://eir.zp.edu.ua/handle/123456789/26484; compares OpenPose, PoseNet and BlazePose for real-time pose estimation and pose matching},
-  todo = {publication language (English vs Ukrainian full text) not verified},
+  todo = {publication language (English vs Ukrainian full text) not verified: search snippets show English title/abstract and Ukrainian text in the PDF (https://ric.zp.edu.ua/article/download/283456/277591/653274) but not the language of the body; check the PDF},
 }
 
 @article{bilous2026deep,
@@ -1099,11 +1105,11 @@
   journal = {Radio Electronics, Computer Science, Control},
   year = {2026},
   number = {1},
+  pages = {29--37},
   doi = {10.15588/1607-3274-2026-1-3},
   language = {english},
-  verified = {2026-10-24},
-  note = {Ukrainian professional journal; NURE authors. Confirmed via https://ric.zp.edu.ua/article/view/352436 and https://ric.zp.edu.ua/article/download/352436/339221/817192; YOLO11 detection + graph neural network with spatio-temporal attention for human trajectory prediction},
-  todo = {pages not confirmed},
+  verified = {2026-10-26},
+  note = {Ukrainian professional journal; NURE authors. Confirmed via https://ric.zp.edu.ua/article/view/352436 and https://ric.zp.edu.ua/article/download/352436/339221/817192; pages 29-37 from the issue table of contents https://ric.zp.edu.ua/issue/view/20440 (published 2026-03-27); YOLO11 detection + graph neural network with spatio-temporal attention for human trajectory prediction},
 }
 
 @article{pysarchuk2025method,
@@ -1117,7 +1123,7 @@
   language = {english},
   verified = {2026-10-24},
   note = {Ukrainian professional journal. Confirmed via https://ric.zp.edu.ua/article/view/339011 and https://eir.zp.edu.ua/handle/123456789/25703; moving-window anomaly detection with optimised parameters for time series},
-  todo = {publication language not verified; title as given in English index},
+  todo = {publication language not verified (journal page and repository give English title and Ukrainian/English abstracts; body language not visible in search results); title as given in English index},
 }
 
 @article{pysarchuk2023algorithms,
@@ -1134,16 +1140,16 @@
 }
 
 @article{byzkrovnyi2025models,
-  author = {Бизкровний, О. and Смеляков, К.},
-  title = {Models of the classifier of prerequisites for the occurrence of road accidents to predict dangerous situations at intersections},
+  author = {Бизкровний, Олександр М. and Смеляков, Кирило С.},
+  title = {Моделі класифікатора передумов виникнення ДТП для передбачення небезпечних ситуацій на перехрестях},
   journal = {Сучасний стан наукових досліджень та технологій в промисловості (Innovative Technologies and Scientific Solutions for Industries)},
   year = {2025},
   number = {2(32)},
   doi = {10.30837/2522-9818.2025.2.177},
   language = {ukrainian},
-  verified = {2026-10-24},
-  note = {NURE journal; NURE authors. Confirmed via https://journals.uran.ua/itssi/article/view/334633 and https://journals.uran.ua/itssi/article/view/334633/323594; computer-vision (YOLO, Detectron2) classification of hazard prerequisites at intersections; English title as indexed on the journal site},
-  todo = {exact Ukrainian title not verified (English title used); page range not confirmed (DOI suffix suggests start page 177); author first names not confirmed},
+  verified = {2026-10-26},
+  note = {NURE journal; NURE authors. Confirmed via https://journals.uran.ua/itssi/article/view/334633 and https://journals.uran.ua/itssi/article/view/334633/323594; computer-vision (YOLO, Detectron2) classification of hazard prerequisites at intersections. Ukrainian title and initials (Бизкровний О. М., Смеляков К. С.) from the article PDF https://journals.uran.ua/itssi/article/view/334633/323594 and https://www.researchgate.net/publication/393490822; first names Oleksandr Byzkrovnyi and Kyrylo Smelyakov per https://journals.uran.ua/itssi/article/view/334633; English title: Models of the classifier of prerequisites for the occurrence of road accidents to predict dangerous situations at intersections; start page 177 per DOI and PDF header},
+  todo = {end page not confirmed (article starts p. 177)},
 }
 
 @article{gorokhovatskyi2025reducing,
@@ -1198,19 +1204,20 @@
   language = {ukrainian},
   verified = {2026-10-24},
   note = {Ukrainian professional journal (Odesa Polytechnic National University). Confirmed via https://eltecs.op.edu.ua/index.php/journal/article/download/3301/1197/ (title, authors, issue and DOI from the article PDF as shown in search snippets); review of 2D/3D human pose estimation for video surveillance},
-  todo = {page range not confirmed; DOI taken from article PDF snippet, not independently resolved},
+  todo = {page range not confirmed; DOI taken from article PDF snippet, not independently resolved (re-searched 2026-10-26: authors/title re-confirmed from the PDF, but no index page shows pages or the DOI)},
 }
 
 @article{danchenko2023metod,
-  author = {Danchenko, O. B. and Broyda, Yu. I.},
+  author = {Данченко, О. Б. and Бройде, Ю. І.},
   title = {Метод визначення типу фізичної вправи за послідовністю поз людини},
   journal = {Управління розвитком складних систем (Management of Development of Complex Systems)},
   year = {2023},
   number = {56},
+  pages = {56--63},
   language = {ukrainian},
-  verified = {2026-10-24},
-  note = {Ukrainian professional journal (KNUBA, Kyiv). Confirmed via https://urss.knuba.edu.ua/ua/node/1725 and https://urss.knuba.edu.ua/annotation/1725 (full text https://urss.knuba.edu.ua/files/zbirnyk-56/56-63.pdf); English title: Methods for determining the type of exercise by the sequence of human poses; state machine over pose-estimation output},
-  todo = {authors given in Latin transliteration (Cyrillic spelling of second author, Бройда vs Бройде, not verified); journal page lists publication date 14.02.2024 for issue 56 - year 2023 as per issue, verify; pages and DOI not confirmed},
+  verified = {2026-10-26},
+  note = {Ukrainian professional journal (KNUBA, Kyiv). Confirmed via https://urss.knuba.edu.ua/ua/node/1725 and https://urss.knuba.edu.ua/annotation/1725 (full text https://urss.knuba.edu.ua/files/zbirnyk-56/56-63.pdf); English title: Methods for determining the type of exercise by the sequence of human poses; state machine over pose-estimation output. Authors (Данченко Олена Борисівна; Бройде Юлій Ігорович, postgraduate, Cherkasy State Technological University) from the article PDF; journal listing transliterates as Broyda J. I. Year 2023, issue 56, pp. 56-63 per the first author's publication list https://knsa.chdtu.edu.ua/danchenko-olena-borisivna},
+  todo = {DOI not confirmed (other articles of the issue use 10.32347/2412-9933.2023.56.<pages>, so 10.32347/2412-9933.2023.56.56-63 is likely but unverified)},
   url = {https://urss.knuba.edu.ua/ua/node/1725},
 }
 
@@ -1219,15 +1226,18 @@
   title = {Метод виявлення зовнішніх проявів насильства у відеопотоці нейромережевими засобами},
   journal = {Вісник Хмельницького національного університету. Технічні науки (Herald of Khmelnytskyi National University. Technical Sciences)},
   year = {2023},
+  volume = {327},
+  number = {5(2)},
+  pages = {82--87},
   language = {ukrainian},
-  verified = {2026-10-24},
-  note = {Ukrainian professional journal. Confirmed via https://elar.khmnu.edu.ua/handle/123456789/15660 and https://heraldts.khmnu.edu.ua/index.php/heraldts/article/download/414/418/1316; CNN features + SVM classifier for real-time violence detection in video},
-  todo = {volume/issue, pages and DOI not confirmed; author order taken from the ELAR record},
+  verified = {2026-10-26},
+  note = {Ukrainian professional journal. Confirmed via https://elar.khmnu.edu.ua/handle/123456789/15660 and https://heraldts.khmnu.edu.ua/index.php/heraldts/article/download/414/418/1316; CNN features + SVM classifier for real-time violence detection in video. Vol. 327, No. 5(2) (published 31.10.2023), pp. 82-87 per the journal's 2023 index (https://journals.khnu.km.ua/vestnik/?m=2023) as shown in search results; one other listing gives issue No. 6, 2023},
+  todo = {DOI not confirmed (articles of this issue use 10.31891/2307-5732-2023-327-5-<pages>, so 10.31891/2307-5732-2023-327-5-82-87 is likely but unverified); volume/issue/pages from a single search summary, verify on the PDF},
   url = {https://elar.khmnu.edu.ua/handle/123456789/15660},
 }
 
 @article{romanets2025detection,
-  author = {Романець, В. and Бісікало, О.},
+  author = {Романець, Владислав and Бісікало, Олег},
   title = {Виявлення об'єктів дорожнього руху з камер відеоспостереження},
   journal = {Вісник Хмельницького національного університету. Технічні науки (Herald of Khmelnytskyi National University. Technical Sciences)},
   year = {2025},
@@ -1235,9 +1245,9 @@
   number = {4},
   pages = {491--497},
   language = {ukrainian},
-  verified = {2026-10-24},
-  note = {Ukrainian professional journal. Confirmed via https://ir.lib.vntu.edu.ua/handle/123456789/51086 and https://heraldts.khmnu.edu.ua/index.php/heraldts/article/download/1983/1923/6545; YOLOv8-nano optimisation for detecting road objects in CCTV video},
-  todo = {DOI not confirmed; author initials only; one search summary did not repeat the author names},
+  verified = {2026-10-26},
+  note = {Ukrainian professional journal. Confirmed via https://ir.lib.vntu.edu.ua/handle/123456789/51086 and https://heraldts.khmnu.edu.ua/index.php/heraldts/article/download/1983/1923/6545; YOLOv8-nano optimisation for detecting road objects in CCTV video. Authors Vladyslav Romanets and Oleg Bisikalo (VNTU), vol. 355, No. 4, pp. 491-497, per https://ir.lib.vntu.edu.ua/handle/123456789/51086?show=full and https://heraldts.khmnu.edu.ua/index.php/heraldts/article/view/1983},
+  todo = {DOI not confirmed (not shown in any search result)},
   url = {https://ir.lib.vntu.edu.ua/handle/123456789/51086},
 }
 
