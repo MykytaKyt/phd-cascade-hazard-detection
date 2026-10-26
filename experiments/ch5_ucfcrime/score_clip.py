@@ -28,13 +28,9 @@ import pandas as pd
 import torch
 from PIL import Image
 
-from thesis.vad.ucf import CLASSES, parse_annotations, prompts
+from thesis.vad.ucf import CLASSES, find_videos, parse_annotations, prompts
 
 ROOT = Path(__file__).resolve().parents[2]
-
-
-def find_videos(videos_dir: Path) -> dict[str, Path]:
-    return {p.name: p for p in videos_dir.rglob("*.mp4")}
 
 
 def sample_frames(path: Path, stride: int):

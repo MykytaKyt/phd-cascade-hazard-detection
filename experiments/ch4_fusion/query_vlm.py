@@ -12,6 +12,9 @@ Usage:
     python experiments/ch4_fusion/query_vlm.py --list-models
     python experiments/ch4_fusion/query_vlm.py --model <id from --list-models> --kind event
     python experiments/ch4_fusion/query_vlm.py --model <id> --kind frame
+    python experiments/ch4_fusion/query_vlm.py --model <id> --kind ucf_segment \
+        --requests results/vlm/ucf_requests.jsonl --out results/vlm/ucf_responses.jsonl \
+        --videos-dir /path/to/UCF-Crime
 """
 import argparse
 import json
@@ -19,7 +22,8 @@ import time
 from pathlib import Path
 
 from thesis.kinematic.dataset import frame_number, list_sequence_frames
-from thesis.vlm.client import PROMPT_CLIP, PROMPT_FRAME, VLMClient, compose_grid
+from thesis.vad.ucf import CLASSES, find_videos, read_frames
+from thesis.vlm.client import PROMPT_CLIP, PROMPT_FRAME, PROMPT_UCF_CLIP, VLMClient, compose_grid
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -35,7 +39,15 @@ def answered(path: Path) -> set[str]:
         return {json.loads(line)["id"] for line in f if line.strip() and "error" not in json.loads(line)}
 
 
-def run(requests: list[dict], client, frames_dir: Path, out_path: Path, fps: float = 30.0) -> None:
+def build_ucf(req: dict, videos: dict[str, Path], fps: float = 30.0):
+    frames = read_frames(videos[req["video"]], req["frames"])
+    dt = (req["frames"][1] - req["frames"][0]) / fps if len(req["frames"]) > 1 else 0.0
+    prompt = PROMPT_UCF_CLIP.format(n=len(frames), dt=dt, categories=", ".join(CLASSES))
+    return compose_grid(frames), prompt
+
+
+def run(requests: list[dict], client, frames_dir: Path, out_path: Path, fps: float = 30.0,
+        videos: dict[str, Path] | None = None) -> None:
     done = answered(out_path)
     todo = [r for r in requests if r["id"] not in done]
     print(f"{len(requests)} requests, {len(done)} already answered, {len(todo)} to go")
@@ -43,19 +55,24 @@ def run(requests: list[dict], client, frames_dir: Path, out_path: Path, fps: flo
     t0 = time.time()
     with open(out_path, "a") as out:
         for k, req in enumerate(todo, 1):
-            paths = cache.setdefault(req["seq"], frame_paths(frames_dir, req["seq"]))
             rec = dict(req)
             try:
-                files = [paths[f] for f in req["frames"]]
-                if len(files) > 1:
-                    dt = (req["frames"][1] - req["frames"][0]) / fps
-                    image, prompt = compose_grid(files), PROMPT_CLIP.format(n=len(files), dt=dt)
+                if "video" in req:
+                    image, prompt = build_ucf(req, videos or {}, fps)
                 else:
-                    image, prompt = compose_grid(files, tile_width=640, columns=1), PROMPT_FRAME
+                    paths = cache.setdefault(req["seq"], frame_paths(frames_dir, req["seq"]))
+                    files = [paths[f] for f in req["frames"]]
+                    if len(files) > 1:
+                        dt = (req["frames"][1] - req["frames"][0]) / fps
+                        image, prompt = compose_grid(files), PROMPT_CLIP.format(n=len(files), dt=dt)
+                    else:
+                        image, prompt = compose_grid(files, tile_width=640, columns=1), PROMPT_FRAME
                 start = time.time()
                 j = client.judge(image, prompt)
                 rec.update(p_anomaly=j.p_anomaly, uncertainty=j.uncertainty, reason=j.reason, raw=j.raw,
                            latency_s=round(time.time() - start, 3))
+                if j.event:
+                    rec["event"] = j.event
             except Exception as e:  # keep going; failed requests are retried on the next run
                 rec["error"] = f"{type(e).__name__}: {e}"
             out.write(json.dumps(rec, ensure_ascii=False) + "\n")
@@ -72,7 +89,8 @@ def main():
     parser.add_argument("--frames-dir", default=ROOT / "data" / "frames")
     parser.add_argument("--base-url", default="http://localhost:1234/v1")
     parser.add_argument("--model", default="")
-    parser.add_argument("--kind", choices=["event", "frame", "all"], default="event")
+    parser.add_argument("--kind", choices=["event", "frame", "ucf_segment", "all"], default="event")
+    parser.add_argument("--videos-dir", default=None, help="UCF-Crime videos (for --kind ucf_segment)")
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--list-models", action="store_true")
     args = parser.parse_args()
@@ -89,7 +107,8 @@ def main():
     if args.kind != "all":
         requests = [r for r in requests if r["kind"] == args.kind]
     requests = requests[: args.limit] if args.limit else requests
-    run(requests, client, Path(args.frames_dir), Path(args.out))
+    videos = find_videos(args.videos_dir) if args.videos_dir else None
+    run(requests, client, Path(args.frames_dir), Path(args.out), videos=videos)
     print(f"Responses in {args.out}; send this file back for the analysis.")
 
 

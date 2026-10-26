@@ -36,17 +36,29 @@ PROMPT_CLIP = (
 )
 
 
+PROMPT_UCF_CLIP = (
+    "The image shows {n} frames from a surveillance camera in temporal order, left to right, "
+    "top to bottom, {dt:.2f} s apart. Does the scene show a dangerous event? Choose the single best "
+    "category from: {categories}. Respond with strict JSON only: "
+    '{{"event": "<category>", "p_anomaly": <0..1>, "uncertainty": <0..1>, '
+    '"reason": "<one short sentence>"}}. p_anomaly is your probability that a dangerous event '
+    "(any category except Normal) is happening; uncertainty is your own uncertainty about the "
+    "judgement (0 = certain, 1 = a coin flip)."
+)
+
+
 @dataclass
 class Judgement:
     p_anomaly: float
     uncertainty: float
     reason: str
     raw: str
+    event: str = ""
 
 
-def compose_grid(paths: list[str], tile_width: int = 320, columns: int = 3) -> Image.Image:
-    """Tile frames left-to-right, top-to-bottom at a common width."""
-    images = [Image.open(p).convert("RGB") for p in paths]
+def compose_grid(frames: list, tile_width: int = 320, columns: int = 3) -> Image.Image:
+    """Tile frames (file paths or PIL images) left-to-right, top-to-bottom at a common width."""
+    images = [f.convert("RGB") if isinstance(f, Image.Image) else Image.open(f).convert("RGB") for f in frames]
     w0, h0 = images[0].size
     tile_h = round(tile_width * h0 / w0)
     images = [im.resize((tile_width, tile_h)) for im in images]
@@ -75,7 +87,7 @@ def parse_judgement(raw: str) -> Judgement:
     p, u = float(data["p_anomaly"]), float(unc)
     if not (0 <= p <= 1 and 0 <= u <= 1):
         raise ValueError(f"values out of [0, 1]: {data}")
-    return Judgement(p, u, str(data.get("reason", "")), raw)
+    return Judgement(p, u, str(data.get("reason", "")), raw, str(data.get("event", "")))
 
 
 class VLMClient:

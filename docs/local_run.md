@@ -66,6 +66,20 @@ python experiments/ch5_ucfcrime/score_clip.py \
 
 Результат — `results/ch5/clip_scores.parquet` (у git) і `results/ch5/clip_embeddings.npz` (великий, у git не йде).
 
+Далі (CPU, можна і тут, і локально) — нульовий рівень, конформна маршрутизація і запити до VLM:
+
+```bash
+python experiments/ch5_ucfcrime/run_zeroshot.py
+```
+
+і перевірка VLM для маршрутизованих сегментів (кліп із 6 кадрів, запит із переліком 14 категорій):
+
+```bash
+python experiments/ch4_fusion/query_vlm.py --model <id> --kind ucf_segment \
+    --requests results/vlm/ucf_requests.jsonl --out results/vlm/ucf_responses.jsonl \
+    --videos-dir /path/to/UCF-Crime
+```
+
 ## Що повернути
 
 Закомітити й запушити (або надіслати файлами):
@@ -73,7 +87,8 @@ python experiments/ch5_ucfcrime/score_clip.py \
 - `results/vlm/urfd_responses.jsonl`
 - `data/features_kp.parquet`
 - `results/ch5/clip_scores.parquet`
+- `results/vlm/ucf_responses.jsonl` (якщо дійшли до кроку з VLM для UCF-Crime)
 
 Далі на CPU: `experiments/ch4_fusion/analyze_vlm.py` (злиття свідчень, рівень події і кадру),
 `experiments/ch3_kinematic/run_event.py --features data/features_kp.parquet --feature-set xcom` (XCoM),
-аналіз UCF-Crime і запити VLM для розділу 5 (будуються за `clip_scores.parquet`).
+`experiments/ch5_ucfcrime/run_zeroshot.py` і `experiments/ch5_ucfcrime/analyze_vlm.py` (розділ 5).

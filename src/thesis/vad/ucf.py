@@ -74,5 +74,27 @@ def parse_annotations(path: str | Path) -> list[VideoAnnotation]:
     return out
 
 
+def find_videos(videos_dir: str | Path) -> dict[str, Path]:
+    """Map video file name -> path, searching recursively."""
+    return {p.name: p for p in Path(videos_dir).rglob("*.mp4")}
+
+
+def read_frames(path: str | Path, indices: list[int]):
+    """PIL images of the given frame indices of a video (seeking by index)."""
+    import cv2
+    from PIL import Image
+
+    cap = cv2.VideoCapture(str(path))
+    out = []
+    for i in indices:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, int(i))
+        ok, frame = cap.read()
+        if not ok:
+            raise ValueError(f"cannot read frame {i} of {path}")
+        out.append(Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)))
+    cap.release()
+    return out
+
+
 def prompts() -> dict[str, list[str]]:
     return {c: [t.format(DESCRIPTIONS[c]) for t in TEMPLATES] for c in CLASSES}
