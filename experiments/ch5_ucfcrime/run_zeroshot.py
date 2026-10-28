@@ -4,12 +4,14 @@
 For several random calibration/evaluation splits of the test videos (20 % / 80 %,
 stratified anomalous/normal):
   - frame-level ROC AUC of the zero-shot anomaly score 1 - P(Normal);
-  - temperature calibration of the anomaly logit on the calibration videos, ECE;
+  - Platt calibration of the anomaly logit on the calibration videos, ECE (temperature
+    scaling cannot correct the shift of 1 - P(Normal) over 13 anomaly prompts vs 1 normal);
   - normal-side routing threshold tau_N by conformal risk control on the calibration
     videos (per-video miss fraction), evaluated on the evaluation videos, compared
     with the plug-in choice; tau_A = 1/2;
   - text-query retrieval (AP, precision@K per class) on all videos.
-Also builds the VLM requests for the routed segments of split 0.
+Also builds the VLM requests for the routed segments of split 0 (segments capped at 8
+sampled frames, the most uncertain ones first, at most --max-requests).
 
 Writes results/ch5/zeroshot.json and results/vlm/ucf_requests.jsonl.
 
@@ -23,7 +25,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from thesis.routing.calibration import calibrate, ece, fit_temperature
+from thesis.routing.calibration import calibrate_platt, ece, fit_platt
 from thesis.routing.conformal import crc_threshold, empirical_threshold, sequence_miss_fraction
 from thesis.vad.analysis import (
     anomaly_logit,
@@ -46,9 +48,9 @@ def run(df: pd.DataFrame, alphas, n_splits: int, cal_fraction: float):
     for split in range(n_splits):
         cal_v, eval_v = split_videos(df, cal_fraction, np.random.default_rng(split))
         cal, ev = df["video"].isin(cal_v).to_numpy(), df["video"].isin(eval_v).to_numpy()
-        t = fit_temperature(z[cal], y[cal])
-        p = calibrate(z, t)
-        base = dict(split=split, temperature=t, auc=frame_auc(df[ev], z[ev]),
+        a, b = fit_platt(z[cal], y[cal])
+        p = calibrate_platt(z, a, b)
+        base = dict(split=split, platt_a=a, platt_b=b, auc=frame_auc(df[ev], z[ev]),
                     ece_raw=ece(1 / (1 + np.exp(-z[ev])), y[ev]), ece_cal=ece(p[ev], y[ev]),
                     n_cal_anomalous=int(df[cal].loc[df["label"] == 1, "video"].nunique()))
         cal_pos = positive_probs_by_video(df[cal], p[cal])
@@ -73,13 +75,21 @@ def run(df: pd.DataFrame, alphas, n_splits: int, cal_fraction: float):
     return pd.DataFrame(rows), split0
 
 
-def build_requests(ev: pd.DataFrame, p: np.ndarray, tau_n: float, tau_a: float, max_requests: int):
+def build_requests(ev: pd.DataFrame, p: np.ndarray, tau_n: float, tau_a: float, max_requests: int,
+                   max_len: int = 8, min_span: int = 80):
+    """One clip request per routed segment; segments are capped at `max_len` sampled
+    frames and widened to at least `min_span` video frames; the most uncertain
+    segments (mean p closest to 1/2) are kept within the budget."""
     routed = (p > tau_n) & (p < 1 - tau_a)
-    segs = routed_segments(ev, routed)
-    segs = segs.sort_values("n_sampled", ascending=False).head(max_requests)
+    segs = routed_segments(ev, routed, max_len=max_len, p=p)
+    segs = segs.assign(uncertainty=(segs["mean_p"] - 0.5).abs()).sort_values("uncertainty").head(max_requests)
     reqs = []
     for s in segs.itertuples():
-        frames = segment_clip_frames(s.start, s.end)
+        start, end = s.start, s.end
+        if end - start < min_span:
+            mid = (start + end) / 2
+            start, end = max(0, int(mid - min_span / 2)), int(mid + min_span / 2)
+        frames = segment_clip_frames(start, end)
         rid = f"{s.video}:{s.start}-{s.end}:clip6"
         reqs.append(dict(id=rid, video=s.video, frames=frames, start=s.start, end=s.end,
                          variant="clip6", kind="ucf_segment"))
@@ -93,7 +103,7 @@ def main():
     parser.add_argument("--splits", type=int, default=5)
     parser.add_argument("--cal-fraction", type=float, default=0.2)
     parser.add_argument("--tau-a", type=float, default=0.3)
-    parser.add_argument("--max-requests", type=int, default=3000)
+    parser.add_argument("--max-requests", type=int, default=1000)
     parser.add_argument("--out", default=ROOT / "results" / "ch5" / "zeroshot.json")
     parser.add_argument("--requests-out", default=ROOT / "results" / "vlm" / "ucf_requests.jsonl")
     args = parser.parse_args()

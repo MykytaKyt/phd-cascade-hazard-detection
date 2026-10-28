@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import numpy as np
-from scipy.optimize import minimize_scalar
+from scipy.optimize import minimize, minimize_scalar
 from scipy.special import expit
 
 
@@ -20,6 +20,26 @@ def fit_temperature(logits: np.ndarray, y: np.ndarray, bounds=(0.05, 20.0)) -> f
 
 def calibrate(logits: np.ndarray, temperature: float) -> np.ndarray:
     return expit(logits / temperature)
+
+
+def fit_platt(logits: np.ndarray, y: np.ndarray) -> tuple[float, float]:
+    """Platt scaling: (a, b) minimising the NLL of sigmoid(a * logits + b). Unlike
+    temperature scaling it also corrects a shift of the logits (a prior mismatch),
+    at the price of moving the decision point p = 1/2."""
+    z = np.asarray(logits, dtype=np.float64)
+    y = np.asarray(y, dtype=np.float64)
+
+    def loss(params):
+        a, b = params
+        u = a * z + b
+        return float(np.mean(np.logaddexp(0.0, u) - y * u))
+
+    res = minimize(loss, x0=np.array([1.0, 0.0]), method="L-BFGS-B")
+    return float(res.x[0]), float(res.x[1])
+
+
+def calibrate_platt(logits: np.ndarray, a: float, b: float) -> np.ndarray:
+    return expit(a * np.asarray(logits, dtype=np.float64) + b)
 
 
 def ece(p: np.ndarray, y: np.ndarray, n_bins: int = 15) -> float:

@@ -68,27 +68,33 @@ def retrieval_metrics(df: pd.DataFrame, ks=(10, 50, 100)) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def routed_segments(df: pd.DataFrame, routed: np.ndarray, max_gap: int = 1) -> pd.DataFrame:
-    """Group consecutive routed sampled frames of a video into segments
-    (gaps of at most `max_gap` sampled frames are bridged)."""
-    d = df.assign(routed=routed).sort_values(["video", "frame"])
+def routed_segments(df: pd.DataFrame, routed: np.ndarray, max_gap: int = 1, max_len: int | None = None,
+                    p: np.ndarray | None = None) -> pd.DataFrame:
+    """Group consecutive routed sampled frames of a video into segments (gaps of at
+    most `max_gap` sampled frames are bridged); segments longer than `max_len`
+    sampled frames are split into consecutive chunks. If `p` is given, the mean
+    anomaly probability of the routed frames of each segment is reported."""
+    d = df.assign(routed=routed, p=np.nan if p is None else p).sort_values(["video", "frame"])
     rows = []
     for video, g in d.groupby("video", sort=True):
-        frames = g["frame"].to_numpy()
-        r = g["routed"].to_numpy()
-        idx = np.flatnonzero(r)
+        frames, probs = g["frame"].to_numpy(), g["p"].to_numpy()
+        idx = np.flatnonzero(g["routed"].to_numpy())
         if not len(idx):
             continue
-        start = prev = idx[0]
-        for i in list(idx[1:]) + [None]:
-            if i is not None and i - prev <= max_gap + 1:
-                prev = i
-                continue
-            rows.append(dict(video=video, start=int(frames[start]), end=int(frames[prev]),
-                             n_sampled=int(prev - start + 1)))
-            if i is not None:
-                start = prev = i
-    return pd.DataFrame(rows, columns=["video", "start", "end", "n_sampled"])
+        runs, start = [], 0
+        for k in range(1, len(idx) + 1):
+            if k == len(idx) or idx[k] - idx[k - 1] > max_gap + 1:
+                runs.append(idx[start:k])
+                start = k
+        for run in runs:
+            lo, hi = run[0], run[-1]
+            step = max_len or (hi - lo + 1)
+            for c0 in range(lo, hi + 1, step):
+                c1 = min(c0 + step - 1, hi)
+                members = run[(run >= c0) & (run <= c1)]
+                rows.append(dict(video=video, start=int(frames[c0]), end=int(frames[c1]),
+                                 n_sampled=int(c1 - c0 + 1), mean_p=float(np.mean(probs[members]))))
+    return pd.DataFrame(rows, columns=["video", "start", "end", "n_sampled", "mean_p"])
 
 
 def segment_clip_frames(start: int, end: int, n: int = 6) -> list[int]:

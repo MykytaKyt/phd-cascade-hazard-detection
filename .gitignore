@@ -10,3 +10,5 @@ data/frames/
 *.avi
 .DS_Store
 results/ch5/*.npz
+.idea/
+logs/

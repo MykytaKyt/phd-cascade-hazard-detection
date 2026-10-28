@@ -30,7 +30,7 @@ from scipy.special import softmax
 from sklearn.metrics import roc_auc_score
 
 from thesis.fusion.dst import dempster, pignistic, yager
-from thesis.routing.calibration import calibrate, fit_temperature
+from thesis.routing.calibration import calibrate_platt, fit_platt
 from thesis.vad.analysis import LOGIT_SCALE, anomaly_logit, split_videos
 from thesis.vad.ucf import ANOMALY_CLASSES, CLASSES
 
@@ -79,11 +79,12 @@ def analyze(df: pd.DataFrame, requests: list[dict], responses: dict, cal_fractio
     y = df["label"].to_numpy()
     cal_v, eval_v = split_videos(df, cal_fraction, np.random.default_rng(0))
     cal = df["video"].isin(cal_v).to_numpy()
-    t = fit_temperature(z[cal], y[cal])
+    a, b = fit_platt(z[cal], y[cal])
     ev = df[~cal].reset_index(drop=True)
-    p = calibrate(z[~cal], t)
-    sims = ev[[f"sim_{c}" for c in CLASSES]].to_numpy(dtype=np.float64)
-    q = softmax(LOGIT_SCALE * sims / t, axis=1)
+    p = calibrate_platt(z[~cal], a, b)
+    # class distribution consistent with p: anomaly classes share p by the zero-shot softmax
+    sims = ev[[f"sim_{c}" for c in ANOMALY_CLASSES]].to_numpy(dtype=np.float64)
+    q = np.column_stack([softmax(LOGIT_SCALE * sims, axis=1) * p[:, None], 1.0 - p])
     y_ev = ev["label"].to_numpy()
 
     seg_of = np.full(len(ev), -1)

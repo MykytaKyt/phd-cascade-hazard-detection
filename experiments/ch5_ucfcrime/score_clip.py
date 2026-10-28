@@ -94,8 +94,10 @@ def main():
 
     import open_clip
 
+    # OpenAI CLIP weights were trained with QuickGELU; open_clip's plain configs use GELU.
+    quick_gelu = args.pretrained == "openai" and not args.model.endswith("-quickgelu")
     model, _, preprocess = open_clip.create_model_and_transforms(args.model, pretrained=args.pretrained,
-                                                                 device=args.device)
+                                                                 device=args.device, force_quick_gelu=quick_gelu)
     model.eval()
     tokenizer = open_clip.get_tokenizer(args.model)
     text = text_embeddings(model, tokenizer, args.device).float().cpu()

@@ -97,3 +97,12 @@ def test_ucf_fusion_pipeline_and_rule_agreement_at_set_share():
     assert out["n_frames_with_vlm"] > 0
     assert out["rule_disagreements"][f"{13 / 14:.3f}"] == 0
     assert out["vlm_event_accuracy_on_anomalous_segments"] == 1.0
+
+
+def test_routed_segments_are_capped_and_carry_mean_p():
+    df = pd.DataFrame({"video": ["a"] * 10, "frame": np.arange(10) * 16})
+    p = np.linspace(0.3, 0.6, 10)
+    seg = routed_segments(df, np.ones(10, bool), max_len=4, p=p)
+    assert seg["n_sampled"].tolist() == [4, 4, 2]
+    assert seg["start"].tolist() == [0, 64, 128]
+    np.testing.assert_allclose(seg["mean_p"].iloc[0], p[:4].mean())
