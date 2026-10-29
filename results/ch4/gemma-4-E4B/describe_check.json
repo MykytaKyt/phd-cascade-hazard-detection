@@ -1,0 +1,12 @@
+{
+  "frame": "fall-01-cam0-rgb-160.png",
+  "question": "Describe what the person in this image is doing and their body position, in one sentence.",
+  "text_first": {
+    "answer": "A person is lying on the floor in the foreground, resting on their back.",
+    "prompt_tokens": 295
+  },
+  "image_first": {
+    "answer": "A person is reclining on the floor in the foreground, appearing to be resting or relaxing.",
+    "prompt_tokens": 295
+  }
+}
