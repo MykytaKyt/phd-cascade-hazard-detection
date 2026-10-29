@@ -12,3 +12,5 @@ data/frames/
 results/ch5/*.npz
 .idea/
 logs/
+build/pdf/
+build/*.md
