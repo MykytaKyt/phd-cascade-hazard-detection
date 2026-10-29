@@ -61,12 +61,17 @@ def alarm_events(scores: pd.DataFrame, onsets: dict, refractory: int = 90) -> pd
 
 
 def clip_frames(alarm_frame: int, available: np.ndarray, offsets=CLIP_OFFSETS) -> list[int]:
-    """Frames at the given offsets, snapped to the nearest available frame of the sequence."""
+    """Frames at the given offsets, snapped to the nearest available frame of the sequence.
+    A window that starts before the first (ends after the last) available frame is shifted
+    inside the sequence, so the clip keeps its length and uniform spacing whenever the
+    sequence is long enough."""
     available = np.sort(available)
-    out = []
-    for off in offsets:
-        target = alarm_frame + off
-        out.append(int(available[np.argmin(np.abs(available - target))]))
+    targets = alarm_frame + np.asarray(offsets)
+    if targets[0] < available[0]:
+        targets = targets + (available[0] - targets[0])
+    elif targets[-1] > available[-1]:
+        targets = targets - min(targets[-1] - available[-1], targets[0] - available[0])
+    out = [int(available[np.argmin(np.abs(available - t))]) for t in targets]
     return sorted(set(out))
 
 

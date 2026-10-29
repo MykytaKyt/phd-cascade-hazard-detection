@@ -25,7 +25,14 @@ def test_parse_judgement_variants():
 
 
 def test_clip_frames_snaps_to_available():
-    assert clip_frames(5, np.arange(1, 50), offsets=(-40, -10, 0, 10)) == [1, 5, 15]
+    assert clip_frames(100, np.arange(1, 200, 2), offsets=(-10, 0, 10)) == [89, 99, 109]
+
+
+def test_clip_frames_shift_window_inside_sequence():
+    frames = np.arange(1, 300)
+    assert clip_frames(5, frames) == [1, 11, 21, 31, 41, 51]
+    assert clip_frames(295, frames) == [249, 259, 269, 279, 289, 299]
+    assert clip_frames(5, np.arange(1, 30)) == [1, 11, 21, 29]
 
 
 def test_compose_grid_shape(tmp_path):
