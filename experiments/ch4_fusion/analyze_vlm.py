@@ -12,7 +12,12 @@ Baselines: kinematics only (all episodes kept) and VLM only (p_V >= 0.5).
 Frame level (seed 0): frames in the routing region are decided by the fused
 argmax, the rest by p >= 1/2; precision, recall, F1 and misses are reported.
 
-Writes results/ch4/fusion_events.json and results/ch4/fusion_frames.json.
+Discrimination (all distinct alarm episodes): mean p_V by alarm type (true alarm,
+false alarm on an ADL with intentional lying, on another ADL, before the onset of a
+fall) and the ROC AUC of p_V and of the kinematic p for true vs false alarms.
+
+Writes results/ch4/fusion_events.json, results/ch4/fusion_frames.json and
+results/ch4/vlm_discrimination.json.
 
 Usage:
     python experiments/ch4_fusion/analyze_vlm.py --responses results/vlm/urfd_responses.jsonl
@@ -23,6 +28,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from sklearn.metrics import roc_auc_score
 
 from thesis.fusion.dst import dempster, pignistic, simple_bba, yager
 from thesis.kinematic.labels import add_labels
@@ -72,6 +78,21 @@ def event_outcomes(ev: pd.DataFrame, keep: np.ndarray, onsets: dict, all_seqs: l
     )
 
 
+def discrimination(events: pd.DataFrame, pv: dict, onsets: dict, lying_adl: set) -> dict:
+    ev = events.drop_duplicates(["seq", "alarm_frame"]).copy()
+    true = np.array([s in onsets and f >= onsets[s] for s, f in zip(ev["seq"], ev["alarm_frame"])])
+    kind = np.where(true, "true_alarm", np.where(ev["seq"].isin(lying_adl), "false_lying_adl",
+                    np.where(ev["seq"].str.startswith("adl"), "false_other_adl", "false_before_onset")))
+    out = dict(n_episodes=int(len(ev)), auc_kinematic=float(roc_auc_score(true, ev["p"])))
+    for variant, values in pv.items():
+        v = np.array([values[(s, f)] for s, f in zip(ev["seq"], ev["alarm_frame"])])
+        ok = ~np.isnan(v)
+        out[variant] = dict(auc=float(roc_auc_score(true[ok], v[ok])),
+                            mean_p_v={k: float(v[ok & (kind == k)].mean()) for k in sorted(set(kind[ok]))},
+                            count={k: int((ok & (kind == k)).sum()) for k in sorted(set(kind[ok]))})
+    return out
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--responses", default=ROOT / "results" / "vlm" / "urfd_responses.jsonl")
@@ -95,7 +116,7 @@ def main():
     # ---- event level
     from thesis.vlm.requests import clip_frames
     frames_of = {s: g["frame"].to_numpy() for s, g in df.groupby("seq")}
-    rows, missing = [], 0
+    rows, missing, pv_of = [], 0, {}
     for variant in ("clip6", "frame"):
         def rid(e):
             fr = clip_frames(e.alarm_frame, frames_of[e.seq]) if variant == "clip6" else [e.alarm_frame]
@@ -106,6 +127,7 @@ def main():
         pv = np.array([resp[i]["p_anomaly"] if i in resp else np.nan for i in ids])
         uv = np.array([resp[i]["uncertainty"] if i in resp else np.nan for i in ids])
         c = np.array([conf.get((e.seq, e.alarm_frame), 0.0) for e in events.itertuples()])
+        pv_of[variant] = {(e.seq, e.alarm_frame): v for e, v in zip(events.itertuples(), pv)}
         for seed, idx in events.groupby("seed").indices.items():
             ev = events.iloc[idx]
             base = dict(seed=int(seed), variant=variant)
@@ -126,6 +148,11 @@ def main():
         ["detection_rate", "false_alarm_episodes", "adl_with_alarm"]].mean().round(3)
     print("=== event level (mean over seeds) ===")
     print(summary.to_string())
+    disc = discrimination(events, pv_of, onsets, lying_adl)
+    with open(out / "vlm_discrimination.json", "w") as f:
+        json.dump(disc, f, indent=2)
+    print("\n=== VLM discrimination, true vs false alarms ===")
+    print(json.dumps(disc, indent=2))
 
     # ---- frame level, seed 0
     scores = pd.read_parquet(ROOT / "results" / "ch3" / f"scores_{args.label}.parquet")
