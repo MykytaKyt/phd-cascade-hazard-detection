@@ -10,6 +10,10 @@ For every evaluation frame of split 0 (same split and calibration as run_zerosho
       m_V({Normal}) = (1 - p_V)(1 - u_V), m_V(Theta) = u_V;
   decision: alarm iff BetP(B) >= beta (Dempster's or Yager's rule); frames outside the
   routed segments keep the zero-shot decision p >= 1/2.
+Because the calibrated p of UCF-Crime frames rarely reaches 1/2 (about 8 % of frames are
+anomalous), the zero-shot level is also reported at the threshold t_cal that maximises the
+frame F1 on the calibration videos ("tuned"); the tuned cascade keeps p >= t_cal outside
+the routed segments.
 
 Reports frame-level P/R/F1 and AUC, video-level detection and false alarms, the
 number of decisions where the two rules differ (statement 2.8: they coincide at
@@ -74,6 +78,12 @@ def video_outcomes(ev: pd.DataFrame, pred: np.ndarray) -> dict:
     return dict(videos_detected=float(det.mean()), normal_videos_with_alarm=float(fa.mean()))
 
 
+def f1_threshold(p: np.ndarray, y: np.ndarray, grid: int = 200) -> float:
+    """Threshold maximising the frame F1 (searched over quantiles of p)."""
+    cands = np.unique(np.quantile(p, np.linspace(0.5, 0.999, grid)))
+    return float(max(cands, key=lambda t: prf(y, p >= t)["f1"]))
+
+
 def analyze(df: pd.DataFrame, requests: list[dict], responses: dict, cal_fraction: float = 0.2) -> dict:
     z = anomaly_logit(df)
     y = df["label"].to_numpy()
@@ -82,6 +92,7 @@ def analyze(df: pd.DataFrame, requests: list[dict], responses: dict, cal_fractio
     a, b = fit_platt(z[cal], y[cal])
     ev = df[~cal].reset_index(drop=True)
     p = calibrate_platt(z[~cal], a, b)
+    t_cal = f1_threshold(calibrate_platt(z[cal], a, b), y[cal])
     # class distribution consistent with p: anomaly classes share p by the zero-shot softmax
     sims = ev[[f"sim_{c}" for c in ANOMALY_CLASSES]].to_numpy(dtype=np.float64)
     q = np.column_stack([softmax(LOGIT_SCALE * sims, axis=1) * p[:, None], 1.0 - p])
@@ -98,8 +109,11 @@ def analyze(df: pd.DataFrame, requests: list[dict], responses: dict, cal_fractio
     inside = seg_of >= 0
 
     base_pred = p >= 0.5
+    tuned_pred = p >= t_cal
     out = dict(n_eval_frames=int(len(ev)), n_frames_with_vlm=int(inside.sum()), n_segments=len(seg_resp),
-               zero_shot=dict(auc=float(roc_auc_score(y_ev, p)), **prf(y_ev, base_pred), **video_outcomes(ev, base_pred)))
+               anomalous_frames_with_vlm=float(inside[y_ev == 1].mean()), t_cal=t_cal,
+               zero_shot=dict(auc=float(roc_auc_score(y_ev, p)), **prf(y_ev, base_pred), **video_outcomes(ev, base_pred)),
+               zero_shot_tuned=dict(**prf(y_ev, tuned_pred), **video_outcomes(ev, tuned_pred)))
 
     fused = {}
     for rule in ("dempster", "yager"):
@@ -115,6 +129,9 @@ def analyze(df: pd.DataFrame, requests: list[dict], responses: dict, cal_fractio
             pred[inside] = score[inside] >= beta
             out[f"{rule}_beta{beta:.3f}"] = dict(auc=float(roc_auc_score(y_ev, np.where(inside, score, p))),
                                                  **prf(y_ev, pred), **video_outcomes(ev, pred))
+            pred_t = tuned_pred.copy()
+            pred_t[inside] = score[inside] >= beta
+            out[f"{rule}_beta{beta:.3f}_tuned"] = dict(**prf(y_ev, pred_t), **video_outcomes(ev, pred_t))
     out["rule_disagreements"] = {
         f"{beta:.3f}": int(((fused["dempster"][inside] >= beta) != (fused["yager"][inside] >= beta)).sum())
         for beta in BETAS

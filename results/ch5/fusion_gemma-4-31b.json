@@ -2,6 +2,8 @@
   "n_eval_frames": 59512,
   "n_frames_with_vlm": 7867,
   "n_segments": 986,
+  "anomalous_frames_with_vlm": 0.3772067039106145,
+  "t_cal": 0.08002297499148495,
   "zero_shot": {
     "auc": 0.7640045827981845,
     "precision": 0.0,
@@ -12,8 +14,17 @@
     "videos_detected": 0.0,
     "normal_videos_with_alarm": 0.0
   },
+  "zero_shot_tuned": {
+    "precision": 0.1427160281738533,
+    "recall": 0.7425698324022346,
+    "f1": 0.23941784646420977,
+    "fn": 1152,
+    "fp": 19961,
+    "videos_detected": 0.8839285714285714,
+    "normal_videos_with_alarm": 0.4583333333333333
+  },
   "dempster_beta0.500": {
-    "auc": 0.6752160775945242,
+    "auc": 0.675212752254121,
     "precision": 0.7228915662650602,
     "recall": 0.0670391061452514,
     "f1": 0.12269938650306748,
@@ -22,8 +33,17 @@
     "videos_detected": 0.11607142857142858,
     "normal_videos_with_alarm": 0.008333333333333333
   },
+  "dempster_beta0.500_tuned": {
+    "precision": 0.12254036326942483,
+    "recall": 0.4341899441340782,
+    "f1": 0.19113668781663468,
+    "fn": 2532,
+    "fp": 13913,
+    "videos_detected": 0.7946428571428571,
+    "normal_videos_with_alarm": 0.4583333333333333
+  },
   "dempster_beta0.300": {
-    "auc": 0.6752160775945242,
+    "auc": 0.675212752254121,
     "precision": 0.5725490196078431,
     "recall": 0.16312849162011173,
     "f1": 0.2539130434782609,
@@ -32,8 +52,17 @@
     "videos_detected": 0.25892857142857145,
     "normal_videos_with_alarm": 0.016666666666666666
   },
+  "dempster_beta0.300_tuned": {
+    "precision": 0.14195979899497488,
+    "recall": 0.5302793296089385,
+    "f1": 0.2239630031617196,
+    "fn": 2102,
+    "fp": 14343,
+    "videos_detected": 0.8482142857142857,
+    "normal_videos_with_alarm": 0.4583333333333333
+  },
   "dempster_beta0.100": {
-    "auc": 0.6752160775945242,
+    "auc": 0.675212752254121,
     "precision": 0.5664179104477612,
     "recall": 0.16960893854748604,
     "f1": 0.261049011177988,
@@ -42,8 +71,17 @@
     "videos_detected": 0.25892857142857145,
     "normal_videos_with_alarm": 0.016666666666666666
   },
+  "dempster_beta0.100_tuned": {
+    "precision": 0.1431380728204517,
+    "recall": 0.5367597765363128,
+    "f1": 0.22600677455777196,
+    "fn": 2073,
+    "fp": 14379,
+    "videos_detected": 0.8482142857142857,
+    "normal_videos_with_alarm": 0.4583333333333333
+  },
   "dempster_beta0.929": {
-    "auc": 0.6752160775945242,
+    "auc": 0.675212752254121,
     "precision": 0.7341772151898734,
     "recall": 0.025921787709497206,
     "f1": 0.050075545003237645,
@@ -51,6 +89,15 @@
     "fp": 42,
     "videos_detected": 0.05357142857142857,
     "normal_videos_with_alarm": 0.0
+  },
+  "dempster_beta0.929_tuned": {
+    "precision": 0.11276363869478813,
+    "recall": 0.393072625698324,
+    "f1": 0.17525156919398227,
+    "fn": 2716,
+    "fp": 13840,
+    "videos_detected": 0.7767857142857143,
+    "normal_videos_with_alarm": 0.4583333333333333
   },
   "yager_beta0.500": {
     "auc": 0.7815338122459619,
@@ -62,6 +109,15 @@
     "videos_detected": 0.25892857142857145,
     "normal_videos_with_alarm": 0.016666666666666666
   },
+  "yager_beta0.500_tuned": {
+    "precision": 0.1418676856938142,
+    "recall": 0.530949720670391,
+    "f1": 0.2239080243132451,
+    "fn": 2099,
+    "fp": 14372,
+    "videos_detected": 0.8482142857142857,
+    "normal_videos_with_alarm": 0.4583333333333333
+  },
   "yager_beta0.300": {
     "auc": 0.7815338122459619,
     "precision": 0.5608263198163733,
@@ -71,6 +127,15 @@
     "fp": 574,
     "videos_detected": 0.25892857142857145,
     "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "yager_beta0.300_tuned": {
+    "precision": 0.1418676856938142,
+    "recall": 0.530949720670391,
+    "f1": 0.2239080243132451,
+    "fn": 2099,
+    "fp": 14372,
+    "videos_detected": 0.8482142857142857,
+    "normal_videos_with_alarm": 0.4583333333333333
   },
   "yager_beta0.100": {
     "auc": 0.7815338122459619,
@@ -82,6 +147,15 @@
     "videos_detected": 0.38392857142857145,
     "normal_videos_with_alarm": 0.11666666666666667
   },
+  "yager_beta0.100_tuned": {
+    "precision": 0.1504424778761062,
+    "recall": 0.7369832402234637,
+    "f1": 0.249876879948479,
+    "fn": 1177,
+    "fp": 18624,
+    "videos_detected": 0.8839285714285714,
+    "normal_videos_with_alarm": 0.4583333333333333
+  },
   "yager_beta0.929": {
     "auc": 0.7815338122459619,
     "precision": 0.7341772151898734,
@@ -91,6 +165,15 @@
     "fp": 42,
     "videos_detected": 0.05357142857142857,
     "normal_videos_with_alarm": 0.0
+  },
+  "yager_beta0.929_tuned": {
+    "precision": 0.11276363869478813,
+    "recall": 0.393072625698324,
+    "f1": 0.17525156919398227,
+    "fn": 2716,
+    "fp": 13840,
+    "videos_detected": 0.7767857142857143,
+    "normal_videos_with_alarm": 0.4583333333333333
   },
   "rule_disagreements": {
     "0.500": 892,
