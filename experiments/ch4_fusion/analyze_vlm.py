@@ -67,7 +67,7 @@ def event_outcomes(ev: pd.DataFrame, keep: np.ndarray, onsets: dict, all_seqs: l
     falls = [s for s in all_seqs if s in onsets]
     adls = [s for s in all_seqs if s not in onsets]
     kept = ev[ev["keep"]]
-    onset = kept["seq"].map(onsets)
+    onset = kept["seq"].map(onsets).astype(float)  # float even when no alarm is kept
     late = kept[onset.notna() & (kept["alarm_frame"] >= onset)]
     false = kept[onset.isna() | (kept["alarm_frame"] < onset)]
     return dict(

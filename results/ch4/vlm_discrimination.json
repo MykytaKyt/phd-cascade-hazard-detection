@@ -2,12 +2,12 @@
   "n_episodes": 150,
   "auc_kinematic": 0.5200156985871272,
   "clip6": {
-    "auc": 0.5148155416012559,
+    "auc": 0.5421899529042387,
     "mean_p_v": {
-      "false_before_onset": 0.54,
+      "false_before_onset": 0.1,
       "false_lying_adl": 0.27228571428571424,
       "false_other_adl": 0.1366666666666667,
-      "true_alarm": 0.21795918367346942
+      "true_alarm": 0.17459183673469394
     },
     "count": {
       "false_before_onset": 2,
