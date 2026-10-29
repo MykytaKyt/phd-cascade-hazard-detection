@@ -164,5 +164,96 @@
     "n_early": 73,
     "frac_ge_05_late": 0.04,
     "frac_ge_05_early": 0.0136986301369863
+  },
+  "reasons": {
+    "clip6": {
+      "true": {
+        "controlled:bending": 80,
+        "controlled:sit_lie": 10,
+        "controlled:exercise": 6,
+        "fall:balance": 2
+      },
+      "ambiguous_true": 0,
+      "false": {
+        "controlled:bending": 26,
+        "controlled:sit_lie": 15,
+        "controlled:exercise": 8,
+        "fall:transition": 1,
+        "fall:balance": 1,
+        "controlled:controlled": 1
+      },
+      "ambiguous_false": 0,
+      "controlled_n": 146,
+      "controlled_with_prompt_examples": 145,
+      "fall_n": 4,
+      "fall_posture": 0,
+      "lying_adl_floor_or_ground": 0
+    },
+    "frame": {
+      "true": {
+        "controlled:exercise": 68,
+        "controlled:controlled": 26,
+        "controlled:bending": 3,
+        "controlled:sit_lie": 1
+      },
+      "ambiguous_true": 1,
+      "false": {
+        "controlled:exercise": 19,
+        "controlled:controlled": 13,
+        "controlled:sit_lie": 11,
+        "controlled:bending": 6,
+        "fall:posture": 2,
+        "fall:balance": 1
+      },
+      "ambiguous_false": 0,
+      "controlled_n": 147,
+      "controlled_with_prompt_examples": 53,
+      "fall_n": 3,
+      "fall_posture": 2,
+      "lying_adl_floor_or_ground": 11
+    }
+  },
+  "answers": {
+    "n": 3308,
+    "strict_json": 3258,
+    "reason_words_median": 13.0,
+    "latency_median_by_variant": {
+      "event/clip6": 1.502,
+      "event/frame": 1.622,
+      "frame/frame": 1.659
+    }
+  },
+  "routed_frames": {
+    "n": 3060,
+    "groups": {
+      "fall_frames": {
+        "n": 376,
+        "mean_p": 0.16090425531914898,
+        "frac_ge_05": 0.07712765957446809,
+        "mean_u": 0.3122340425531914
+      },
+      "fall_seq_negative": {
+        "n": 494,
+        "mean_p": 0.09139676113360325,
+        "frac_ge_05": 0.0,
+        "mean_u": 0.28340080971659914
+      },
+      "lying_adl": {
+        "n": 1512,
+        "mean_p": 0.13859126984126985,
+        "frac_ge_05": 0.05291005291005291,
+        "mean_u": 0.3966269841269841
+      },
+      "other_adl": {
+        "n": 678,
+        "mean_p": 0.09653392330383481,
+        "frac_ge_05": 0.0029498525073746312,
+        "mean_u": 0.37699115044247783
+      }
+    },
+    "auc_p_v": 0.5642969963851983,
+    "auc_p_kinematic": 0.6292559136886832,
+    "auc_fall_vs_lying_adl": 0.5385101809636383,
+    "auc_u_for_errors": 0.38250543324659625
   }
 }

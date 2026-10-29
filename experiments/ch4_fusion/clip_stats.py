@@ -5,8 +5,9 @@ For one responses file (all distinct alarm episodes of the five seeds, variants
 "clip6" and "frame"): distribution of p_V and u_V by episode type (table 4.4),
 discreteness, agreement between the variants, informativeness of u_V for the
 model's own errors, stability on near-identical episodes, dependence of the clip
-answer on the alarm delay (section 4.6.7) and the best threshold operating point
-(section 4.7.3).
+answer on the alarm delay (section 4.6.7), the best threshold operating point
+(section 4.7.3), the answers on the routed frames of seed 0 (table 4.5), keyword
+categories of the explanations (table 4.6) and the format and latency of the answers.
 
 Writes results/ch4/clip_stats.json (or --out).
 
@@ -23,10 +24,25 @@ from scipy.stats import spearmanr
 from sklearn.metrics import roc_auc_score, roc_curve
 
 from thesis.kinematic.labels import add_labels
-from thesis.vlm.requests import clip_frames, request_id
+from thesis.vlm.requests import calibrate_folds, clip_frames, request_id
 
 ROOT = Path(__file__).resolve().parents[2]
 VARIANTS = ("clip6", "frame")
+# keyword categories of the explanations, checked in this order (first match wins)
+CATEGORIES_FALL = {
+    "transition": ("transition", "from standing", "from an upright", "last frames", "later frames", "final frames",
+                   "lower frames", "sequence shows"),
+    "posture": ("posture", "position", "on the floor", "on the ground", "lying", "fallen"),
+    "balance": ("balance", "falling", "fall", "collaps", "tumble", "uncontrolled"),
+}
+CATEGORIES_CONTROLLED = {
+    "bending": ("bend", "squat", "crouch", "pick", "reach"),
+    "sit_lie": ("sit", "lying down", "lie down", "lay down", "resting", "bed", "couch", "sofa"),
+    "exercise": ("exercis", "sport", "athlet", "danc", "stretch", "acrobat", "yoga", "run", "jump", "gymnast"),
+    "controlled": ("control", "walk", "everyday", "intentional", "normal", "deliberate", "motion", "moving"),
+}
+AMBIGUITY = ("ambiguous", "unclear", "difficult", "uncertain", "hard to", "not clear")
+PROMPT_EXAMPLES = ("sitting", "sit down", "sits", "lying down", "lie down", "exercis", "bending", "bend")
 
 
 def main():
@@ -115,6 +131,66 @@ def main():
     out["delay"] = dict(median=float(t["delay"].median()), n_late=int(late.sum()), n_early=int((~late).sum()),
                         frac_ge_05_late=float((t.loc[late, "p_clip6"] >= 0.5).mean()),
                         frac_ge_05_early=float((t.loc[~late, "p_clip6"] >= 0.5).mean()))
+
+    # table 4.6: keyword categories of the explanations
+    reasons = {}
+    for v in VARIANTS:
+        fr = [clip_frames(a, frames_of[s]) if v == "clip6" else [a] for s, a in zip(ev["seq"], ev["alarm_frame"])]
+        ev[f"reason_{v}"] = [resp[request_id(s, f, v)]["reason"].lower() for s, f in zip(ev["seq"], fr)]
+        cat = []
+        for r, p in zip(ev[f"reason_{v}"], ev[f"p_{v}"]):
+            cats = CATEGORIES_FALL if p >= 0.5 else CATEGORIES_CONTROLLED
+            cat.append(next((("fall:" if p >= 0.5 else "controlled:") + k for k, words in cats.items()
+                             if any(w in r for w in words)), "fall:other" if p >= 0.5 else "controlled:other"))
+        ev[f"cat_{v}"] = cat
+        table = {}
+        for name, g in (("true", ev[ev["true"]]), ("false", ev[~ev["true"]])):
+            table[name] = g[f"cat_{v}"].value_counts().to_dict()
+            table[f"ambiguous_{name}"] = int(g[f"reason_{v}"].apply(lambda r: any(w in r for w in AMBIGUITY)).sum())
+        ctrl = ev[ev[f"p_{v}"] < 0.5]
+        table["controlled_n"] = len(ctrl)
+        table["controlled_with_prompt_examples"] = int(
+            ctrl[f"reason_{v}"].apply(lambda r: any(w in r for w in PROMPT_EXAMPLES)).sum())
+        fall = ev[ev[f"p_{v}"] >= 0.5]
+        table["fall_n"] = len(fall)
+        table["fall_posture"] = int((fall[f"cat_{v}"] == "fall:posture").sum())
+        lad = ev[ev["type"] == "false_lying_adl"]
+        table["lying_adl_floor_or_ground"] = int(lad[f"reason_{v}"].str.contains("floor|ground").sum())
+        reasons[v] = table
+    out["reasons"] = reasons
+
+    # format and latency of all answers in the file
+    allr = list(resp.values())
+    out["answers"] = dict(
+        n=len(allr), strict_json=sum(r["raw"].strip().startswith("{") for r in allr),
+        reason_words_median=float(np.median([len(r["reason"].split()) for r in allr])),
+        latency_median_by_variant={f"{r_kind}/{var}": float(np.median(
+            [r["latency_s"] for r in allr if r["kind"] == r_kind and r["variant"] == var]))
+            for r_kind, var in (("event", "clip6"), ("event", "frame"), ("frame", "frame"))})
+
+    # table 4.5: answers on the routed frames of seed 0 (frame variant)
+    scores = pd.read_parquet(ROOT / "results" / "ch3" / "scores_fall.parquet")
+    scores = scores[(scores["model"] == "ltc24") & (scores["seed"] == 0)]
+    test = pd.concat([t for _, t in calibrate_folds(scores)], ignore_index=True)
+    test = test[(test["p"] > 0.146) & (test["p"] < 1 - 0.3)].copy()
+    ids = [request_id(s, [int(f)], "frame") for s, f in zip(test["seq"], test["frame"])]
+    test["p_v"] = [resp[i]["p_anomaly"] for i in ids]
+    test["u_v"] = [resp[i]["uncertainty"] for i in ids]
+    is_fall_seq = test["seq"].str.startswith("fall")
+    group = np.where(test["label"] == 1, "fall_frames", np.where(is_fall_seq, "fall_seq_negative",
+                     np.where(test["seq"].isin(lying_adl), "lying_adl", "other_adl")))
+    test["group"] = group
+    routed = dict(n=len(test), groups={g: dict(n=len(x), mean_p=float(x["p_v"].mean()),
+                                               frac_ge_05=float((x["p_v"] >= 0.5).mean()),
+                                               mean_u=float(x["u_v"].mean()))
+                                       for g, x in test.groupby("group")})
+    routed["auc_p_v"] = float(roc_auc_score(test["label"], test["p_v"]))
+    routed["auc_p_kinematic"] = float(roc_auc_score(test["label"], test["p"]))
+    fl = test[test["group"].isin(["fall_frames", "lying_adl"])]
+    routed["auc_fall_vs_lying_adl"] = float(roc_auc_score(fl["group"] == "fall_frames", fl["p_v"]))
+    err = (test["p_v"] >= 0.5) != (test["label"] == 1)
+    routed["auc_u_for_errors"] = float(roc_auc_score(err, test["u_v"]))
+    out["routed_frames"] = routed
 
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     with open(args.out, "w") as f:
