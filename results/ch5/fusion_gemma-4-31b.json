@@ -1,0 +1,102 @@
+{
+  "n_eval_frames": 59512,
+  "n_frames_with_vlm": 7867,
+  "n_segments": 986,
+  "zero_shot": {
+    "auc": 0.7640045827981845,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "fn": 4475,
+    "fp": 0,
+    "videos_detected": 0.0,
+    "normal_videos_with_alarm": 0.0
+  },
+  "dempster_beta0.500": {
+    "auc": 0.6752160775945242,
+    "precision": 0.7228915662650602,
+    "recall": 0.0670391061452514,
+    "f1": 0.12269938650306748,
+    "fn": 4175,
+    "fp": 115,
+    "videos_detected": 0.11607142857142858,
+    "normal_videos_with_alarm": 0.008333333333333333
+  },
+  "dempster_beta0.300": {
+    "auc": 0.6752160775945242,
+    "precision": 0.5725490196078431,
+    "recall": 0.16312849162011173,
+    "f1": 0.2539130434782609,
+    "fn": 3745,
+    "fp": 545,
+    "videos_detected": 0.25892857142857145,
+    "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "dempster_beta0.100": {
+    "auc": 0.6752160775945242,
+    "precision": 0.5664179104477612,
+    "recall": 0.16960893854748604,
+    "f1": 0.261049011177988,
+    "fn": 3716,
+    "fp": 581,
+    "videos_detected": 0.25892857142857145,
+    "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "dempster_beta0.929": {
+    "auc": 0.6752160775945242,
+    "precision": 0.7341772151898734,
+    "recall": 0.025921787709497206,
+    "f1": 0.050075545003237645,
+    "fn": 4359,
+    "fp": 42,
+    "videos_detected": 0.05357142857142857,
+    "normal_videos_with_alarm": 0.0
+  },
+  "yager_beta0.500": {
+    "auc": 0.7815338122459619,
+    "precision": 0.5608263198163733,
+    "recall": 0.16379888268156426,
+    "f1": 0.25354548599100657,
+    "fn": 3742,
+    "fp": 574,
+    "videos_detected": 0.25892857142857145,
+    "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "yager_beta0.300": {
+    "auc": 0.7815338122459619,
+    "precision": 0.5608263198163733,
+    "recall": 0.16379888268156426,
+    "f1": 0.25354548599100657,
+    "fn": 3742,
+    "fp": 574,
+    "videos_detected": 0.25892857142857145,
+    "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "yager_beta0.100": {
+    "auc": 0.7815338122459619,
+    "precision": 0.2553618268785681,
+    "recall": 0.36983240223463687,
+    "f1": 0.3021175611537057,
+    "fn": 2820,
+    "fp": 4826,
+    "videos_detected": 0.38392857142857145,
+    "normal_videos_with_alarm": 0.11666666666666667
+  },
+  "yager_beta0.929": {
+    "auc": 0.7815338122459619,
+    "precision": 0.7341772151898734,
+    "recall": 0.025921787709497206,
+    "f1": 0.050075545003237645,
+    "fn": 4359,
+    "fp": 42,
+    "videos_detected": 0.05357142857142857,
+    "normal_videos_with_alarm": 0.0
+  },
+  "rule_disagreements": {
+    "0.500": 892,
+    "0.300": 32,
+    "0.100": 5141,
+    "0.929": 0
+  },
+  "vlm_event_accuracy_on_anomalous_segments": 0.19747899159663865
+}

@@ -1,0 +1,102 @@
+{
+  "n_eval_frames": 59512,
+  "n_frames_with_vlm": 7867,
+  "n_segments": 986,
+  "zero_shot": {
+    "auc": 0.7640045827981845,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "fn": 4475,
+    "fp": 0,
+    "videos_detected": 0.0,
+    "normal_videos_with_alarm": 0.0
+  },
+  "dempster_beta0.500": {
+    "auc": 0.5908591548823985,
+    "precision": 0.650887573964497,
+    "recall": 0.024581005586592177,
+    "f1": 0.04737295434969853,
+    "fn": 4365,
+    "fp": 59,
+    "videos_detected": 0.08035714285714286,
+    "normal_videos_with_alarm": 0.0
+  },
+  "dempster_beta0.300": {
+    "auc": 0.5908591548823985,
+    "precision": 0.6262376237623762,
+    "recall": 0.05653631284916201,
+    "f1": 0.10370977659356424,
+    "fn": 4222,
+    "fp": 151,
+    "videos_detected": 0.11607142857142858,
+    "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "dempster_beta0.100": {
+    "auc": 0.5908591548823985,
+    "precision": 0.2988843217850851,
+    "recall": 0.11374301675977654,
+    "f1": 0.1647782453868566,
+    "fn": 3966,
+    "fp": 1194,
+    "videos_detected": 0.17857142857142858,
+    "normal_videos_with_alarm": 0.041666666666666664
+  },
+  "dempster_beta0.929": {
+    "auc": 0.5908591548823985,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "fn": 4475,
+    "fp": 0,
+    "videos_detected": 0.0,
+    "normal_videos_with_alarm": 0.0
+  },
+  "yager_beta0.500": {
+    "auc": 0.7667720009180212,
+    "precision": 0.5121951219512195,
+    "recall": 0.06100558659217877,
+    "f1": 0.1090255591054313,
+    "fn": 4202,
+    "fp": 260,
+    "videos_detected": 0.11607142857142858,
+    "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "yager_beta0.300": {
+    "auc": 0.7667720009180212,
+    "precision": 0.5121951219512195,
+    "recall": 0.06100558659217877,
+    "f1": 0.1090255591054313,
+    "fn": 4202,
+    "fp": 260,
+    "videos_detected": 0.11607142857142858,
+    "normal_videos_with_alarm": 0.016666666666666666
+  },
+  "yager_beta0.100": {
+    "auc": 0.7667720009180212,
+    "precision": 0.21456717935680691,
+    "recall": 0.3772067039106145,
+    "f1": 0.2735375141792254,
+    "fn": 2787,
+    "fp": 6179,
+    "videos_detected": 0.39285714285714285,
+    "normal_videos_with_alarm": 0.11666666666666667
+  },
+  "yager_beta0.929": {
+    "auc": 0.7667720009180212,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "fn": 4475,
+    "fp": 0,
+    "videos_detected": 0.0,
+    "normal_videos_with_alarm": 0.0
+  },
+  "rule_disagreements": {
+    "0.500": 364,
+    "0.300": 129,
+    "0.100": 6164,
+    "0.929": 0
+  },
+  "vlm_event_accuracy_on_anomalous_segments": 0.029411764705882353
+}
