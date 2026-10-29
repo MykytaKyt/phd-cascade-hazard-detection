@@ -16,11 +16,12 @@ Discrimination (all distinct alarm episodes): mean p_V by alarm type (true alarm
 false alarm on an ADL with intentional lying, on another ADL, before the onset of a
 fall) and the ROC AUC of p_V and of the kinematic p for true vs false alarms.
 
-Writes results/ch4/fusion_events.json, results/ch4/fusion_frames.json and
-results/ch4/vlm_discrimination.json.
+Writes fusion_events.json, fusion_frames.json and vlm_discrimination.json to
+--out-dir (one directory per model, results/ch4/<model>/).
 
 Usage:
-    python experiments/ch4_fusion/analyze_vlm.py --responses results/vlm/urfd_responses.jsonl
+    python experiments/ch4_fusion/analyze_vlm.py --responses results/vlm/urfd_responses_<model>.jsonl \
+        --out-dir results/ch4/<model>
 """
 import argparse
 import json
@@ -95,12 +96,12 @@ def discrimination(events: pd.DataFrame, pv: dict, onsets: dict, lying_adl: set)
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--responses", default=ROOT / "results" / "vlm" / "urfd_responses.jsonl")
+    parser.add_argument("--responses", default=ROOT / "results" / "vlm" / "urfd_responses_gemma-4-E4B.jsonl")
     parser.add_argument("--label", default="fall")
     parser.add_argument("--model", default="ltc24")
     parser.add_argument("--tau-n", type=float, default=0.146)
     parser.add_argument("--tau-a", type=float, default=0.3)
-    parser.add_argument("--out-dir", default=ROOT / "results" / "ch4")
+    parser.add_argument("--out-dir", default=ROOT / "results" / "ch4" / "gemma-4-E4B")
     args = parser.parse_args()
 
     df = add_labels(pd.read_parquet(ROOT / "data" / "features.parquet"), ROOT / "data")

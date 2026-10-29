@@ -32,7 +32,7 @@ python experiments/ch4_fusion/query_vlm.py --model <id> --kind event
 ```
 
 Скрипт показує швидкість і залишок часу; його можна перервати і запустити знову — відповіді дописуються в
-`results/vlm/urfd_responses.jsonl`, вже отримані пропускаються. Запити з помилками повторюються наступним запуском.
+`results/vlm/urfd_responses_gemma-4-E4B.jsonl`, вже отримані пропускаються. Запити з помилками повторюються наступним запуском.
 
 ## 3. Ознаки з сирими ключовими точками і XCoM (пріоритет 2, GPU ≈ кілька хвилин)
 
@@ -84,7 +84,7 @@ python experiments/ch4_fusion/query_vlm.py --model <id> --kind ucf_segment \
 
 Закомітити й запушити (або надіслати файлами):
 
-- `results/vlm/urfd_responses.jsonl`
+- `results/vlm/urfd_responses_gemma-4-E4B.jsonl`
 - `data/features_kp.parquet`
 - `results/ch5/clip_scores.parquet`
 - `results/vlm/ucf_responses.jsonl` (якщо дійшли до кроку з VLM для UCF-Crime)

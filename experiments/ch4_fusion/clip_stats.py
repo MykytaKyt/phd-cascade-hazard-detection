@@ -9,10 +9,11 @@ answer on the alarm delay (section 4.6.7), the best threshold operating point
 (section 4.7.3), the answers on the routed frames of seed 0 (table 4.5), keyword
 categories of the explanations (table 4.6) and the format and latency of the answers.
 
-Writes results/ch4/clip_stats.json (or --out).
+Writes results/ch4/gemma-4-E4B/clip_stats.json (or --out).
 
 Usage:
-    python experiments/ch4_fusion/clip_stats.py --responses results/vlm/urfd_responses.jsonl
+    python experiments/ch4_fusion/clip_stats.py --responses results/vlm/urfd_responses_<model>.jsonl \
+        --out results/ch4/<model>/clip_stats.json
 """
 import argparse
 import json
@@ -47,8 +48,8 @@ PROMPT_EXAMPLES = ("sitting", "sit down", "sits", "lying down", "lie down", "exe
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--responses", default=ROOT / "results" / "vlm" / "urfd_responses.jsonl")
-    parser.add_argument("--out", default=ROOT / "results" / "ch4" / "clip_stats.json")
+    parser.add_argument("--responses", default=ROOT / "results" / "vlm" / "urfd_responses_gemma-4-E4B.jsonl")
+    parser.add_argument("--out", default=ROOT / "results" / "ch4" / "gemma-4-E4B" / "clip_stats.json")
     args = parser.parse_args()
 
     df = add_labels(pd.read_parquet(ROOT / "data" / "features.parquet"), ROOT / "data")

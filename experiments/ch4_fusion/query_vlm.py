@@ -91,7 +91,7 @@ def run(requests: list[dict], client, frames_dir: Path, out_path: Path, fps: flo
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--requests", default=ROOT / "results" / "vlm" / "urfd_requests.jsonl")
-    parser.add_argument("--out", default=ROOT / "results" / "vlm" / "urfd_responses.jsonl")
+    parser.add_argument("--out", default=ROOT / "results" / "vlm" / "urfd_responses_gemma-4-E4B.jsonl")
     parser.add_argument("--frames-dir", default=ROOT / "data" / "frames")
     parser.add_argument("--base-url", default="http://localhost:1234/v1")
     parser.add_argument("--model", default="")
