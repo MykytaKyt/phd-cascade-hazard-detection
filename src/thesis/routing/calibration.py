@@ -34,7 +34,9 @@ def fit_platt(logits: np.ndarray, y: np.ndarray) -> tuple[float, float]:
         u = a * z + b
         return float(np.mean(np.logaddexp(0.0, u) - y * u))
 
-    res = minimize(loss, x0=np.array([1.0, 0.0]), method="L-BFGS-B")
+    # a > 0 keeps the calibrated score monotone in the logit (a small calibration set can
+    # otherwise give a < 0 and invert the ranking)
+    res = minimize(loss, x0=np.array([1.0, 0.0]), method="L-BFGS-B", bounds=[(1e-3, None), (None, None)])
     return float(res.x[0]), float(res.x[1])
 
 
