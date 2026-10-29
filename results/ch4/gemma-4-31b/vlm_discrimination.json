@@ -1,0 +1,34 @@
+{
+  "n_episodes": 150,
+  "auc_kinematic": 0.5200156985871272,
+  "clip6": {
+    "auc": 0.6891679748822607,
+    "mean_p_v": {
+      "false_before_onset": 0.05,
+      "false_lying_adl": 0.09428571428571429,
+      "false_other_adl": 0.09000000000000002,
+      "true_alarm": 0.31071428571428567
+    },
+    "count": {
+      "false_before_onset": 2,
+      "false_lying_adl": 35,
+      "false_other_adl": 15,
+      "true_alarm": 98
+    }
+  },
+  "frame": {
+    "auc": 0.5659340659340658,
+    "mean_p_v": {
+      "false_before_onset": 0.0,
+      "false_lying_adl": 0.3171428571428572,
+      "false_other_adl": 0.10000000000000003,
+      "true_alarm": 0.3234693877551021
+    },
+    "count": {
+      "false_before_onset": 2,
+      "false_lying_adl": 35,
+      "false_other_adl": 15,
+      "true_alarm": 98
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "offsets": {
+    "clip6": [
+      -40,
+      -30,
+      -20,
+      -10,
+      0,
+      10
+    ],
+    "clip6late": [
+      -10,
+      2,
+      14,
+      26,
+      38,
+      50
+    ]
+  },
+  "discrimination": {
+    "n_episodes": 150,
+    "auc_kinematic": 0.5200156985871272,
+    "clip6": {
+      "auc": 0.9203296703296704,
+      "mean_p_v": {
+        "false_before_onset": 0.0,
+        "false_lying_adl": 0.1685714285714286,
+        "false_other_adl": 0.05333333333333333,
+        "true_alarm": 0.789795918367347
+      },
+      "count": {
+        "false_before_onset": 2,
+        "false_lying_adl": 35,
+        "false_other_adl": 15,
+        "true_alarm": 98
+      }
+    },
+    "clip6late": {
+      "auc": 0.931122448979592,
+      "mean_p_v": {
+        "false_before_onset": 0.925,
+        "false_lying_adl": 0.11428571428571428,
+        "false_other_adl": 0.05333333333333333,
+        "true_alarm": 0.8102040816326531
+      },
+      "count": {
+        "false_before_onset": 2,
+        "false_lying_adl": 35,
+        "false_other_adl": 15,
+        "true_alarm": 98
+      }
+    }
+  },
+  "events": [
+    {
+      "variant": "clip6",
+      "method": "dempster",
+      "beta": 0.2,
+      "detection_rate": 0.793,
+      "false_alarm_episodes": 5.0,
+      "adl_with_alarm": 5.0
+    },
+    {
+      "variant": "clip6",
+      "method": "dempster",
+      "beta": 0.3,
+      "detection_rate": 0.793,
+      "false_alarm_episodes": 5.0,
+      "adl_with_alarm": 5.0
+    },
+    {
+      "variant": "clip6",
+      "method": "dempster",
+      "beta": 0.5,
+      "detection_rate": 0.767,
+      "false_alarm_episodes": 3.4,
+      "adl_with_alarm": 3.4
+    },
+    {
+      "variant": "clip6",
+      "method": "vlm_only",
+      "beta": NaN,
+      "detection_rate": 0.667,
+      "false_alarm_episodes": 1.0,
+      "adl_with_alarm": 1.0
+    },
+    {
+      "variant": "clip6late",
+      "method": "dempster",
+      "beta": 0.2,
+      "detection_rate": 0.8,
+      "false_alarm_episodes": 6.6,
+      "adl_with_alarm": 5.8
+    },
+    {
+      "variant": "clip6late",
+      "method": "dempster",
+      "beta": 0.3,
+      "detection_rate": 0.8,
+      "false_alarm_episodes": 6.2,
+      "adl_with_alarm": 5.4
+    },
+    {
+      "variant": "clip6late",
+      "method": "dempster",
+      "beta": 0.5,
+      "detection_rate": 0.787,
+      "false_alarm_episodes": 3.8,
+      "adl_with_alarm": 3.0
+    },
+    {
+      "variant": "clip6late",
+      "method": "vlm_only",
+      "beta": NaN,
+      "detection_rate": 0.693,
+      "false_alarm_episodes": 1.8,
+      "adl_with_alarm": 1.0
+    }
+  ]
+}
