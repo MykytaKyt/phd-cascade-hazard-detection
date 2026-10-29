@@ -1,0 +1,126 @@
+[
+  {
+    "model": "gemma-4-E4B",
+    "auc_clip": 0.4907770800627944,
+    "auc_frame": 0.47115384615384615,
+    "clip6": {
+      "detection_rate": 0.73333333332,
+      "false_alarm_episodes": 9.4,
+      "adl_with_alarm": 8.2,
+      "tpr_v": 0.9166666666499999,
+      "fpr_v": 0.746031746031746,
+      "r_max": 1.599999999679997,
+      "vlm_only": {
+        "detection_rate": 0.01999999998,
+        "false_alarm_episodes": 0.4,
+        "adl_with_alarm": 0.4
+      }
+    },
+    "frame": {
+      "detection_rate": 0.74666666666,
+      "false_alarm_episodes": 12.6,
+      "adl_with_alarm": 10.8,
+      "tpr_v": 0.933333333325,
+      "fpr_v": 1.0,
+      "r_max": 0.0,
+      "vlm_only": {
+        "detection_rate": 0.0,
+        "false_alarm_episodes": 0.6,
+        "adl_with_alarm": 0.6
+      }
+    }
+  },
+  {
+    "model": "qwen3-vl-8b",
+    "auc_clip": 0.7902276295133438,
+    "auc_frame": 0.49430926216640503,
+    "clip6": {
+      "detection_rate": 0.72,
+      "false_alarm_episodes": 5.4,
+      "adl_with_alarm": 4.8,
+      "tpr_v": 0.8999999999999999,
+      "fpr_v": 0.4285714285714286,
+      "r_max": 2.999999999999997,
+      "vlm_only": {
+        "detection_rate": 0.72,
+        "false_alarm_episodes": 5.2,
+        "adl_with_alarm": 4.6
+      }
+    },
+    "frame": {
+      "detection_rate": 0.69999999998,
+      "false_alarm_episodes": 8.8,
+      "adl_with_alarm": 8.6,
+      "tpr_v": 0.8749999999749999,
+      "fpr_v": 0.6984126984126985,
+      "r_max": 1.266666666413332,
+      "vlm_only": {
+        "detection_rate": 0.16,
+        "false_alarm_episodes": 4.4,
+        "adl_with_alarm": 4.4
+      }
+    }
+  },
+  {
+    "model": "gemma-4-31b",
+    "auc_clip": 0.6891679748822607,
+    "auc_frame": 0.5659340659340658,
+    "clip6": {
+      "detection_rate": 0.7866666666800001,
+      "false_alarm_episodes": 8.6,
+      "adl_with_alarm": 7.8,
+      "tpr_v": 0.9833333333500001,
+      "fpr_v": 0.6825396825396826,
+      "r_max": 10.000000010000035,
+      "vlm_only": {
+        "detection_rate": 0.24666666668,
+        "false_alarm_episodes": 0.0,
+        "adl_with_alarm": 0.0
+      }
+    },
+    "frame": {
+      "detection_rate": 0.78,
+      "false_alarm_episodes": 9.6,
+      "adl_with_alarm": 9.0,
+      "tpr_v": 0.975,
+      "fpr_v": 0.7619047619047619,
+      "r_max": 4.9999999999999964,
+      "vlm_only": {
+        "detection_rate": 0.25333333331999996,
+        "false_alarm_episodes": 2.2,
+        "adl_with_alarm": 2.2
+      }
+    }
+  },
+  {
+    "model": "qwen3-vl-32b",
+    "auc_clip": 0.9203296703296704,
+    "auc_frame": 0.5349293563579278,
+    "clip6": {
+      "detection_rate": 0.79333333334,
+      "false_alarm_episodes": 5.0,
+      "adl_with_alarm": 5.0,
+      "tpr_v": 0.9916666666749999,
+      "fpr_v": 0.39682539682539686,
+      "r_max": 38.000000037999634,
+      "vlm_only": {
+        "detection_rate": 0.66666666666,
+        "false_alarm_episodes": 1.0,
+        "adl_with_alarm": 1.0
+      }
+    },
+    "frame": {
+      "detection_rate": 0.78,
+      "false_alarm_episodes": 9.8,
+      "adl_with_alarm": 8.8,
+      "tpr_v": 0.975,
+      "fpr_v": 0.7777777777777779,
+      "r_max": 4.66666666666666,
+      "vlm_only": {
+        "detection_rate": 0.20666666665999997,
+        "false_alarm_episodes": 3.8,
+        "adl_with_alarm": 3.8
+      }
+    }
+  }
+]

@@ -20,6 +20,7 @@ Usage:
 """
 import argparse
 import time
+from multiprocessing import Pool
 from pathlib import Path
 
 import cv2
@@ -39,11 +40,12 @@ def sample_frames(path: Path, stride: int):
     fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
     k = 0
     while True:
-        ok, frame = cap.read()
-        if not ok:
+        if not cap.grab():
             break
         if k % stride == 0:
-            yield k, Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+            ok, frame = cap.retrieve()
+            if ok:
+                yield k, Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
         k += 1
     cap.release()
     return k, fps
@@ -58,11 +60,16 @@ def text_embeddings(model, tokenizer, device) -> torch.Tensor:
     return torch.stack(out)  # (14, d)
 
 
-@torch.no_grad()
-def encode_video(model, preprocess, path: Path, stride: int, device, batch: int):
-    idx, embs, buf = [], [], []
+PREPROCESS = None  # set before the decoding pool is forked
+
+
+def decode_video(job):
+    """Worker: sampled and preprocessed frames of one video (decoding is the bottleneck, so it runs in parallel)."""
+    path, stride = job
+    cv2.setNumThreads(1)
+    torch.set_num_threads(1)
+    idx, ims = [], []
     gen = sample_frames(path, stride)
-    n_frames, fps = 0, 30.0
     while True:
         try:
             k, im = next(gen)
@@ -70,13 +77,15 @@ def encode_video(model, preprocess, path: Path, stride: int, device, batch: int)
             n_frames, fps = stop.value
             break
         idx.append(k)
-        buf.append(preprocess(im))
-        if len(buf) == batch:
-            embs.append(model.encode_image(torch.stack(buf).to(device), normalize=True).float().cpu())
-            buf = []
-    if buf:
-        embs.append(model.encode_image(torch.stack(buf).to(device), normalize=True).float().cpu())
-    return np.array(idx), torch.cat(embs) if embs else torch.empty(0), n_frames, fps
+        ims.append(PREPROCESS(im))
+    return np.array(idx), torch.stack(ims) if ims else torch.empty(0), n_frames, fps
+
+
+@torch.no_grad()
+def encode_frames(model, frames: torch.Tensor, device, batch: int) -> torch.Tensor:
+    embs = [model.encode_image(frames[i:i + batch].to(device), normalize=True).float().cpu()
+            for i in range(0, len(frames), batch)]
+    return torch.cat(embs) if embs else torch.empty(0)
 
 
 def main():
@@ -89,6 +98,7 @@ def main():
     parser.add_argument("--batch", type=int, default=64)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--no-embeddings", action="store_true")
+    parser.add_argument("--workers", type=int, default=8, help="parallel video decoding processes")
     parser.add_argument("--out-dir", default=ROOT / "results" / "ch5")
     args = parser.parse_args()
 
@@ -110,10 +120,15 @@ def main():
 
     rows, emb_store = [], {}
     t0 = time.time()
-    for n, a in enumerate([a for a in ann if a.video in videos], 1):
-        idx, emb, n_frames, fps = encode_video(model, preprocess, videos[a.video], args.stride, args.device, args.batch)
+    todo = [a for a in ann if a.video in videos]
+    global PREPROCESS
+    PREPROCESS = preprocess
+    pool = Pool(args.workers)
+    decoded = pool.imap(decode_video, [(videos[a.video], args.stride) for a in todo])
+    for n, (a, (idx, frames, n_frames, fps)) in enumerate(zip(todo, decoded), 1):
         if len(idx) == 0:
             continue
+        emb = encode_frames(model, frames, args.device, args.batch)
         sims = (emb @ text.T).numpy()
         labels = a.frame_labels(n_frames)[idx]
         part = pd.DataFrame(sims, columns=[f"sim_{c}" for c in CLASSES])
@@ -127,7 +142,8 @@ def main():
         if not args.no_embeddings:
             emb_store[a.video] = emb.half().numpy()
         if n % 10 == 0:
-            print(f"  {n} videos, {time.time() - t0:.0f} s")
+            print(f"  {n} videos, {time.time() - t0:.0f} s", flush=True)
+    pool.close()
 
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
