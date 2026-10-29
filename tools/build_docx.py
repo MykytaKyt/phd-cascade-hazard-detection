@@ -242,6 +242,13 @@ STYLE_XML = """
 <w:style w:type="paragraph" w:customStyle="1" w:styleId="Formula"><w:name w:val="Formula"/><w:basedOn w:val="Normal"/>
   <w:pPr><w:tabs><w:tab w:val="center" w:pos="{c}"/><w:tab w:val="right" w:pos="{r}"/></w:tabs>
   <w:spacing w:before="120" w:after="120"/><w:ind w:firstLine="0"/><w:jc w:val="left"/></w:pPr></w:style>
+<w:style w:type="paragraph" w:styleId="Caption"><w:name w:val="caption"/><w:basedOn w:val="Normal"/>
+  <w:pPr><w:spacing w:before="60" w:after="240" w:line="240" w:lineRule="auto"/><w:ind w:firstLine="0"/><w:jc w:val="center"/></w:pPr></w:style>
+<w:style w:type="paragraph" w:customStyle="1" w:styleId="ImageCaption"><w:name w:val="Image Caption"/><w:basedOn w:val="Caption"/></w:style>
+<w:style w:type="paragraph" w:customStyle="1" w:styleId="Figure"><w:name w:val="Figure"/><w:basedOn w:val="Normal"/>
+  <w:pPr><w:spacing w:before="240" w:after="0" w:line="240" w:lineRule="auto"/><w:ind w:firstLine="0"/><w:jc w:val="center"/></w:pPr></w:style>
+<w:style w:type="paragraph" w:customStyle="1" w:styleId="CaptionedFigure"><w:name w:val="Captioned Figure"/><w:basedOn w:val="Figure"/>
+  <w:pPr><w:keepNext/></w:pPr></w:style>
 <w:style w:type="paragraph" w:customStyle="1" w:styleId="Center"><w:name w:val="Center"/><w:basedOn w:val="Normal"/>
   <w:pPr><w:ind w:firstLine="0"/><w:jc w:val="center"/></w:pPr></w:style>
 <w:style w:type="paragraph" w:customStyle="1" w:styleId="Right"><w:name w:val="Right"/><w:basedOn w:val="Normal"/>
@@ -282,6 +289,9 @@ def style_reference(path: Path):
                 x = re.sub(r'(<w:style w:type="paragraph"[^>]*w:styleId="Compact">.*?)<w:pPr>.*?</w:pPr>',
                            r'\1<w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
                            r'<w:ind w:firstLine="0"/><w:jc w:val="left"/></w:pPr>', x, count=1, flags=re.S)
+                # figures and captions: replace pandoc's styles (centred, upright, no indent)
+                for sid in ("Caption", "ImageCaption", "Figure", "CaptionedFigure"):
+                    x = re.sub(rf'<w:style [^>]*w:styleId="{sid}">.*?</w:style>', "", x, count=1, flags=re.S)
                 x = x.replace("</w:styles>", STYLE_XML + "</w:styles>")
                 data = x.encode("utf-8")
             zout.writestr(item, data)

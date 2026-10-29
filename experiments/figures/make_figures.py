@@ -7,6 +7,9 @@
   fig_xcom.png           -- inverted pendulum, CoM, XCoM and base of support (chapter 3)
   fig_ablation.png       -- feature-group ablation for both label variants (chapter 3)
   fig_event_tradeoff.png -- event-level operating characteristics (chapter 3)
+  fig_ch4_tradeoff.png   -- kinematic threshold curve vs fusion with each VLM (chapter 4)
+  fig_ch4_pv.png         -- VLM answers p_V on alarm clips by alarm type, per model (chapter 4)
+  fig_ch5_risk.png       -- UCF-Crime test risk of conformal vs empirical threshold per split (chapter 5)
 
 Usage:
     python experiments/figures/make_figures.py
@@ -205,9 +208,92 @@ def fig_event_tradeoff():
     plt.close(fig)
 
 
+MODELS = (("gemma-4-E4B", "Gemma 4 E4B"), ("qwen3-vl-8b", "Qwen3-VL-8B"),
+          ("gemma-4-31b", "Gemma 4 31B"), ("qwen3-vl-32b", "Qwen3-VL-32B"))
+
+
+def fig_ch4_tradeoff():
+    r = pd.DataFrame(json.load(open(ROOT / "results" / "ch3" / "event_curves_fall.json")))
+    g = r[r["rule"] == "threshold"].groupby("h")[["false_alarms", "detection_rate"]].mean().sort_values("false_alarms")
+    ladder = {d["model"]: d for d in json.load(open(ROOT / "results" / "ch4" / "ladder.json"))}
+    fig, ax = plt.subplots(figsize=(6.5, 4.2))
+    ax.plot(g["false_alarms"], 100 * g["detection_rate"], "--", color="gray", label="кінематика, поріг h (крива)")
+    ax.plot(12.6, 80.0, "ks", ms=8, label="кінематика, поріг з валідації")
+    markers = "o^vD"
+    for (key, name), mk in zip(MODELS, markers):
+        d = ladder[key]["clip6"]
+        ax.plot(d["false_alarm_episodes"], 100 * d["detection_rate"], mk, ms=9, label=f"злиття, {name}")
+    ax.set_xlim(0, 20)
+    ax.set_ylim(40, 100)
+    ax.set_xlabel("Епізодів хибних тривог на сид (70 послідовностей)")
+    ax.set_ylabel("Виявлено падінь, %")
+    ax.grid(alpha=0.3)
+    ax.legend(fontsize=8, loc="lower right")
+    fig.tight_layout()
+    fig.savefig(FIG / "fig_ch4_tradeoff.png")
+    plt.close(fig)
+
+
+def fig_ch4_pv():
+    from thesis.kinematic.labels import add_labels
+    from thesis.vlm.requests import clip_frames, request_id
+    df = add_labels(pd.read_parquet(ROOT / "data" / "features.parquet"), ROOT / "data")
+    onsets = df.dropna(subset=["onset"]).groupby("seq")["onset"].first().to_dict()
+    lying_adl = {s for s, g in df.groupby("seq") if s.startswith("adl") and g["lying"].any()}
+    frames_of = {s: g["frame"].to_numpy() for s, g in df.groupby("seq")}
+    ev = pd.read_parquet(ROOT / "results" / "vlm" / "urfd_events.parquet").drop_duplicates(["seq", "alarm_frame"])
+    true = np.array([s in onsets and f >= onsets[s] for s, f in zip(ev["seq"], ev["alarm_frame"])])
+    kind = np.where(true, 0, np.where(ev["seq"].isin(lying_adl), 1, 2))
+    names = ["істинна тривога", "хибна: ADL\nз лежанням", "хибна: інша"]
+    ids = [request_id(e.seq, clip_frames(e.alarm_frame, frames_of[e.seq]), "clip6") for e in ev.itertuples()]
+    fig, axes = plt.subplots(1, 4, figsize=(12, 3.6), sharey=True)
+    rng = np.random.default_rng(0)
+    for ax, (key, name) in zip(axes, MODELS):
+        resp = {}
+        with open(ROOT / "results" / "vlm" / f"urfd_responses_{key}.jsonl") as f:
+            for line in f:
+                r = json.loads(line)
+                if "error" not in r:
+                    resp[r["id"]] = r["p_anomaly"]
+        pv = np.array([resp.get(i, np.nan) for i in ids])
+        for k in range(3):
+            v = pv[(kind == k) & ~np.isnan(pv)]
+            ax.scatter(k + rng.uniform(-0.25, 0.25, len(v)), v + rng.uniform(-0.015, 0.015, len(v)),
+                       s=10, alpha=0.6, color=f"C{k}")
+            ax.hlines(np.median(v), k - 0.35, k + 0.35, color="k")
+        ax.axhline(0.5, ls=":", color="gray")
+        ax.set_xticks(range(3), names, fontsize=8)
+        ax.set_title(name)
+        ax.grid(alpha=0.3, axis="y")
+    axes[0].set_ylabel("$p^V$ (кліп)")
+    fig.tight_layout()
+    fig.savefig(FIG / "fig_ch4_pv.png")
+    plt.close(fig)
+
+
+def fig_ch5_risk():
+    r = pd.DataFrame(json.load(open(ROOT / "results" / "ch5" / "zeroshot.json"))["runs"])
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.6), sharey=True)
+    for ax, alpha in zip(axes, (0.05, 0.1)):
+        for k, (method, name) in enumerate((("crc", "CRC (твердження 2.4)"), ("empirical", "емпіричний поріг"))):
+            g = r[(r["alpha"] == alpha) & (r["method"] == method)].sort_values("split")
+            ax.plot(g["split"] + (k - 0.5) * 0.15, g["test_risk"], "o" if k == 0 else "s", ms=8, label=name)
+        ax.axhline(alpha, color="red", ls="--", label=f"α = {alpha}")
+        ax.set_title(f"α = {alpha}")
+        ax.set_xlabel("Розбиття")
+        ax.set_xticks(range(5))
+        ax.grid(alpha=0.3)
+        ax.legend(fontsize=8)
+    axes[0].set_ylabel("Тестовий ризик")
+    fig.tight_layout()
+    fig.savefig(FIG / "fig_ch5_risk.png")
+    plt.close(fig)
+
+
 def main():
     FIG.mkdir(exist_ok=True)
-    for f in (fig_cascade, fig_reliability, fig_frontier, fig_xcom, fig_ablation, fig_event_tradeoff):
+    for f in (fig_cascade, fig_reliability, fig_frontier, fig_xcom, fig_ablation, fig_event_tradeoff,
+              fig_ch4_tradeoff, fig_ch4_pv, fig_ch5_risk):
         f()
         print("ok", f.__name__)
 
