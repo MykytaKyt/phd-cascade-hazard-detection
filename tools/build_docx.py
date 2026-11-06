@@ -27,7 +27,7 @@ ORDER = ["intro", "ch1", "ch2", "ch3", "ch4", "ch5", "conclusions"]
 # author's own papers cited by short labels; output data still to be filled in
 OWN = {"iJOE": "стаття iJOE", "UzhNU": "стаття УжНУ", "PCI": "стаття PCI"}
 ALIASES = {"SeePhys": "xiang2025seephys"}
-TEXT_WIDTH = 9921  # A4, left 25 mm, right 10 mm, in twips
+TEXT_WIDTH = 9638  # A4, left 25 mm, right 15 mm (department template), in twips
 
 TODO_WORDS = r"уточнити|to be confirmed|year\b|\bрік\b|За наявності|Видання|Тези|Обсяг|після оформлення|^N$"
 
@@ -75,44 +75,70 @@ def delatex(v: str) -> str:
     return v.replace("--", "–").replace("\\&", "&")
 
 
-def short_name(name: str) -> str:
+def split_name(name: str) -> tuple[str, str]:
+    """(surname, initials) of a BibTeX name: 'Last, First Middle' or 'First Middle Last'."""
     name = name.strip()
     if "," in name:
         last, first = [x.strip() for x in name.split(",", 1)]
     else:
         parts = name.split()
         last, first = parts[-1], " ".join(parts[:-1])
-    initials = " ".join(p[0] + "." for p in re.split(r"[\s-]+", first) if p)
-    return f"{last} {initials}".strip()
+    initials = " ".join(p[0] + "." for p in re.split(r"[\s-]+", first) if p and p[0].isalpha())
+    return last, initials
 
 
 def format_entry(e: dict) -> str:
-    authors = [short_name(a) for a in e.get("author", "").split(" and ") if a.strip()]
+    """Bibliographic description after ДСТУ 8302:2015, as in the samples of the department:
+    1–3 authors: 'Прізвище І. Б., Прізвище І. Б. Назва // Журнал. Рік. Т. 1, № 2. С. 3–4.';
+    4 authors: 'Назва / І. Б. Прізвище, ... // ...'; 5 and more: the first three and [та ін.]."""
     cyr = bool(re.search(r"[А-Яа-яІіЇїЄєҐґ]", e.get("title", "")))
-    head = ""
-    if authors:
-        head = (", ".join(authors[:3]) + (" та ін." if cyr else " et al.") if len(authors) > 3
-                else ", ".join(authors)) + " "
-    parts = [head + e.get("title", "").rstrip(".") + "."]
-    venue = e.get("journal") or e.get("booktitle") or e.get("publisher") or e.get("institution") or ""
-    if e.get("kind") in ("misc",) and e.get("eprint"):
-        venue = f"arXiv:{e['eprint']}"
-    if venue:
-        parts.append(venue + ".")
-    if e.get("address") and e.get("kind") == "book":
-        parts[-1] = f"{e['address']} : {venue}."
-    parts.append(e.get("year", "") + ".")
-    if e.get("volume"):
-        parts.append(("Т. " if cyr else "Vol. ") + e["volume"] + (", " if e.get("number") else "."))
-    if e.get("number"):
-        parts.append(("№ " if cyr else "no. ") + e["number"] + ".")
-    if e.get("pages"):
-        parts.append(("С. " if cyr else "P. ") + e["pages"].replace("--", "–") + ".")
+    names = [split_name(a) for a in e.get("author", "").split(" and ") if a.strip()]
+    etal = any(l.lower() == "others" for l, _ in names)
+    names = [(l, i) for l, i in names if l.lower() != "others"]
+    if etal and len(names) < 5:
+        names = names + [("", "")] * (5 - len(names))  # treat as five or more authors
+    title = e.get("title", "").rstrip(". ")
+    if 1 <= len(names) <= 3:
+        head = ", ".join(f"{l} {i}".strip() for l, i in names) + " " + title
+    elif len(names) >= 4:
+        shown = [n for n in (names if len(names) == 4 else names[:3]) if n[0]]
+        tail = "" if len(names) == 4 else (" [та ін.]" if cyr else " [et al.]")
+        head = title + " / " + ", ".join(f"{i} {l}".strip() for l, i in shown) + tail
+    else:
+        head = title
+    vol, no, pp = ("Т.", "№", "С.") if cyr else ("Vol.", "No.", "P.")
+    year = e.get("year", "")
+    kind = e.get("kind")
+    pages = e.get("pages", "").replace("--", "–").replace("-", "–")
+    if kind == "article":
+        out = f"{head} // {e.get('journal', '')}. {year}."
+        if e.get("volume"):
+            out += f" {vol} {e['volume']}" + ("," if e.get("number") else ".")
+        if e.get("number"):
+            out += f" {no} {e['number']}."
+        if pages:
+            out += f" {pp} {pages}."
+    elif kind in ("inproceedings", "incollection"):
+        place = ", ".join(x for x in (e.get("address"), e.get("publisher")) if x)
+        out = f"{head} // {e.get('booktitle', '')}." + (f" {place}," if place else "") + f" {year}."
+        if pages:
+            out += f" {pp} {pages}."
+    elif kind == "book":
+        place = " : ".join(x for x in (e.get("address"), e.get("publisher")) if x)
+        out = f"{head}." + (f" {place}," if place else "") + f" {year}."
+    elif kind == "techreport":
+        out = f"{head} : {e.get('type', 'tech. rep.')} / {e.get('institution', '')}. {year}."
+    elif e.get("eprint"):
+        out = f"{head} // arXiv. {year}. arXiv:{e['eprint']}."
+    else:
+        out = f"{head}. {year}."
     if e.get("doi"):
-        parts.append("DOI: " + e["doi"] + ".")
+        out += f" DOI: {e['doi']}."
     elif e.get("url"):
-        parts.append("URL: " + e["url"] + ".")
-    return " ".join(p for p in parts if p.strip(". "))
+        v = e.get("verified", "")
+        date = ".".join(reversed(v.split("-"))) if re.match(r"\d{4}-\d\d-\d\d$", v) else ""
+        out += f" URL: {e['url']}" + (f" (дата звернення: {date})." if date else ".")
+    return re.sub(r"\s+", " ", out).replace(" .", ".")
 
 
 # ---------------------------------------------------------------- markdown
@@ -161,6 +187,9 @@ def prepare(md: str, bib: dict, order: list) -> str:
         p = re.sub(r"\[N\]", lambda m: todo("N"), p)
         p = re.sub(r"рис\. \d+\.x", lambda m: todo(m.group(0) + " — номер рисунка"), p)
         p = re.sub(r"(?m)^(Рисунок \d+\.\d+ — .*)$", lambda m: todo("вставити рисунок") + "\n\n" + m.group(1), p)
+        p = re.sub(r"(Рисунок|Таблиця|Таблица) (\d+\.\d+) — ", r"\1 \2 – ", p)
+        p = re.sub(r"(?m)^(Таблиця \d+\.\d+ – (?:.+\n)*?)(?=\n)",
+                   lambda m: '::: {custom-style="Table Caption"}\n' + m.group(1) + ":::\n", p)
         pieces[i] = p
     md = "".join(pieces)
     return cite(md, bib, order)
@@ -303,23 +332,28 @@ def style_reference(path: Path):
     for name in ("Normal", "Body Text", "First Paragraph", "Block Text", "Footnote Text", "Bibliography"):
         if name in [x.name for x in styles]:
             para(name)
-    para("Compact", size=12, indent=0, align=WD_ALIGN_PARAGRAPH.LEFT, spacing=1.0)
+    para("Compact")  # tight lists in the text: as body text
+    para("Table Text", size=12, indent=0, align=WD_ALIGN_PARAGRAPH.LEFT, spacing=1.0)
     for name, level in (("Heading 1", 1), ("Heading 2", 2), ("Heading 3", 3), ("Heading 4", 4)):
         st = para(name, indent=0 if level == 1 else 1.25,
                   align=WD_ALIGN_PARAGRAPH.CENTER if level == 1 else WD_ALIGN_PARAGRAPH.LEFT,
-                  spacing=1.5, before=12 if level > 1 else 0, after=12, bold=True)
+                  spacing=1.5, before=42 if level > 1 else 0, after=21, bold=level == 1)
         st.paragraph_format.keep_with_next = True
         if level == 1:
             st.paragraph_format.page_break_before = True
     for name in ("Title", "Subtitle", "Author", "Date", "Abstract"):
         if name in [x.name for x in styles]:
             para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER)
-    for name in ("Caption", "Image Caption", "Table Caption"):
+    # department template: figure caption centred under the figure, an empty line around;
+    # table caption above the table from the paragraph indent
+    for name in ("Caption", "Image Caption"):
         if name in [x.name for x in styles]:
-            para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.0, before=3, after=12)
+            para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.5, before=6, after=21)
+    st = para("Table Caption", indent=1.25, align=WD_ALIGN_PARAGRAPH.LEFT, spacing=1.5, before=21, after=0)
+    st.paragraph_format.keep_with_next = True
     for name in ("Figure", "Captioned Figure"):
         if name in [x.name for x in styles]:
-            st = para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.0, before=12)
+            st = para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.0, before=21)
             st.paragraph_format.keep_with_next = True
     para("Center", indent=0, align=WD_ALIGN_PARAGRAPH.CENTER)
     st = para("Right", indent=0, align=WD_ALIGN_PARAGRAPH.LEFT)
@@ -366,14 +400,50 @@ def postprocess(path: Path):
                 x = re.sub(r"QQTABQQ", '</w:t><w:tab/><w:t xml:space="preserve">', x)
                 x = re.sub(r'<w:t xml:space="preserve"></w:t>', "", x)
                 x = re.sub(r'<w:t></w:t>', "", x)
+                # table cells: smaller single-spaced text
+                x = re.sub(r"<w:tbl>.*?</w:tbl>", lambda m: m.group(0).replace(
+                    '<w:pStyle w:val="Compact" />', '<w:pStyle w:val="TableText" />').replace(
+                    '<w:pStyle w:val="Compact"/>', '<w:pStyle w:val="TableText"/>'), x, flags=re.S)
                 x = x.replace('<w:rStyle w:val="TODO" />', '<w:rStyle w:val="TODO" /><w:highlight w:val="yellow" />')
                 x = x.replace('<w:rStyle w:val="TODO"/>', '<w:rStyle w:val="TODO"/><w:highlight w:val="yellow"/>')
-                sect = ('<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="567" '
-                        'w:bottom="1134" w:left="1418" w:header="709" w:footer="709" w:gutter="0"/></w:sectPr>')
-                x = re.sub(r"<w:sectPr\b.*?</w:sectPr>", sect, x, flags=re.S)
+                data = x.encode("utf-8")
+            elif item.filename == "word/numbering.xml":
+                x = data.decode("utf-8")
+                x = re.sub(r'(<w:numFmt w:val="bullet" ?/>\s*<w:lvlText w:val=")[^"]*(")', r"\1–\2", x)
                 data = x.encode("utf-8")
             zout.writestr(item, data)
     tmp.replace(path)
+    page_setup(path)
+
+
+def page_setup(path: Path):
+    """A4, margins of the department template (25/15/20/20 mm), page number at the top right,
+    none on the title page."""
+    from docx import Document
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    from docx.shared import Mm, Pt
+    d = Document(str(path))
+    for sec in d.sections:
+        sec.page_width, sec.page_height = Mm(210), Mm(297)
+        sec.left_margin, sec.right_margin = Mm(25), Mm(15)
+        sec.top_margin, sec.bottom_margin = Mm(20), Mm(20)
+        sec.header_distance, sec.footer_distance = Mm(12.5), Mm(12.5)
+        sec.different_first_page_header_footer = True
+        par = sec.header.paragraphs[0]
+        par.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        par.paragraph_format.first_line_indent = Pt(0)
+        run = par.add_run()
+        for tag, attr in (("w:fldChar", "begin"), ("w:instrText", None), ("w:fldChar", "end")):
+            el = OxmlElement(tag)
+            if attr:
+                el.set(qn("w:fldCharType"), attr)
+            else:
+                el.set(qn("xml:space"), "preserve")
+                el.text = " PAGE "
+            run._r.append(el)
+    d.save(str(path))
 
 
 def main():
