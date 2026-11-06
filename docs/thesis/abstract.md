@@ -62,7 +62,9 @@ Detection описує позу лежання (62 % позитивних кад
 розрізнювальна здатність семантичного рівня зростає з розміром моделі (ROC AUC 0.49–0.92 на кліпах) і практично
 відсутня на окремих кадрах (0.47–0.57). З Qwen3-VL-32B каскад зменшує кількість хибних тривог у 2.5 раза
 (12.6 → 5.0 на прогін) ціною 0.2 пропущеного падіння і вигідний, якщо пропуск дорожчий за хибну тривогу не більше
-ніж у 38 разів; з компактною Gemma 4 E4B — лише за 1.6. З умови доцільності отримано вимогу до робочої точки
+ніж у 38 разів; з компактною Gemma 4 E4B — лише за 1.6. На другому наборі GMDCSA-24 та сама модель погашає 83 %
+хибних тривог, але знижує частку виявлення з 0.891 до 0.752, і межа вигідності зменшується до 3.5; кінематичний
+рівень за перенесення з URFD без адаптації виявляє 0.863 падінь. З умови доцільності отримано вимогу до робочої точки
 верифікатора, яка дає змогу оцінити придатність VLM до розгортання.
 
 У п'ятому розділі описано програмну реалізацію і узагальнення каскаду на довільні небезпечні події, задані текстовим
@@ -181,7 +183,10 @@ Verification needs about 37 VLM calls per URFD run instead of about 3,000 for fr
 (Gemma 4 E4B and 31B, Qwen3-VL-8B and 32B) and identical requests, the discriminative power of the semantic level
 grows with the model size (ROC AUC 0.49–0.92 on clips) and is almost absent on single frames (0.47–0.57). With
 Qwen3-VL-32B the cascade reduces false alarms 2.5-fold (12.6 → 5.0 per run) at the cost of 0.2 missed falls and pays
-off whenever a miss costs at most 38 false alarms; with the compact Gemma 4 E4B, only up to 1.6. The feasibility
+off whenever a miss costs at most 38 false alarms; with the compact Gemma 4 E4B, only up to 1.6. On a second dataset,
+GMDCSA-24, the same verifier removes 83 % of false alarms but lowers the detection rate from 0.891 to 0.752, and the
+break-even cost ratio drops to 3.5; the kinematic stage transferred from URFD without adaptation detects 0.863 of
+falls. The feasibility
 condition yields a requirement on the operating point of the verifier that allows assessing a VLM before deployment.
 
 The fifth chapter describes the software and generalises the cascade to arbitrary hazardous events specified by
