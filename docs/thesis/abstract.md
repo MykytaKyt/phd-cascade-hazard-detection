@@ -9,23 +9,26 @@
 — Харківський національний університет радіоелектроніки, Міністерство освіти і науки України, Харків, [рік].
 
 Дисертаційна робота присвячена розв'язанню актуальної наукової задачі розроблення математичних моделей і методів
-каскадного виявлення небезпечних подій у відеоспостереженні з формально обґрунтованою маршрутизацією між
-компактною кінематичною моделлю і мультимодальною моделлю та комбінуванням їхніх свідчень.
+прийняття рішень про небезпечну подію за послідовністю зорових спостережень з використанням джерел інформації
+різної вартості — компактних нейромережевих моделей і мультимодальних моделей глибокого навчання — з гарантіями
+повноти виявлення за обмежених обчислювальних ресурсів.
 
-Метою дисертаційної роботи є підвищення повноти виявлення небезпечних подій у відеоспостереженні за обмежених
-обчислювальних ресурсів шляхом розроблення методів і моделей каскадної обробки, що поєднують компактні
-нейромережеві моделі кінематики із семантичною верифікацією мультимодальними моделями.
+Метою дисертаційної роботи є розроблення математичних моделей і методів прийняття рішень про небезпечну подію
+за послідовністю зорових спостережень, які поєднують джерела інформації різної вартості і забезпечують
+гарантовану повноту виявлення за обмежених обчислювальних ресурсів.
 
-Об'єктом дослідження є процес автоматизованого виявлення небезпечних подій у відеопотоці. Предметом дослідження є
-методи і моделі глибокого навчання та каскадної обробки для виявлення небезпечних подій за кінематичними і
-семантичними ознаками.
+Об'єктом дослідження є процес прийняття рішень про небезпечну подію за послідовністю зорових спостережень в
+умовах невизначеності. Предметом дослідження є математичні моделі і методи маршрутизації, комбінування свідчень і
+послідовного виявлення змін для джерел інформації різної вартості, зокрема моделей глибокого навчання.
 
-Системи виявлення небезпечних подій, насамперед падінь у медичному моніторингу, мають працювати безперервно на
-недорогих периферійних пристроях, майже не пропускати подій і мінімізувати хибні тривоги. Легкі кінематичні
-класифікатори придатні для периферійних пристроїв, але не розуміють контексту сцени; мультимодальні мовні моделі
-(VLM) розуміють контекст, але занадто дорогі для обробки кожного кадру. У роботі запропоновано каскадну систему, у
-якій кінематичний рівень обробляє весь потік, мультимодальна модель залучається лише тоді, коли це обґрунтовано
-асиметричним функціоналом втрат, а висновки рівнів поєднуються за теорією свідчень Демпстера–Шафера.
+Виявлення небезпечної події за відеоспостереженням розглядається як задача послідовного прийняття рішень в умовах
+невизначеності з асиметричними вартостями помилок і обмеженим обчислювальним ресурсом. Відомі математичні
+моделі — оцінювання пози, біомеханічної стійкості, часової динаміки, калібрування, відмови від рішення, виявлення
+розладки, комбінування свідчень — розв'язують лише окремі частини цієї задачі і не дають гарантій повноти. У роботі
+задачу сформульовано як вибір політики звернень до двох джерел інформації різної вартості: дешевого, що обробляє
+кожне спостереження, і дорогого (мультимодальної моделі, VLM), що інтерпретує контекст сцени; доведено, що
+оптимальна політика має порогову структуру, з якої випливає каскадна організація системи, а свідчення джерел
+поєднуються за теорією Демпстера–Шафера.
 
 У першому розділі проаналізовано методи виявлення людини і оцінювання пози, відеометоди виявлення падінь,
 біомеханічні моделі стійкості, моделі часової динаміки, методи виявлення аномалій у відео, мультимодальні моделі,
@@ -33,7 +36,8 @@
 свідчень. Виявлено систематичні вади поширених методик оцінювання (вибір порогу за тестовими мітками, покадрові
 метрики, розмітка пози лежання замість падіння) і сформульовано задачі дослідження.
 
-У другому розділі побудовано математичну модель каскадної системи. Задачу формалізовано як мінімізацію
+У другому розділі побудовано математичну модель прийняття рішень за двома джерелами інформації різної вартості.
+Задачу формалізовано як мінімізацію
 асиметричного функціонала втрат за обмежень на повноту і бюджет звернень; доведено порогову структуру оптимальної
 маршрутизації, у якій обмеження на повноту визначає лише нижній поріг. Запропоновано вибір порогу контролем
 конформного ризику з одиницею обмінюваності «запис» і доведено гарантію повноти в середньому і з високою
@@ -42,7 +46,7 @@
 пігністичної ймовірності і умову збігу порогових рішень β = |B|/n. Отримано умову доцільності каскаду. Задачу
 виявлення падіння сформульовано як задачу найшвидшого виявлення розладки на виході класифікатора; отримано умову
 гарантованої затримки і показано, що оцінка хибних тривог Лордена не переноситься на вихід класифікатора на
-перекритих вікнах.
+перекритих вікнах. Показано, що каскадна структура системи випливає з отриманих результатів.
 
 У третьому розділі розроблено кінематичний фільтр: шар відокремлення динаміки на основі моделі перевернутого
 маятника з екстрапольованим центром мас у координатах зображення і мережу з рідкою часовою сталою (1 753 параметри)
@@ -69,22 +73,21 @@ Detection описує позу лежання (62 % позитивних кад
 
 Наукова новизна отриманих результатів полягає в такому:
 
-- вперше запропоновано математичну модель каскадної системи виявлення небезпечних подій з оптимальною
-  маршрутизацією за асиметричних втрат і доведено порогову структуру оптимальної політики за обмежень на повноту і
-  бюджет звернень;
-- вперше запропоновано метод конформного вибору порогу маршрутизації з гарантією обмеження очікуваної частки
-  невиправних пропусків, у тому числі з високою ймовірністю, і встановлено мінімальний обсяг калібрувальної
-  вибірки;
-- вперше задачу виявлення падіння сформульовано як задачу найшвидшого виявлення розладки з мітками, що відрізняють
-  падіння від навмисного лежання; отримано умову гарантованої затримки і встановлено межі застосовності оцінки
-  хибних тривог Лордена;
-- удосконалено метод комбінування свідчень Демпстера–Шафера: запропоновано неперервне кінематичне свідчення,
-  доведено збіг рішень за максимумом для правил Демпстера і Ягера на довільній скінченній рамці і умову збігу
-  порогових рішень;
-- вперше отримано умову доцільності каскаду у вигляді вимоги до робочої точки семантичного верифікатора і
-  експериментально встановлено залежність внеску семантичного рівня від розміру мультимодальної моделі;
-- набули подальшого розвитку кінематичні моделі виявлення падінь: екстрапольований центр мас без калібрування
-  камери, доведена стійкість мережі з рідкою часовою сталою і навчання сертифіковано стійкої мережі.
+- вперше побудовано математичну модель прийняття рішення про небезпечну подію за двома джерелами інформації
+  різної вартості як задачу мінімізації асиметричного функціонала втрат за обмежень на повноту і бюджет звернень і
+  доведено двопорогову структуру оптимальної політики, з якої випливає каскадна структура системи;
+- вперше запропоновано метод вибору порогу маршрутизації контролем конформного ризику з гарантією обмеження
+  частки невиправних пропусків (у середньому і з високою ймовірністю) і встановлено мінімальний обсяг
+  калібрувальної вибірки;
+- вперше отримано умову доцільності звернень до дорогого джерела у вигляді вимоги до його робочої точки;
+- вперше задачу виявлення падіння сформульовано як задачу найшвидшого виявлення розладки на виході
+  класифікатора з мітками, що відрізняють падіння від навмисного лежання; отримано умову гарантованої затримки і
+  встановлено межі застосовності оцінки хибних тривог Лордена;
+- удосконалено метод комбінування свідчень Демпстера–Шафера: запропоновано неперервне свідчення
+  класифікатора, доведено збіг рішень за максимумом для правил Демпстера і Ягера на довільній скінченній рамці і
+  умову збігу порогових рішень;
+- набули подальшого розвитку математичні моделі кінематики падіння: екстрапольований центр мас без
+  калібрування камери, доведена стійкість мережі з рідкою часовою сталою і навчання сертифіковано стійкої мережі.
 
 Практичне значення: розроблені методи дозволяють обробляти весь відеопотік на периферійному пристрої моделлю з
 кількома тисячами параметрів і звертатися до мультимодальної моделі лише для епізодів тривоги; дають гарантію
@@ -93,7 +96,7 @@ Detection описує позу лежання (62 % позитивних кад
 системах медичного відеомоніторингу, відеоспостереження громадських місць і пошуку у відеоархівах за текстовим
 описом. Програмна реалізація відкрито доступна і забезпечує відтворюваність усіх числових результатів.
 
-Ключові слова: виявлення падінь, небезпечні події, відеоспостереження, каскадна система, маршрутизація,
+Ключові слова: прийняття рішень в умовах невизначеності, асиметричні втрати, виявлення падінь, небезпечні події, відеоспостереження, каскадна система, маршрутизація,
 конформне передбачення, теорія свідчень Демпстера–Шафера, найшвидше виявлення розладки, перевернутий маятник,
 мережі з рідкою часовою сталою, мультимодальні мовні моделі.
 
@@ -127,24 +130,28 @@ surveillance. — Qualification scientific work, manuscript.
 Dissertation for the degree of Doctor of Philosophy in specialty [113 Applied Mathematics — to be confirmed].
 — Kharkiv National University of Radio Electronics, Ministry of Education and Science of Ukraine, Kharkiv, [year].
 
-The dissertation solves the scientific problem of developing mathematical models and methods for cascaded
-detection of hazardous events in video surveillance, with formally justified routing between a compact kinematic
-model and a multimodal model and with the combination of their evidence.
+The dissertation solves the scientific problem of developing mathematical models and methods of decision making
+about a hazardous event from a sequence of visual observations using information sources of different cost —
+compact neural models and multimodal deep learning models — with guarantees on detection recall under limited
+computational resources.
 
-The aim of the dissertation is to increase the recall of hazardous-event detection in video surveillance under
-limited computational resources by developing methods and models of cascaded processing that combine compact
-neural models of kinematics with semantic verification by multimodal models.
+The aim of the dissertation is to develop mathematical models and methods of decision making about a hazardous
+event from a sequence of visual observations that combine information sources of different cost and guarantee the
+detection recall under limited computational resources.
 
-The object of the research is the process of automated detection of hazardous events in a video stream. The
-subject of the research is deep learning and cascaded processing methods and models for detecting hazardous events
-from kinematic and semantic features.
+The object of the research is the process of decision making about a hazardous event from a sequence of visual
+observations under uncertainty. The subject of the research is mathematical models and methods of routing, evidence
+combination and sequential change detection for information sources of different cost, including deep learning
+models.
 
-Hazardous-event detection systems, above all fall detection in medical monitoring, must run continuously on
-low-cost edge devices, almost never miss an event and keep false alarms low. Lightweight kinematic classifiers fit
-edge devices but do not understand the scene; vision-language models (VLMs) understand the scene but are too
-expensive for every frame. The dissertation proposes a cascade in which the kinematic level processes the whole
-stream, the multimodal model is invoked only when justified by an asymmetric loss functional, and the conclusions
-of the two levels are combined with Dempster–Shafer evidence theory.
+Detection of a hazardous event from video is treated as sequential decision making under uncertainty with
+asymmetric error costs and a limited computational budget. Known mathematical models — pose estimation,
+biomechanical stability, temporal dynamics, calibration, rejection, change detection, evidence combination — solve
+only parts of this problem and give no recall guarantees. The problem is formulated as the choice of a policy of
+calls to two information sources of different cost: a cheap one that processes every observation and an expensive
+one (a vision-language model, VLM) that interprets the scene. The optimal policy is proved to have a threshold
+structure, from which the cascaded organisation of the system follows; the evidence of the two sources is combined
+with Dempster–Shafer theory.
 
 The first chapter reviews person detection and pose estimation, video fall detection, biomechanical stability
 models, temporal models, video anomaly detection, multimodal models, cascades and model routing, calibration and
@@ -152,7 +159,7 @@ conformal guarantees, sequential change detection and evidence theory. Systemati
 practice are identified: thresholds chosen on test labels, frame-level metrics, and labels of the lying pose instead
 of the fall.
 
-The second chapter builds a mathematical model of the cascade. The problem is formalised as minimisation of an
+The second chapter builds a mathematical model of decision making with two information sources of different cost. The problem is formalised as minimisation of an
 asymmetric loss under recall and call-budget constraints; the optimal routing is proved to have a threshold
 structure in which the recall constraint fixes only the lower threshold. The routing threshold is chosen by
 conformal risk control with the recording as the exchangeable unit, with a guarantee in expectation and with high
@@ -185,23 +192,22 @@ semantic level raises alarm precision from 0.14 to 0.51 and reduces the share of
 
 The scientific novelty is as follows:
 
-- for the first time, a mathematical model of a cascaded hazardous-event detection system with optimal routing under
-  asymmetric losses is proposed, and the threshold structure of the optimal policy under recall and call-budget
-  constraints is proved;
-- for the first time, a conformal method for choosing the routing threshold with a guarantee on the expected share of
-  unrecoverable misses, including a high-probability guarantee, is proposed, and the minimum calibration size is
-  established;
-- for the first time, fall detection is formulated as quickest change detection with labels that separate falls from
-  intentional lying; a guaranteed-delay condition is obtained and the limits of Lorden's false-alarm bound are
-  established;
-- the Dempster–Shafer evidence combination method is improved: a continuous kinematic evidence is proposed, argmax
-  decisions of Dempster's and Yager's rules are proved to coincide on any finite frame, and the condition for
-  threshold decisions to coincide is derived;
-- for the first time, the cascade feasibility condition is stated as a requirement on the operating point of the
-  semantic verifier, and the dependence of the contribution of the semantic level on the VLM size is established
-  experimentally;
-- kinematic fall detection models are further developed: the extrapolated centre of mass is computed without camera
-  calibration, stability of the liquid time-constant network is proved, and a certified-stable network is trained.
+- for the first time, a mathematical model of decision making about a hazardous event with two information sources
+  of different cost is built as minimisation of an asymmetric loss under recall and call-budget constraints, and the
+  optimal call policy is proved to have a two-threshold structure, from which the cascaded structure of the system
+  follows;
+- for the first time, the routing threshold is chosen by conformal risk control with a guarantee on the share of
+  unrecoverable misses (in expectation and with high probability), and the minimum calibration size is established;
+- for the first time, the condition under which calls to the expensive source pay off is stated as a requirement on
+  its operating point;
+- for the first time, fall detection is formulated as quickest change detection on the classifier output with labels
+  that separate falls from intentional lying; a guaranteed-delay condition is obtained and the limits of Lorden's
+  false-alarm bound are established;
+- the Dempster–Shafer combination method is improved: a continuous classifier evidence is proposed, argmax decisions
+  of Dempster's and Yager's rules are proved to coincide on any finite frame, and the condition for threshold
+  decisions to coincide is derived;
+- mathematical models of fall kinematics are further developed: the extrapolated centre of mass without camera
+  calibration, stability of the liquid time-constant network and certified-stable training.
 
 Practical significance: the methods process the whole video stream on the edge device with a model of a few
 thousand parameters and call the multimodal model only for alarm episodes; they provide a recall guarantee that
@@ -209,6 +215,6 @@ empirical thresholds violate, halve the fall detection delay and reduce false al
 strong multimodal model. The results can be used in medical video monitoring, public-space surveillance and
 text-based search in video archives. The implementation is open source and reproduces every number of the work.
 
-Keywords: fall detection, hazardous events, video surveillance, cascaded system, routing, conformal prediction,
+Keywords: decision making under uncertainty, asymmetric losses, fall detection, hazardous events, video surveillance, cascaded system, routing, conformal prediction,
 Dempster–Shafer evidence theory, quickest change detection, inverted pendulum, liquid time-constant networks,
 vision-language models.
