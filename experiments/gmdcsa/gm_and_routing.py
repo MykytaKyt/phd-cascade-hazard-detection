@@ -62,9 +62,16 @@ res["gm_data"] = dict(frames=len(gm), fall_frames=int(gm["fall"].sum()), valid_p
                       minutes=float(sum(m["n_frames"] / m["fps"] for m in meta) / 60), sequences=pd.DataFrame(meta).groupby(["subject", "kind"]).size().unstack().to_dict())
 
 
+def frame_metrics(rec):
+    if rec is None: return dict(f1=None, f1_std=None, precision=None, recall=None)
+    fr = ev.summarize(rec).iloc[0]
+    return dict(f1=fr["f1_mean"], f1_std=fr["f1_std"], precision=fr["precision_mean"], recall=fr["recall_mean"])
+
+
 def scores_for(name, df, folds, cols=ev.FEATURE_COLUMNS):
-    path = CACHE / f"scores_{name}.parquet"
-    if path.exists(): return json.load(open(CACHE / f"records_{name}.json")), pd.read_parquet(path)
+    path, rec_path = CACHE / f"scores_{name}.parquet", CACHE / f"records_{name}.json"
+    if path.exists():   # cached scores; the per-fold records (frame-level metrics) may be absent
+        return (json.load(open(rec_path)) if rec_path.exists() else None), pd.read_parquet(path)
     ev.GroupKFold = Folds(folds)
     records, scores = ev.run_nested_cv(df, [ev.ModelSpec("ltc24", lambda d: LTCClassifier(d, hidden=24))], seeds=SEEDS, label_col="fall", feature_columns=cols)
     scores.to_parquet(path, index=False); json.dump(records, open(CACHE / f"records_{name}.json", "w"), default=float)
@@ -196,10 +203,9 @@ def no_kinematics(data, n_per_seed):
 # ---------------- 1. GMDCSA-24, leave-one-subject-out
 G = Data(gm, onsets_gm, "gm", lambda s: orig[s])
 rec, sc = scores_for("gm_loso", gm, [[s for s in G.seqs if subject[s] == k] for k in (1, 2, 3, 4)])
-fr = ev.summarize(rec).iloc[0]
 ev_loso = alarm_events(sc, onsets_gm)
 res["gm_loso"], ev_loso = G.cascade(ev_loso)
-res["gm_loso"]["frame"] = dict(f1=fr["f1_mean"], f1_std=fr["f1_std"], precision=fr["precision_mean"], recall=fr["recall_mean"])
+res["gm_loso"]["frame"] = frame_metrics(rec)
 res["gm_loso"]["delay_median_frames"] = float(np.median([e.alarm_frame - onsets_gm[e.seq] for e in ev_loso[ev_loso["true"]].groupby(["seed", "seq"]).head(1).itertuples()]))
 res["gm_loso"]["threshold_sweep"], _ = G.threshold_sweep(sc, [round(res["gm_loso"][f"Fusion, {n}"]["fa"], 1) for _, n in VLMS])
 res["gm_loso"]["per_subject_det"] = {k: float(np.mean([G.matrices(ev_loso, np.ones(len(ev_loso), bool))[0][:, [i for i, s in enumerate(G.falls) if subject[s] == k]].mean()])) for k in (1, 2, 3, 4)}
@@ -207,9 +213,8 @@ res["gm_loso"]["per_subject_det"] = {k: float(np.mean([G.matrices(ev_loso, np.on
 # ---------------- 2. transfer URFD -> GMDCSA-24
 both = pd.concat([urfd, gm], ignore_index=True)
 rec, sc_t = scores_for("urfd_to_gm", both, [G.seqs])
-fr = ev.summarize(rec).iloc[0]
 res["transfer"], ev_tr = G.cascade(alarm_events(sc_t, {**onsets_ur, **onsets_gm}))
-res["transfer"]["frame"] = dict(f1=fr["f1_mean"], f1_std=fr["f1_std"], precision=fr["precision_mean"], recall=fr["recall_mean"])
+res["transfer"]["frame"] = frame_metrics(rec)
 res["transfer"]["threshold_sweep"], _ = G.threshold_sweep(sc_t, [round(res["transfer"][f"Fusion, {n}"]["fa"], 1) for _, n in VLMS])
 
 # ---------------- 3. VLM-only and random routing
@@ -236,10 +241,10 @@ res["representation"] = {}
 for name, df_, folds, cols, ons in (("GMDCSA-24, leave-one-subject-out | raw keypoints", gm, loso, KP, onsets_gm),
                                     ("URFD to GMDCSA-24 | 10 DDL features", both_kp, [G.seqs], ev.FEATURE_COLUMNS, {**onsets_ur, **onsets_gm}),
                                     ("URFD to GMDCSA-24 | raw keypoints", both_kp, [G.seqs], KP, {**onsets_ur, **onsets_gm})):
-    rec, s_ = scores_for(re.sub(r"\W+", "_", name), df_, folds, cols); fr = ev.summarize(rec).iloc[0]
+    rec, s_ = scores_for(re.sub(r"\W+", "_", name), df_, folds, cols); fm = frame_metrics(rec)
     e_ = G.prepare(alarm_events(s_, ons))
-    res["representation"][name] = dict(f1=fr["f1_mean"], f1_std=fr["f1_std"], **G.row(e_, np.ones(len(e_), bool)))
+    res["representation"][name] = dict(f1=fm["f1"], f1_std=fm["f1_std"], **G.row(e_, np.ones(len(e_), bool)))
 
 if __name__ == "__main__":
-    json.dump(res, open(OUT / "gm_and_routing.json", "w"), indent=1, default=float)
+    json.dump(res, open(OUT / ("gm_and_routing.json" if len(sys.argv) < 3 else sys.argv[2]), "w"), indent=1, default=float)
     print(json.dumps(res, indent=1, default=float))
