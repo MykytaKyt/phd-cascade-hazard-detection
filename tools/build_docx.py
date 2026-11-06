@@ -394,6 +394,18 @@ def main():
                         "--reference-doc", str(ref), "--resource-path", str(ROOT)], check=True)
     postprocess(out)
     print(f"Saved {out}; TODO markers: {md.count('[TODO:')}")
+    # short summary for the supervisor, same styles
+    summary = out.parent / "summary.docx"
+    with tempfile.TemporaryDirectory() as d:
+        mdp, ref = Path(d) / "summary.md", Path(d) / "reference.docx"
+        text = re.sub(r"<!--.*?-->", "", (THESIS / "summary.md").read_text(encoding="utf-8"), flags=re.S)
+        mdp.write_text(text.replace("# РОЗШИРЕНЕ РЕЗЮМЕ", "::: {custom-style=\"Center\"}\n**РОЗШИРЕНЕ РЕЗЮМЕ", 1)
+                       .replace("ДИСЕРТАЦІЇ\n", "ДИСЕРТАЦІЇ**\n:::\n", 1), encoding="utf-8")
+        style_reference(ref)
+        subprocess.run(["pandoc", str(mdp), "-f", "markdown+pipe_tables+tex_math_dollars", "-o", str(summary),
+                        "--reference-doc", str(ref)], check=True)
+    postprocess(summary)
+    print(f"Saved {summary}")
 
 
 if __name__ == "__main__":
