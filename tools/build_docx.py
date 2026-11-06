@@ -236,66 +236,124 @@ def build_markdown() -> str:
 
 
 # ---------------------------------------------------------------- docx styling
-STYLE_XML = """
-<w:style w:type="character" w:customStyle="1" w:styleId="TODO"><w:name w:val="TODO"/>
-  <w:rPr><w:highlight w:val="yellow"/></w:rPr></w:style>
-<w:style w:type="paragraph" w:customStyle="1" w:styleId="Formula"><w:name w:val="Formula"/><w:basedOn w:val="Normal"/>
-  <w:pPr><w:tabs><w:tab w:val="center" w:pos="{c}"/><w:tab w:val="right" w:pos="{r}"/></w:tabs>
-  <w:spacing w:before="120" w:after="120"/><w:ind w:firstLine="0"/><w:jc w:val="left"/></w:pPr></w:style>
-<w:style w:type="paragraph" w:styleId="Caption"><w:name w:val="caption"/><w:basedOn w:val="Normal"/>
-  <w:pPr><w:spacing w:before="60" w:after="240" w:line="240" w:lineRule="auto"/><w:ind w:firstLine="0"/><w:jc w:val="center"/></w:pPr></w:style>
-<w:style w:type="paragraph" w:customStyle="1" w:styleId="ImageCaption"><w:name w:val="Image Caption"/><w:basedOn w:val="Caption"/></w:style>
-<w:style w:type="paragraph" w:customStyle="1" w:styleId="Figure"><w:name w:val="Figure"/><w:basedOn w:val="Normal"/>
-  <w:pPr><w:spacing w:before="240" w:after="0" w:line="240" w:lineRule="auto"/><w:ind w:firstLine="0"/><w:jc w:val="center"/></w:pPr></w:style>
-<w:style w:type="paragraph" w:customStyle="1" w:styleId="CaptionedFigure"><w:name w:val="Captioned Figure"/><w:basedOn w:val="Figure"/>
-  <w:pPr><w:keepNext/></w:pPr></w:style>
-<w:style w:type="paragraph" w:customStyle="1" w:styleId="Center"><w:name w:val="Center"/><w:basedOn w:val="Normal"/>
-  <w:pPr><w:ind w:firstLine="0"/><w:jc w:val="center"/></w:pPr></w:style>
-<w:style w:type="paragraph" w:customStyle="1" w:styleId="Right"><w:name w:val="Right"/><w:basedOn w:val="Normal"/>
-  <w:pPr><w:ind w:left="5000" w:firstLine="0"/><w:jc w:val="left"/></w:pPr></w:style>
-""".format(c=TEXT_WIDTH // 2, r=TEXT_WIDTH)
+def _fonts(style_or_run_el, size=None):
+    """Times New Roman for all scripts (and size in half-points) on an rPr owner."""
+    from docx.oxml.ns import qn
+    from docx.oxml import OxmlElement
+    rpr = style_or_run_el.get_or_add_rPr()
+    fonts = rpr.find(qn("w:rFonts"))
+    if fonts is None:
+        fonts = OxmlElement("w:rFonts")
+        rpr.insert(0, fonts)
+    for k in list(fonts.attrib):
+        del fonts.attrib[k]
+    for a in ("w:ascii", "w:hAnsi", "w:eastAsia", "w:cs"):
+        fonts.set(qn(a), "Times New Roman")
+    if size:
+        for tag in ("w:sz", "w:szCs"):
+            el = rpr.find(qn(tag))
+            if el is None:
+                el = OxmlElement(tag)
+                rpr.append(el)
+            el.set(qn("w:val"), str(size))
 
 
 def style_reference(path: Path):
+    """Pandoc's reference.docx restyled for the dissertation: Times New Roman 14 everywhere,
+    1.5 spacing, 1.25 cm indent, black headings, bordered tables, Ukrainian language."""
+    from docx import Document
+    from docx.enum.style import WD_STYLE_TYPE
+    from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING, WD_TAB_ALIGNMENT
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    from docx.shared import Cm, Pt, RGBColor, Twips
+
     ref = subprocess.run(["pandoc", "--print-default-data-file", "reference.docx"],
                          capture_output=True, check=True).stdout
-    src = path.with_suffix(".src.docx")
-    src.write_bytes(ref)
-    with zipfile.ZipFile(src) as zin, zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as zout:
-        for item in zin.infolist():
-            data = zin.read(item.filename)
-            if item.filename == "word/styles.xml":
-                x = data.decode("utf-8")
-                fonts = ('<w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman" '
-                         'w:eastAsia="Times New Roman" w:cs="Times New Roman"/>')
-                x = re.sub(r"<w:rFonts [^>]*/>", fonts, x)
-                x = re.sub(r'<w:sz w:val="\d+"/>', '<w:sz w:val="28"/>', x)
-                x = re.sub(r'<w:szCs w:val="\d+"/>', '<w:szCs w:val="28"/>', x)
-                x = re.sub(r'<w:color w:val="[0-9A-Fa-f]+"[^>]*/>', '<w:color w:val="000000"/>', x)
-                # Normal: 1.5 line spacing, first-line indent 1.25 cm, justified
-                x = re.sub(r'(<w:style w:type="paragraph" w:default="1" w:styleId="Normal">.*?)(<w:rPr>)',
-                           r'\1<w:pPr><w:spacing w:after="0" w:line="360" w:lineRule="auto"/>'
-                           r'<w:ind w:firstLine="709"/><w:jc w:val="both"/></w:pPr>\2', x, count=1, flags=re.S)
-                for sid in ("BodyText", "FirstParagraph"):
-                    x = re.sub(rf'(<w:style w:type="paragraph"[^>]*w:styleId="{sid}">.*?)<w:pPr>.*?</w:pPr>',
-                               r'\1<w:pPr><w:spacing w:before="0" w:after="0" w:line="360" w:lineRule="auto"/>'
-                               r'<w:ind w:firstLine="709"/><w:jc w:val="both"/></w:pPr>', x, count=1, flags=re.S)
-                x = re.sub(r'(<w:style w:type="paragraph"[^>]*w:styleId="Heading1">.*?<w:pPr>)',
-                           r'\1<w:pageBreakBefore/><w:jc w:val="center"/>', x, count=1, flags=re.S)
-                for sid in ("Heading1", "Heading2", "Heading3"):
-                    x = re.sub(rf'(<w:style w:type="paragraph"[^>]*w:styleId="{sid}">.*?<w:rPr>)',
-                               r'\1<w:b/><w:i w:val="0"/>', x, count=1, flags=re.S)
-                # table cells and tight lists: single spacing, no indent
-                x = re.sub(r'(<w:style w:type="paragraph"[^>]*w:styleId="Compact">.*?)<w:pPr>.*?</w:pPr>',
-                           r'\1<w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>'
-                           r'<w:ind w:firstLine="0"/><w:jc w:val="left"/></w:pPr>', x, count=1, flags=re.S)
-                # figures and captions: replace pandoc's styles (centred, upright, no indent)
-                for sid in ("Caption", "ImageCaption", "Figure", "CaptionedFigure"):
-                    x = re.sub(rf'<w:style [^>]*w:styleId="{sid}">.*?</w:style>', "", x, count=1, flags=re.S)
-                x = x.replace("</w:styles>", STYLE_XML + "</w:styles>")
-                data = x.encode("utf-8")
-            zout.writestr(item, data)
-    src.unlink()
+    path.write_bytes(ref)
+    d = Document(str(path))
+    styles = d.styles
+    # document defaults: font, size 14, Ukrainian
+    defaults = styles.element.find(qn("w:docDefaults"))
+    rpr_def = defaults.find(qn("w:rPrDefault")).find(qn("w:rPr"))
+    for el in list(rpr_def):
+        rpr_def.remove(el)
+    for xml in ('<w:rFonts %s w:ascii="Times New Roman" w:hAnsi="Times New Roman" w:eastAsia="Times New Roman" '
+                'w:cs="Times New Roman"/>', '<w:sz %s w:val="28"/>', '<w:szCs %s w:val="28"/>',
+                '<w:lang %s w:val="uk-UA" w:eastAsia="uk-UA" w:bidi="ar-SA"/>'):
+        from docx.oxml import parse_xml
+        rpr_def.append(parse_xml(xml % 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'))
+
+    def para(name, size=14, indent=1.25, align=WD_ALIGN_PARAGRAPH.JUSTIFY, spacing=1.5, before=0, after=0,
+             bold=None, italic=False):
+        found = [x for x in styles if x.name == name]
+        st = found[0] if found else styles.add_style(name, WD_STYLE_TYPE.PARAGRAPH)
+        _fonts(st.element, size * 2)
+        st.font.color.rgb = RGBColor(0, 0, 0)
+        st.font.italic = italic
+        if bold is not None:
+            st.font.bold = bold
+        pf = st.paragraph_format
+        pf.first_line_indent = Cm(indent)
+        pf.alignment = align
+        pf.line_spacing = spacing
+        pf.space_before, pf.space_after = Pt(before), Pt(after)
+        return st
+
+    for name in ("Normal", "Body Text", "First Paragraph", "Block Text", "Footnote Text", "Bibliography"):
+        if name in [x.name for x in styles]:
+            para(name)
+    para("Compact", size=12, indent=0, align=WD_ALIGN_PARAGRAPH.LEFT, spacing=1.0)
+    for name, level in (("Heading 1", 1), ("Heading 2", 2), ("Heading 3", 3), ("Heading 4", 4)):
+        st = para(name, indent=0 if level == 1 else 1.25,
+                  align=WD_ALIGN_PARAGRAPH.CENTER if level == 1 else WD_ALIGN_PARAGRAPH.LEFT,
+                  spacing=1.5, before=12 if level > 1 else 0, after=12, bold=True)
+        st.paragraph_format.keep_with_next = True
+        if level == 1:
+            st.paragraph_format.page_break_before = True
+    for name in ("Title", "Subtitle", "Author", "Date", "Abstract"):
+        if name in [x.name for x in styles]:
+            para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER)
+    for name in ("Caption", "Image Caption", "Table Caption"):
+        if name in [x.name for x in styles]:
+            para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.0, before=3, after=12)
+    for name in ("Figure", "Captioned Figure"):
+        if name in [x.name for x in styles]:
+            st = para(name, indent=0, align=WD_ALIGN_PARAGRAPH.CENTER, spacing=1.0, before=12)
+            st.paragraph_format.keep_with_next = True
+    para("Center", indent=0, align=WD_ALIGN_PARAGRAPH.CENTER)
+    st = para("Right", indent=0, align=WD_ALIGN_PARAGRAPH.LEFT)
+    st.paragraph_format.left_indent = Cm(9)
+    st = para("Formula", indent=0, align=WD_ALIGN_PARAGRAPH.LEFT, before=6, after=6)
+    st.paragraph_format.tab_stops.add_tab_stop(Twips(TEXT_WIDTH // 2), WD_TAB_ALIGNMENT.CENTER)
+    st.paragraph_format.tab_stops.add_tab_stop(Twips(TEXT_WIDTH), WD_TAB_ALIGNMENT.RIGHT)
+    # character styles: inline code in the text font, TODO highlighted
+    for st in styles:
+        if st.type == WD_STYLE_TYPE.CHARACTER:
+            _fonts(st.element)
+            st.font.color.rgb = RGBColor(0, 0, 0)
+    todo_st = styles.add_style("TODO", WD_STYLE_TYPE.CHARACTER)
+    hl = OxmlElement("w:highlight")
+    hl.set(qn("w:val"), "yellow")
+    todo_st.element.get_or_add_rPr().append(hl)
+    # tables: all borders, single spacing
+    for st in styles:
+        if st.type == WD_STYLE_TYPE.TABLE:
+            tpr = st.element.find(qn("w:tblPr"))
+            if tpr is None:
+                tpr = OxmlElement("w:tblPr")
+                st.element.append(tpr)
+            old = tpr.find(qn("w:tblBorders"))
+            if old is not None:
+                tpr.remove(old)
+            borders = OxmlElement("w:tblBorders")
+            for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+                e = OxmlElement(f"w:{edge}")
+                for k, v in (("val", "single"), ("sz", "4"), ("space", "0"), ("color", "000000")):
+                    e.set(qn(f"w:{k}"), v)
+                borders.append(e)
+            tpr.append(borders)
+    d.save(str(path))
 
 
 def postprocess(path: Path):
